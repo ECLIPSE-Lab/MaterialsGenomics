@@ -34,8 +34,6 @@ Students learn:
 - how to use ML as a surrogate for quantum mechanics,
 - how to design new materials algorithmically.
 
-The angle is computational, structured, mathematically clean — the perfect foil to the messier experimental focus of other courses.
-
 ## Week-by-Week Curriculum (14 weeks)
 
 ### Unit I — Foundations of Materials Genomics (Weeks 1–3)
