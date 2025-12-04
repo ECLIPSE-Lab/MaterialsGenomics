@@ -1,0 +1,349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE article PUBLIC "-//NLM//DTD JATS (Z39.96) Journal Archiving
+and Interchange DTD v1.2 20190208//EN" "JATS-archivearticle1.dtd">
+<article xmlns:mml="http://www.w3.org/1998/Math/MathML" xmlns:xlink="http://www.w3.org/1999/xlink" dtd-version="1.2" article-type="other">
+  <front>
+    <article-meta>
+      <title-group>
+        <article-title>Materials Genomics</article-title>
+        <subtitle>Computational Materials Discovery</subtitle>
+      </title-group>
+      <contrib-group>
+        <contrib contrib-type="author" corresp="yes">
+          <name>
+            <surname>Pelz</surname>
+            <given-names>Philipp</given-names>
+          </name>
+          <string-name>Philipp Pelz</string-name>
+          <xref ref-type="corresp" rid="cor-1">*</xref>
+        </contrib>
+      </contrib-group>
+      <author-notes>
+        <corresp id="cor-1"/>
+      </author-notes>
+      <history/>
+      <abstract>
+        <p>This course introduces students to materials genomics, treating the
+periodic table and all known crystal structures as a searchable,
+computable design space. Students learn how materials databases are
+built, how to represent matter as numbers, graphs, or fingerprints, how
+to interrogate and predict properties of solids, how to use ML as a
+surrogate for quantum mechanics, and how to design new materials
+algorithmically.</p>
+      </abstract>
+      <kwd-group kwd-group-type="author">
+        <kwd>Materials Science</kwd>
+        <kwd>Machine Learning</kwd>
+        <kwd>Computational Materials Discovery</kwd>
+        <kwd>Materials Databases</kwd>
+        <kwd>Crystal Structure</kwd>
+      </kwd-group>
+    </article-meta>
+  </front>
+  <body>
+    <sec id="course-information">
+      <title>1 Course Information</title>
+      <p>
+        <bold>4th Semester – 5 ECTS · 2h lecture + 2h exercises per week,
+  together with ML for Materials Processing &amp;
+  Characterization</bold>
+      </p>
+    </sec>
+    <sec id="course-philosophy">
+      <title>2 Course Philosophy</title>
+      <p>Materials genomics treats the periodic table and all known crystal
+  structures as a giant searchable, computable design space.</p>
+      <p>Students learn:</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>how materials databases are built,</p>
+        </list-item>
+        <list-item>
+          <p>how to represent matter as numbers, graphs, or
+      fingerprints,</p>
+        </list-item>
+        <list-item>
+          <p>how to interrogate and predict properties of solids,</p>
+        </list-item>
+        <list-item>
+          <p>how to use ML as a surrogate for quantum mechanics,</p>
+        </list-item>
+        <list-item>
+          <p>how to design new materials algorithmically.</p>
+        </list-item>
+      </list>
+      <p>The angle is computational, structured, mathematically clean — the
+  perfect foil to the messier experimental focus of other courses.</p>
+    </sec>
+    <sec id="week-by-week-curriculum-14-weeks">
+      <title>3 Week-by-Week Curriculum (14 weeks)</title>
+      <sec id="unit-i-foundations-of-materials-genomics-weeks-13">
+        <title>3.1 Unit I — Foundations of Materials Genomics (Weeks
+    1–3)</title>
+        <sec id="week-1-what-is-materials-genomics">
+          <title>3.1.1 Week 1 – What is Materials Genomics?</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Genomics analogy: genes → functions vs atoms →
+          properties.</p>
+            </list-item>
+            <list-item>
+              <p>Brief history: AFLOW, OQMD, Materials Project, NOMAD.</p>
+            </list-item>
+            <list-item>
+              <p>PSPP from the structure-first viewpoint.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Explore Materials Project; query
+      bandgaps, energies, symmetries.</p>
+        </sec>
+        <sec id="week-2-crystal-structure-fundamentals">
+          <title>3.1.2 Week 2 – Crystal structure fundamentals</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Space groups, Wyckoff positions, symmetry operations.</p>
+            </list-item>
+            <list-item>
+              <p>How symmetry informs descriptors.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Using pymatgen / spglib to analyze
+      symmetries.</p>
+        </sec>
+        <sec id="week-3-materials-databases-file-formats">
+          <title>3.1.3 Week 3 – Materials databases &amp; file
+      formats</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>CIF, POSCAR, PDB-like formats.</p>
+            </list-item>
+            <list-item>
+              <p>Thermodynamic quantities in databases: formation energy,
+          stability, convex hull.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Parse CIF files, extract primitive
+      cells, compute density.</p>
+        </sec>
+      </sec>
+      <sec id="unit-ii-representations-of-materials-weeks-46">
+        <title>3.2 Unit II — Representations of Materials (Weeks
+    4–6)</title>
+        <sec id="week-4-classical-descriptors-materials-fingerprints">
+          <title>3.2.1 Week 4 – Classical descriptors &amp; materials
+      fingerprints</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Magpie, matminer.</p>
+            </list-item>
+            <list-item>
+              <p>Stoichiometric, elemental, and structural features.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Build a small property regressor with
+      Magpie features.</p>
+        </sec>
+        <sec id="week-5-graph-based-representations">
+          <title>3.2.2 Week 5 – Graph-based representations</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Crystal structures as graphs: nodes, edges, periodic
+          boundary conditions.</p>
+            </list-item>
+            <list-item>
+              <p>CGCNN, MEGNet architecture intuition (no training from
+          scratch yet).</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Build a simple CGCNN-like graph
+      featurizer.</p>
+        </sec>
+        <sec id="week-6-local-atomic-environments">
+          <title>3.2.3 Week 6 – Local atomic environments</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Voronoi tessellations, coordination numbers, SOAP
+          descriptors.</p>
+            </list-item>
+            <list-item>
+              <p>Role in interatomic potentials and ML force fields.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Compute SOAP vectors; perform clustering
+      in descriptor space.</p>
+        </sec>
+      </sec>
+      <sec id="unit-iii-high-throughput-computation-screening-weeks-79">
+        <title>3.3 Unit III — High-Throughput Computation &amp; Screening
+    (Weeks 7–9)</title>
+        <sec id="week-7-quantum-mechanical-data-and-dft-basics">
+          <title>3.3.1 Week 7 – Quantum mechanical data and DFT
+      basics</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>What DFT gives you: energies, forces, band structures,
+          elastic constants.</p>
+            </list-item>
+            <list-item>
+              <p>Why it’s expensive; why ML surrogates matter.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Run a toy DFT calculation (Quantum
+      Espresso or MP workflows).</p>
+        </sec>
+        <sec id="week-8-high-throughput-workflows">
+          <title>3.3.2 Week 8 – High-throughput workflows</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Automation: pymatgen, custodian, FireWorks, Atomate.</p>
+            </list-item>
+            <list-item>
+              <p>Data generation for building surrogate models.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Perform a small FireWorks workflow (or
+      simulate the idea without cluster resources).</p>
+        </sec>
+        <sec id="week-9-phase-stability-the-convex-hull">
+          <title>3.3.3 Week 9 – Phase stability &amp; the convex
+      hull</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Formation energies, metastability, hull distance.</p>
+            </list-item>
+            <list-item>
+              <p>Mapping an entire chemical system.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Reconstruct phase diagrams from
+      Materials Project data.</p>
+        </sec>
+      </sec>
+      <sec id="unit-iv-learning-properties-from-atomic-structure-weeks-1012">
+        <title>3.4 Unit IV — Learning Properties from Atomic Structure
+    (Weeks 10–12)</title>
+        <sec id="week-10-regression-on-crystal-data">
+          <title>3.4.1 Week 10 – Regression on crystal data</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Predicting bandgaps, hardness, elastic moduli.</p>
+            </list-item>
+            <list-item>
+              <p>Comparing different representation families.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Benchmark random forest, GPR, CGCNN on a
+      small dataset.</p>
+        </sec>
+        <sec id="week-11-machine-learned-interatomic-potentials">
+          <title>3.4.2 Week 11 – Machine-learned interatomic
+      potentials</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Overview: GAP, SNAP, MTP, NequIP.</p>
+            </list-item>
+            <list-item>
+              <p>Role in simulating defects, diffusion, mechanical
+          behavior.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Fit a tiny ML potential (ACE or simple
+      SNAP-style) to toy data.</p>
+        </sec>
+        <sec id="week-12-generative-models-for-materials">
+          <title>3.4.3 Week 12 – Generative models for materials</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>VAEs, diffusion models for crystal generation.</p>
+            </list-item>
+            <list-item>
+              <p>Constraints: symmetry, stability, charge neutrality.</p>
+            </list-item>
+          </list>
+          <p><bold>Exercise:</bold> Sample a generative model from a
+      pretrained online source; analyze validity.</p>
+        </sec>
+      </sec>
+      <sec id="unit-v-mini-project-synthesis-weeks-1314">
+        <title>3.5 Unit V — Mini-Project &amp; Synthesis (Weeks
+    13–14)</title>
+        <sec id="week-13-project-workshop">
+          <title>3.5.1 Week 13 – Project workshop</title>
+          <p>
+            <bold>Example projects:</bold>
+          </p>
+          <list list-type="bullet">
+            <list-item>
+              <p>Predict bandgap from composition + structure
+          representation.</p>
+            </list-item>
+            <list-item>
+              <p>Identify new stable compounds in a chemical system.</p>
+            </list-item>
+            <list-item>
+              <p>Build a graph-based model for elastic constants.</p>
+            </list-item>
+            <list-item>
+              <p>Use ML to approximate formation energies for a ternary
+          subsystem.</p>
+            </list-item>
+            <list-item>
+              <p>Analyze SOAP fingerprints across polymorphs.</p>
+            </list-item>
+          </list>
+        </sec>
+        <sec id="week-14-presentations-reflection">
+          <title>3.5.2 Week 14 – Presentations &amp; Reflection</title>
+          <list list-type="bullet">
+            <list-item>
+              <p>Interpreting models: SHAP for materials descriptors.</p>
+            </list-item>
+            <list-item>
+              <p>Strengths/limitations of materials genomics vs
+          experiment-driven ML.</p>
+            </list-item>
+            <list-item>
+              <p>How computational and experimental ML meet in modern
+          labs.</p>
+            </list-item>
+          </list>
+        </sec>
+      </sec>
+    </sec>
+    <sec id="learning-outcomes">
+      <title>4 Learning Outcomes</title>
+      <p>Students completing this course will be able to:</p>
+      <list list-type="bullet">
+        <list-item>
+          <p>Navigate major materials databases and extract relevant
+      structural/property data.</p>
+        </list-item>
+        <list-item>
+          <p>Represent crystals numerically using descriptors, fingerprints,
+      and graphs.</p>
+        </list-item>
+        <list-item>
+          <p>Train ML models to predict quantum-mechanical and thermodynamic
+      properties.</p>
+        </list-item>
+        <list-item>
+          <p>Analyze structural features via symmetry, coordination, and
+      environments.</p>
+        </list-item>
+        <list-item>
+          <p>Perform high-throughput screening of materials candidates.</p>
+        </list-item>
+        <list-item>
+          <p>Understand and apply generative models for inorganic
+      crystals.</p>
+        </list-item>
+        <list-item>
+          <p>Critically evaluate ML results in computational materials
+      discovery.</p>
+        </list-item>
+      </list>
+    </sec>
+  </body>
+  <back>
+</back>
+</article>
