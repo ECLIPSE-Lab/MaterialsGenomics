@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.12">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Philipp Pelz">
-<meta name="dcterms.date" content="2025-12-04">
+<meta name="dcterms.date" content="2026-01-20">
 <meta name="keywords" content="Materials Science, Machine Learning, Computational Materials Discovery, Materials Databases, Crystal Structure">
 
 <title>Materials Genomics</title>
@@ -29,15 +29,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-cdaacfc258cb6f151192107f105ac881.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0a61af393cc41664e89a7addda21b354.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-ba1a7c362bbf9d7a08afb3b041eb6c5c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
@@ -47,14 +46,18 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta name="citation_title" content="Materials Genomics">
-<meta name="citation_abstract" content="This course introduces students to materials genomics, treating the periodic table and all known crystal structures as a searchable, computable design space. Students learn how materials databases are built, how to represent matter as numbers, graphs, or fingerprints, how to interrogate and predict properties of solids, how to use ML as a surrogate for quantum mechanics, and how to design new materials algorithmically.
+<meta name="citation_abstract" content="This course introduces students to materials genomics, treating the periodic table
+and the space of known crystal structures as a searchable, computable design space.
+Students learn how materials databases are built, how atomic structure is represented
+numerically, how structure–property relationships are learned using machine learning,
+and how uncertainty-aware models enable accelerated materials discovery.
 ">
 <meta name="citation_keywords" content="Materials Science,Machine Learning,Computational Materials Discovery,Materials Databases,Crystal Structure">
 <meta name="citation_author" content="Philipp Pelz">
-<meta name="citation_publication_date" content="2025-12-04">
-<meta name="citation_cover_date" content="2025-12-04">
-<meta name="citation_year" content="2025">
-<meta name="citation_online_date" content="2025-12-04">
+<meta name="citation_publication_date" content="2026-01-20">
+<meta name="citation_cover_date" content="2026-01-20">
+<meta name="citation_year" content="2026">
+<meta name="citation_online_date" content="2026-01-20">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Strategies for the development of volcanic hazard maps in monogenetic volcanic fields: The example of La Palma (Canary Islands);,citation_author=José Marrero;,citation_author=Alicia García;,citation_author=Manuel Berrocoso;,citation_author=Ángeles Llinares;,citation_author=Antonio Rodríguez-Losada;,citation_author=R. Ortiz;,citation_publication_date=2019-07;,citation_cover_date=2019-07;,citation_year=2019;,citation_doi=10.1186/s13617-019-0085-5;,citation_volume=8;,citation_journal_title=Journal of Applied Volcanology;">
 </head>
@@ -84,7 +87,7 @@ ul.task-list li input[type="checkbox"] {
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">December 4, 2025</p>
+              <p class="date">January 20, 2026</p>
             </div>
           </div>
           
@@ -98,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
       <div class="abstract">
         <div class="block-title">Abstract</div>
-        <p>This course introduces students to materials genomics, treating the periodic table and all known crystal structures as a searchable, computable design space. Students learn how materials databases are built, how to represent matter as numbers, graphs, or fingerprints, how to interrogate and predict properties of solids, how to use ML as a surrogate for quantum mechanics, and how to design new materials algorithmically.</p>
+        <p>This course introduces students to materials genomics, treating the periodic table and the space of known crystal structures as a searchable, computable design space. Students learn how materials databases are built, how atomic structure is represented numerically, how structure–property relationships are learned using machine learning, and how uncertainty-aware models enable accelerated materials discovery.</p>
       </div>
     </div>
 
@@ -121,15 +124,15 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#course-philosophy" id="toc-course-philosophy" class="nav-link" data-scroll-target="#course-philosophy"><span class="header-section-number">2</span> Course Philosophy</a></li>
   <li><a href="#week-by-week-curriculum-14-weeks" id="toc-week-by-week-curriculum-14-weeks" class="nav-link" data-scroll-target="#week-by-week-curriculum-14-weeks"><span class="header-section-number">3</span> Week-by-Week Curriculum (14 weeks)</a>
   <ul class="collapse">
-  <li><a href="#unit-i-foundations-of-materials-genomics-weeks-13" id="toc-unit-i-foundations-of-materials-genomics-weeks-13" class="nav-link" data-scroll-target="#unit-i-foundations-of-materials-genomics-weeks-13"><span class="header-section-number">3.1</span> Unit I — Foundations of Materials Genomics (Weeks 1–3)</a></li>
+  <li><a href="#unit-i-materials-data-as-a-design-space-weeks-13" id="toc-unit-i-materials-data-as-a-design-space-weeks-13" class="nav-link" data-scroll-target="#unit-i-materials-data-as-a-design-space-weeks-13"><span class="header-section-number">3.1</span> Unit I — Materials Data as a Design Space (Weeks 1–3)</a></li>
   <li><a href="#unit-ii-representations-of-materials-weeks-46" id="toc-unit-ii-representations-of-materials-weeks-46" class="nav-link" data-scroll-target="#unit-ii-representations-of-materials-weeks-46"><span class="header-section-number">3.2</span> Unit II — Representations of Materials (Weeks 4–6)</a></li>
-  <li><a href="#unit-iii-high-throughput-computation-screening-weeks-79" id="toc-unit-iii-high-throughput-computation-screening-weeks-79" class="nav-link" data-scroll-target="#unit-iii-high-throughput-computation-screening-weeks-79"><span class="header-section-number">3.3</span> Unit III — High-Throughput Computation &amp; Screening (Weeks 7–9)</a></li>
-  <li><a href="#unit-iv-learning-properties-from-atomic-structure-weeks-1012" id="toc-unit-iv-learning-properties-from-atomic-structure-weeks-1012" class="nav-link" data-scroll-target="#unit-iv-learning-properties-from-atomic-structure-weeks-1012"><span class="header-section-number">3.4</span> Unit IV — Learning Properties from Atomic Structure (Weeks 10–12)</a></li>
-  <li><a href="#unit-v-mini-project-synthesis-weeks-1314" id="toc-unit-v-mini-project-synthesis-weeks-1314" class="nav-link" data-scroll-target="#unit-v-mini-project-synthesis-weeks-1314"><span class="header-section-number">3.5</span> Unit V — Mini-Project &amp; Synthesis (Weeks 13–14)</a></li>
+  <li><a href="#unit-iii-learning-structureproperty-relations-weeks-79" id="toc-unit-iii-learning-structureproperty-relations-weeks-79" class="nav-link" data-scroll-target="#unit-iii-learning-structureproperty-relations-weeks-79"><span class="header-section-number">3.3</span> Unit III — Learning Structure–Property Relations (Weeks 7–9)</a></li>
+  <li><a href="#unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1012" id="toc-unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1012" class="nav-link" data-scroll-target="#unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1012"><span class="header-section-number">3.4</span> Unit IV — Latent Spaces, Uncertainty, and Discovery (Weeks 10–12)</a></li>
+  <li><a href="#unit-v-constraints-trust-and-synthesis-weeks-1314" id="toc-unit-v-constraints-trust-and-synthesis-weeks-1314" class="nav-link" data-scroll-target="#unit-v-constraints-trust-and-synthesis-weeks-1314"><span class="header-section-number">3.5</span> Unit V — Constraints, Trust, and Synthesis (Weeks 13–14)</a></li>
   </ul></li>
   <li><a href="#learning-outcomes" id="toc-learning-outcomes" class="nav-link" data-scroll-target="#learning-outcomes"><span class="header-section-number">4</span> Learning Outcomes</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="MIT-preview.html"><i class="bi bi-journal-code"></i>MIT.md</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -142,151 +145,200 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="course-information" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="course-information"><span class="header-section-number">1</span> Course Information</h2>
-<p><strong>4th Semester – 5 ECTS · 2h lecture + 2h exercises per week, together with ML for Materials Processing &amp; Characterization</strong></p>
+<p><strong>4th/5th Semester – 5 ECTS · 2h lecture + 2h exercises per week</strong><br>
+<em>Coordinated with “Mathematical Foundations of AI &amp; ML” (MFML) and<br>
+“ML for Materials Processing &amp; Characterization” (ML-PC)</em></p>
+<hr>
 </section>
 <section id="course-philosophy" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="course-philosophy"><span class="header-section-number">2</span> Course Philosophy</h2>
-<p>Materials genomics treats the periodic table and all known crystal structures as a giant searchable, computable design space.</p>
-<p>Students learn:</p>
+<p>Materials genomics views the periodic table and all known crystal structures as a <strong>high-dimensional design space</strong>.</p>
+<p>In this course, students learn to:</p>
 <ul>
-<li>how materials databases are built,</li>
-<li>how to represent matter as numbers, graphs, or fingerprints,</li>
-<li>how to interrogate and predict properties of solids,</li>
-<li>how to use ML as a surrogate for quantum mechanics,</li>
-<li>how to design new materials algorithmically.</li>
+<li>treat materials data as a structured, learnable representation space,</li>
+<li>move beyond classical descriptors toward learned representations,</li>
+<li>use ML models as surrogates for quantum-mechanical calculations,</li>
+<li>reason about uncertainty, stability, and discovery,</li>
+<li>understand how computational screening integrates with experiments.</li>
 </ul>
+<p>The course explicitly <strong>builds on MFML</strong>:</p>
+<ul>
+<li>PCA and regression are assumed background,</li>
+<li>neural networks, representation learning, and uncertainty are used, not re-derived.</li>
+</ul>
+<hr>
 </section>
 <section id="week-by-week-curriculum-14-weeks" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="week-by-week-curriculum-14-weeks"><span class="header-section-number">3</span> Week-by-Week Curriculum (14 weeks)</h2>
-<section id="unit-i-foundations-of-materials-genomics-weeks-13" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="unit-i-foundations-of-materials-genomics-weeks-13"><span class="header-section-number">3.1</span> Unit I — Foundations of Materials Genomics (Weeks 1–3)</h3>
+<section id="unit-i-materials-data-as-a-design-space-weeks-13" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="unit-i-materials-data-as-a-design-space-weeks-13"><span class="header-section-number">3.1</span> Unit I — Materials Data as a Design Space (Weeks 1–3)</h3>
 <section id="week-1-what-is-materials-genomics" class="level4" data-number="3.1.1">
 <h4 data-number="3.1.1" class="anchored" data-anchor-id="week-1-what-is-materials-genomics"><span class="header-section-number">3.1.1</span> Week 1 – What is Materials Genomics?</h4>
 <ul>
 <li>Genomics analogy: genes → functions vs atoms → properties.</li>
-<li>Brief history: AFLOW, OQMD, Materials Project, NOMAD.</li>
-<li>PSPP from the structure-first viewpoint.</li>
+<li>Structure–property–processing paradigm from a <em>structure-first</em> viewpoint.</li>
+<li>Overview of major databases: Materials Project, OQMD, AFLOW, NOMAD.</li>
 </ul>
-<p><strong>Exercise:</strong> Explore Materials Project; query bandgaps, energies, symmetries.</p>
+<p><strong>Exercise:</strong><br>
+Explore Materials Project; query bandgaps, formation energies, symmetries.</p>
+<hr>
 </section>
-<section id="week-2-crystal-structure-fundamentals" class="level4" data-number="3.1.2">
-<h4 data-number="3.1.2" class="anchored" data-anchor-id="week-2-crystal-structure-fundamentals"><span class="header-section-number">3.1.2</span> Week 2 – Crystal structure fundamentals</h4>
+<section id="week-2-crystal-structures-symmetry-and-low-dimensional-structure" class="level4" data-number="3.1.2">
+<h4 data-number="3.1.2" class="anchored" data-anchor-id="week-2-crystal-structures-symmetry-and-low-dimensional-structure"><span class="header-section-number">3.1.2</span> Week 2 – Crystal structures, symmetry, and low-dimensional structure</h4>
 <ul>
-<li>Space groups, Wyckoff positions, symmetry operations.</li>
-<li>How symmetry informs descriptors.</li>
+<li>Crystal structures as data objects.</li>
+<li>Space groups, Wyckoff positions, symmetry constraints.</li>
+<li>PCA as an <em>exploratory tool</em> for structural/property data (refresher).</li>
 </ul>
-<p><strong>Exercise:</strong> Using pymatgen / spglib to analyze symmetries.</p>
+<p><strong>Exercise:</strong><br>
+Use pymatgen/spglib to analyze symmetry; visualize PCA of structural features.</p>
+<hr>
 </section>
-<section id="week-3-materials-databases-file-formats" class="level4" data-number="3.1.3">
-<h4 data-number="3.1.3" class="anchored" data-anchor-id="week-3-materials-databases-file-formats"><span class="header-section-number">3.1.3</span> Week 3 – Materials databases &amp; file formats</h4>
+<section id="week-3-materials-databases-thermodynamic-quantities" class="level4" data-number="3.1.3">
+<h4 data-number="3.1.3" class="anchored" data-anchor-id="week-3-materials-databases-thermodynamic-quantities"><span class="header-section-number">3.1.3</span> Week 3 – Materials databases &amp; thermodynamic quantities</h4>
 <ul>
-<li>CIF, POSCAR, PDB-like formats.</li>
-<li>Thermodynamic quantities in databases: formation energy, stability, convex hull.</li>
+<li>File formats: CIF, POSCAR, database schemas.</li>
+<li>Formation energies, convex hulls, metastability.</li>
+<li>What databases do <em>not</em> contain (bias, incompleteness).</li>
 </ul>
-<p><strong>Exercise:</strong> Parse CIF files, extract primitive cells, compute density.</p>
+<p><strong>Exercise:</strong><br>
+Parse CIF files; compute basic structural properties; analyze stability.</p>
+<hr>
 </section>
 </section>
 <section id="unit-ii-representations-of-materials-weeks-46" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="unit-ii-representations-of-materials-weeks-46"><span class="header-section-number">3.2</span> Unit II — Representations of Materials (Weeks 4–6)</h3>
-<section id="week-4-classical-descriptors-materials-fingerprints" class="level4" data-number="3.2.1">
-<h4 data-number="3.2.1" class="anchored" data-anchor-id="week-4-classical-descriptors-materials-fingerprints"><span class="header-section-number">3.2.1</span> Week 4 – Classical descriptors &amp; materials fingerprints</h4>
+<p><em>(Aligned with early neural networks in MFML)</em></p>
+<section id="week-4-from-classical-descriptors-to-learned-representations" class="level4" data-number="3.2.1">
+<h4 data-number="3.2.1" class="anchored" data-anchor-id="week-4-from-classical-descriptors-to-learned-representations"><span class="header-section-number">3.2.1</span> Week 4 – From classical descriptors to learned representations</h4>
 <ul>
-<li>Magpie, matminer.</li>
-<li>Stoichiometric, elemental, and structural features.</li>
+<li>Classical descriptors: Magpie, matminer (composition-based).</li>
+<li>Limits of hand-crafted features.</li>
+<li>Why representation learning matters.</li>
 </ul>
-<p><strong>Exercise:</strong> Build a small property regressor with Magpie features.</p>
+<p><strong>Exercise:</strong><br>
+Build a simple property predictor using classical descriptors.</p>
+<hr>
 </section>
-<section id="week-5-graph-based-representations" class="level4" data-number="3.2.2">
-<h4 data-number="3.2.2" class="anchored" data-anchor-id="week-5-graph-based-representations"><span class="header-section-number">3.2.2</span> Week 5 – Graph-based representations</h4>
+<section id="week-5-graph-based-crystal-representations" class="level4" data-number="3.2.2">
+<h4 data-number="3.2.2" class="anchored" data-anchor-id="week-5-graph-based-crystal-representations"><span class="header-section-number">3.2.2</span> Week 5 – Graph-based crystal representations</h4>
 <ul>
-<li>Crystal structures as graphs: nodes, edges, periodic boundary conditions.</li>
-<li>CGCNN, MEGNet architecture intuition (no training from scratch yet).</li>
+<li>Crystals as graphs: nodes, edges, periodicity.</li>
+<li>Intuition behind CGCNN, MEGNet (no architecture deep dive).</li>
+<li>Relation to MFML neural network concepts.</li>
 </ul>
-<p><strong>Exercise:</strong> Build a simple CGCNN-like graph featurizer.</p>
+<p><strong>Exercise:</strong><br>
+Construct a graph representation of crystals; visualize connectivity.</p>
+<hr>
 </section>
 <section id="week-6-local-atomic-environments" class="level4" data-number="3.2.3">
 <h4 data-number="3.2.3" class="anchored" data-anchor-id="week-6-local-atomic-environments"><span class="header-section-number">3.2.3</span> Week 6 – Local atomic environments</h4>
 <ul>
-<li>Voronoi tessellations, coordination numbers, SOAP descriptors.</li>
-<li>Role in interatomic potentials and ML force fields.</li>
+<li>Local vs global representations.</li>
+<li>Coordination environments, Voronoi tessellations.</li>
+<li>SOAP descriptors as a bridge to learned representations.</li>
 </ul>
-<p><strong>Exercise:</strong> Compute SOAP vectors; perform clustering in descriptor space.</p>
+<p><strong>Exercise:</strong><br>
+Compute SOAP vectors; cluster structures in environment space.</p>
+<hr>
 </section>
 </section>
-<section id="unit-iii-high-throughput-computation-screening-weeks-79" class="level3" data-number="3.3">
-<h3 data-number="3.3" class="anchored" data-anchor-id="unit-iii-high-throughput-computation-screening-weeks-79"><span class="header-section-number">3.3</span> Unit III — High-Throughput Computation &amp; Screening (Weeks 7–9)</h3>
-<section id="week-7-quantum-mechanical-data-and-dft-basics" class="level4" data-number="3.3.1">
-<h4 data-number="3.3.1" class="anchored" data-anchor-id="week-7-quantum-mechanical-data-and-dft-basics"><span class="header-section-number">3.3.1</span> Week 7 – Quantum mechanical data and DFT basics</h4>
+<section id="unit-iii-learning-structureproperty-relations-weeks-79" class="level3" data-number="3.3">
+<h3 data-number="3.3" class="anchored" data-anchor-id="unit-iii-learning-structureproperty-relations-weeks-79"><span class="header-section-number">3.3</span> Unit III — Learning Structure–Property Relations (Weeks 7–9)</h3>
+<section id="week-7-regression-and-generalization-in-materials-data" class="level4" data-number="3.3.1">
+<h4 data-number="3.3.1" class="anchored" data-anchor-id="week-7-regression-and-generalization-in-materials-data"><span class="header-section-number">3.3.1</span> Week 7 – Regression and generalization in materials data</h4>
 <ul>
-<li>What DFT gives you: energies, forces, band structures, elastic constants.</li>
-<li>Why it’s expensive; why ML surrogates matter.</li>
+<li>Predicting bandgaps, elastic moduli, formation energies.</li>
+<li>Bias–variance and overfitting in materials datasets.</li>
+<li>Dataset size vs model complexity.</li>
 </ul>
-<p><strong>Exercise:</strong> Run a toy DFT calculation (Quantum Espresso or MP workflows).</p>
+<p><strong>Exercise:</strong><br>
+Compare linear, random forest, and NN regressors on a materials dataset.</p>
+<hr>
 </section>
-<section id="week-8-high-throughput-workflows" class="level4" data-number="3.3.2">
-<h4 data-number="3.3.2" class="anchored" data-anchor-id="week-8-high-throughput-workflows"><span class="header-section-number">3.3.2</span> Week 8 – High-throughput workflows</h4>
+<section id="week-8-neural-networks-for-materials-properties" class="level4" data-number="3.3.2">
+<h4 data-number="3.3.2" class="anchored" data-anchor-id="week-8-neural-networks-for-materials-properties"><span class="header-section-number">3.3.2</span> Week 8 – Neural networks for materials properties</h4>
 <ul>
-<li>Automation: pymatgen, custodian, FireWorks, Atomate.</li>
-<li>Data generation for building surrogate models.</li>
+<li>Neural networks as universal surrogates for DFT-level properties.</li>
+<li>Training pitfalls: data leakage, imbalance, extrapolation.</li>
+<li>Physical interpretability concerns.</li>
 </ul>
-<p><strong>Exercise:</strong> Perform a small FireWorks workflow (or simulate the idea without cluster resources).</p>
+<p><strong>Exercise:</strong><br>
+Train a small NN for property prediction; analyze overfitting.</p>
+<hr>
 </section>
-<section id="week-9-phase-stability-the-convex-hull" class="level4" data-number="3.3.3">
-<h4 data-number="3.3.3" class="anchored" data-anchor-id="week-9-phase-stability-the-convex-hull"><span class="header-section-number">3.3.3</span> Week 9 – Phase stability &amp; the convex hull</h4>
+<section id="week-9-representation-learning-and-feature-discovery" class="level4" data-number="3.3.3">
+<h4 data-number="3.3.3" class="anchored" data-anchor-id="week-9-representation-learning-and-feature-discovery"><span class="header-section-number">3.3.3</span> Week 9 – Representation learning and feature discovery</h4>
 <ul>
-<li>Formation energies, metastability, hull distance.</li>
-<li>Mapping an entire chemical system.</li>
+<li>Learned vs engineered features.</li>
+<li>What networks “learn” about chemistry and structure.</li>
+<li>Transferability across chemical systems.</li>
 </ul>
-<p><strong>Exercise:</strong> Reconstruct phase diagrams from Materials Project data.</p>
+<p><strong>Exercise:</strong><br>
+Compare performance using raw descriptors vs learned embeddings.</p>
+<hr>
 </section>
 </section>
-<section id="unit-iv-learning-properties-from-atomic-structure-weeks-1012" class="level3" data-number="3.4">
-<h3 data-number="3.4" class="anchored" data-anchor-id="unit-iv-learning-properties-from-atomic-structure-weeks-1012"><span class="header-section-number">3.4</span> Unit IV — Learning Properties from Atomic Structure (Weeks 10–12)</h3>
-<section id="week-10-regression-on-crystal-data" class="level4" data-number="3.4.1">
-<h4 data-number="3.4.1" class="anchored" data-anchor-id="week-10-regression-on-crystal-data"><span class="header-section-number">3.4.1</span> Week 10 – Regression on crystal data</h4>
+<section id="unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1012" class="level3" data-number="3.4">
+<h3 data-number="3.4" class="anchored" data-anchor-id="unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1012"><span class="header-section-number">3.4</span> Unit IV — Latent Spaces, Uncertainty, and Discovery (Weeks 10–12)</h3>
+<section id="week-10-latent-spaces-of-materials" class="level4" data-number="3.4.1">
+<h4 data-number="3.4.1" class="anchored" data-anchor-id="week-10-latent-spaces-of-materials"><span class="header-section-number">3.4.1</span> Week 10 – Latent spaces of materials</h4>
 <ul>
-<li>Predicting bandgaps, hardness, elastic moduli.</li>
-<li>Comparing different representation families.</li>
+<li>Autoencoders and embeddings for crystal data.</li>
+<li>Interpreting latent dimensions.</li>
+<li>Relation to chemical intuition and structure families.</li>
 </ul>
-<p><strong>Exercise:</strong> Benchmark random forest, GPR, CGCNN on a small dataset.</p>
+<p><strong>Exercise:</strong><br>
+Train an autoencoder; visualize latent materials space.</p>
+<hr>
 </section>
-<section id="week-11-machine-learned-interatomic-potentials" class="level4" data-number="3.4.2">
-<h4 data-number="3.4.2" class="anchored" data-anchor-id="week-11-machine-learned-interatomic-potentials"><span class="header-section-number">3.4.2</span> Week 11 – Machine-learned interatomic potentials</h4>
+<section id="week-11-clustering-vs-discovery-in-materials-spaces" class="level4" data-number="3.4.2">
+<h4 data-number="3.4.2" class="anchored" data-anchor-id="week-11-clustering-vs-discovery-in-materials-spaces"><span class="header-section-number">3.4.2</span> Week 11 – Clustering vs discovery in materials spaces</h4>
 <ul>
-<li>Overview: GAP, SNAP, MTP, NequIP.</li>
-<li>Role in simulating defects, diffusion, mechanical behavior.</li>
+<li>Why clustering ≠ discovery.</li>
+<li>Structure in latent space.</li>
+<li>Identifying families, outliers, and anomalies.</li>
 </ul>
-<p><strong>Exercise:</strong> Fit a tiny ML potential (ACE or simple SNAP-style) to toy data.</p>
+<p><strong>Exercise:</strong><br>
+Compare k-means clustering with latent-space organization.</p>
+<hr>
 </section>
-<section id="week-12-generative-models-for-materials" class="level4" data-number="3.4.3">
-<h4 data-number="3.4.3" class="anchored" data-anchor-id="week-12-generative-models-for-materials"><span class="header-section-number">3.4.3</span> Week 12 – Generative models for materials</h4>
+<section id="week-12-uncertainty-aware-discovery-gaussian-processes" class="level4" data-number="3.4.3">
+<h4 data-number="3.4.3" class="anchored" data-anchor-id="week-12-uncertainty-aware-discovery-gaussian-processes"><span class="header-section-number">3.4.3</span> Week 12 – Uncertainty-aware discovery &amp; Gaussian Processes</h4>
 <ul>
-<li>VAEs, diffusion models for crystal generation.</li>
-<li>Constraints: symmetry, stability, charge neutrality.</li>
+<li>Aleatoric vs epistemic uncertainty.</li>
+<li>Gaussian Process regression as a gold standard for uncertainty.</li>
+<li>Exploration vs exploitation in materials screening.</li>
+<li>Relevance to materials acceleration platforms.</li>
 </ul>
-<p><strong>Exercise:</strong> Sample a generative model from a pretrained online source; analyze validity.</p>
+<p><strong>Exercise:</strong><br>
+GP regression vs NN ensembles; visualize uncertainty-driven screening.</p>
+<hr>
 </section>
 </section>
-<section id="unit-v-mini-project-synthesis-weeks-1314" class="level3" data-number="3.5">
-<h3 data-number="3.5" class="anchored" data-anchor-id="unit-v-mini-project-synthesis-weeks-1314"><span class="header-section-number">3.5</span> Unit V — Mini-Project &amp; Synthesis (Weeks 13–14)</h3>
-<section id="week-13-project-workshop" class="level4" data-number="3.5.1">
-<h4 data-number="3.5.1" class="anchored" data-anchor-id="week-13-project-workshop"><span class="header-section-number">3.5.1</span> Week 13 – Project workshop</h4>
-<p><strong>Example projects:</strong></p>
+<section id="unit-v-constraints-trust-and-synthesis-weeks-1314" class="level3" data-number="3.5">
+<h3 data-number="3.5" class="anchored" data-anchor-id="unit-v-constraints-trust-and-synthesis-weeks-1314"><span class="header-section-number">3.5</span> Unit V — Constraints, Trust, and Synthesis (Weeks 13–14)</h3>
+<section id="week-13-physical-constraints-and-informed-learning" class="level4" data-number="3.5.1">
+<h4 data-number="3.5.1" class="anchored" data-anchor-id="week-13-physical-constraints-and-informed-learning"><span class="header-section-number">3.5.1</span> Week 13 – Physical constraints and informed learning</h4>
 <ul>
-<li>Predict bandgap from composition + structure representation.</li>
-<li>Identify new stable compounds in a chemical system.</li>
-<li>Build a graph-based model for elastic constants.</li>
-<li>Use ML to approximate formation energies for a ternary subsystem.</li>
-<li>Analyze SOAP fingerprints across polymorphs.</li>
+<li>Stability, charge neutrality, symmetry constraints.</li>
+<li>Physics-informed ML in materials discovery.</li>
+<li>Failure modes of unconstrained models.</li>
 </ul>
+<p><strong>Exercise:</strong><br>
+Train a constrained model using penalty-based approaches.</p>
+<hr>
 </section>
-<section id="week-14-presentations-reflection" class="level4" data-number="3.5.2">
-<h4 data-number="3.5.2" class="anchored" data-anchor-id="week-14-presentations-reflection"><span class="header-section-number">3.5.2</span> Week 14 – Presentations &amp; Reflection</h4>
+<section id="week-14-integration-limits-and-outlook" class="level4" data-number="3.5.2">
+<h4 data-number="3.5.2" class="anchored" data-anchor-id="week-14-integration-limits-and-outlook"><span class="header-section-number">3.5.2</span> Week 14 – Integration, limits, and outlook</h4>
 <ul>
-<li>Interpreting models: SHAP for materials descriptors.</li>
-<li>Strengths/limitations of materials genomics vs experiment-driven ML.</li>
-<li>How computational and experimental ML meet in modern labs.</li>
+<li>Explainability of materials ML models.</li>
+<li>What ML can and cannot discover.</li>
+<li>How computational genomics meets experiment-driven workflows.</li>
 </ul>
+<p><strong>Exercise:</strong><br>
+Mini-project synthesis and presentation.</p>
+<hr>
 </section>
 </section>
 </section>
@@ -294,13 +346,13 @@ ul.task-list li input[type="checkbox"] {
 <h2 data-number="4" class="anchored" data-anchor-id="learning-outcomes"><span class="header-section-number">4</span> Learning Outcomes</h2>
 <p>Students completing this course will be able to:</p>
 <ul>
-<li>Navigate major materials databases and extract relevant structural/property data.</li>
-<li>Represent crystals numerically using descriptors, fingerprints, and graphs.</li>
-<li>Train ML models to predict quantum-mechanical and thermodynamic properties.</li>
-<li>Analyze structural features via symmetry, coordination, and environments.</li>
-<li>Perform high-throughput screening of materials candidates.</li>
-<li>Understand and apply generative models for inorganic crystals.</li>
-<li>Critically evaluate ML results in computational materials discovery.</li>
+<li>Navigate and interrogate major materials databases.</li>
+<li>Represent crystal structures using descriptors, graphs, and learned embeddings.</li>
+<li>Train and evaluate ML models for predicting materials properties.</li>
+<li>Understand latent spaces and their role in materials discovery.</li>
+<li>Quantify and interpret uncertainty in materials predictions.</li>
+<li>Apply ML to accelerate materials screening responsibly.</li>
+<li>Critically assess the limits of data-driven materials discovery.</li>
 </ul>
 </section>
 
@@ -357,14 +409,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

@@ -179,12 +179,12 @@ Materials Discovery, Materials Databases, Crystal Structure},
 
 \begin{abstract}
 This course introduces students to materials genomics, treating the
-periodic table and all known crystal structures as a searchable,
-computable design space. Students learn how materials databases are
-built, how to represent matter as numbers, graphs, or fingerprints, how
-to interrogate and predict properties of solids, how to use ML as a
-surrogate for quantum mechanics, and how to design new materials
-algorithmically.
+periodic table and the space of known crystal structures as a
+searchable, computable design space. Students learn how materials
+databases are built, how atomic structure is represented numerically,
+how structure--property relationships are learned using machine
+learning, and how uncertainty-aware models enable accelerated materials
+discovery.
 \end{abstract}
 
 
@@ -193,35 +193,53 @@ algorithmically.
 
 \section{Course Information}\label{course-information}
 
-\textbf{4th Semester -- 5 ECTS · 2h lecture + 2h exercises per week,
-together with ML for Materials Processing \& Characterization}
+\textbf{4th/5th Semester -- 5 ECTS · 2h lecture + 2h exercises per
+week}\\
+\emph{Coordinated with ``Mathematical Foundations of AI \& ML'' (MFML)
+and\\
+``ML for Materials Processing \& Characterization'' (ML-PC)}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \section{Course Philosophy}\label{course-philosophy}
 
-Materials genomics treats the periodic table and all known crystal
-structures as a giant searchable, computable design space.
+Materials genomics views the periodic table and all known crystal
+structures as a \textbf{high-dimensional design space}.
 
-Students learn:
+In this course, students learn to:
 
 \begin{itemize}
 \tightlist
 \item
-  how materials databases are built,
+  treat materials data as a structured, learnable representation space,
 \item
-  how to represent matter as numbers, graphs, or fingerprints,
+  move beyond classical descriptors toward learned representations,
 \item
-  how to interrogate and predict properties of solids,
+  use ML models as surrogates for quantum-mechanical calculations,
 \item
-  how to use ML as a surrogate for quantum mechanics,
+  reason about uncertainty, stability, and discovery,
 \item
-  how to design new materials algorithmically.
+  understand how computational screening integrates with experiments.
 \end{itemize}
+
+The course explicitly \textbf{builds on MFML}:
+
+\begin{itemize}
+\tightlist
+\item
+  PCA and regression are assumed background,
+\item
+  neural networks, representation learning, and uncertainty are used,
+  not re-derived.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \section{Week-by-Week Curriculum (14
 weeks)}\label{week-by-week-curriculum-14-weeks}
 
-\subsection{Unit I --- Foundations of Materials Genomics (Weeks
-1--3)}\label{unit-i-foundations-of-materials-genomics-weeks-13}
+\subsection{Unit I --- Materials Data as a Design Space (Weeks
+1--3)}\label{unit-i-materials-data-as-a-design-space-weeks-13}
 
 \subsubsection{Week 1 -- What is Materials
 Genomics?}\label{week-1-what-is-materials-genomics}
@@ -231,72 +249,97 @@ Genomics?}\label{week-1-what-is-materials-genomics}
 \item
   Genomics analogy: genes → functions vs atoms → properties.
 \item
-  Brief history: AFLOW, OQMD, Materials Project, NOMAD.
+  Structure--property--processing paradigm from a \emph{structure-first}
+  viewpoint.
 \item
-  PSPP from the structure-first viewpoint.
+  Overview of major databases: Materials Project, OQMD, AFLOW, NOMAD.
 \end{itemize}
 
-\textbf{Exercise:} Explore Materials Project; query bandgaps, energies,
+\textbf{Exercise:}\\
+Explore Materials Project; query bandgaps, formation energies,
 symmetries.
 
-\subsubsection{Week 2 -- Crystal structure
-fundamentals}\label{week-2-crystal-structure-fundamentals}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 2 -- Crystal structures, symmetry, and
+low-dimensional
+structure}\label{week-2-crystal-structures-symmetry-and-low-dimensional-structure}
 
 \begin{itemize}
 \tightlist
 \item
-  Space groups, Wyckoff positions, symmetry operations.
+  Crystal structures as data objects.
 \item
-  How symmetry informs descriptors.
+  Space groups, Wyckoff positions, symmetry constraints.
+\item
+  PCA as an \emph{exploratory tool} for structural/property data
+  (refresher).
 \end{itemize}
 
-\textbf{Exercise:} Using pymatgen / spglib to analyze symmetries.
+\textbf{Exercise:}\\
+Use pymatgen/spglib to analyze symmetry; visualize PCA of structural
+features.
 
-\subsubsection{Week 3 -- Materials databases \& file
-formats}\label{week-3-materials-databases-file-formats}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 3 -- Materials databases \& thermodynamic
+quantities}\label{week-3-materials-databases-thermodynamic-quantities}
 
 \begin{itemize}
 \tightlist
 \item
-  CIF, POSCAR, PDB-like formats.
+  File formats: CIF, POSCAR, database schemas.
 \item
-  Thermodynamic quantities in databases: formation energy, stability,
-  convex hull.
+  Formation energies, convex hulls, metastability.
+\item
+  What databases do \emph{not} contain (bias, incompleteness).
 \end{itemize}
 
-\textbf{Exercise:} Parse CIF files, extract primitive cells, compute
-density.
+\textbf{Exercise:}\\
+Parse CIF files; compute basic structural properties; analyze stability.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsection{Unit II --- Representations of Materials (Weeks
 4--6)}\label{unit-ii-representations-of-materials-weeks-46}
 
-\subsubsection{Week 4 -- Classical descriptors \& materials
-fingerprints}\label{week-4-classical-descriptors-materials-fingerprints}
+\emph{(Aligned with early neural networks in MFML)}
+
+\subsubsection{Week 4 -- From classical descriptors to learned
+representations}\label{week-4-from-classical-descriptors-to-learned-representations}
 
 \begin{itemize}
 \tightlist
 \item
-  Magpie, matminer.
+  Classical descriptors: Magpie, matminer (composition-based).
 \item
-  Stoichiometric, elemental, and structural features.
+  Limits of hand-crafted features.
+\item
+  Why representation learning matters.
 \end{itemize}
 
-\textbf{Exercise:} Build a small property regressor with Magpie
-features.
+\textbf{Exercise:}\\
+Build a simple property predictor using classical descriptors.
 
-\subsubsection{Week 5 -- Graph-based
-representations}\label{week-5-graph-based-representations}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 5 -- Graph-based crystal
+representations}\label{week-5-graph-based-crystal-representations}
 
 \begin{itemize}
 \tightlist
 \item
-  Crystal structures as graphs: nodes, edges, periodic boundary
-  conditions.
+  Crystals as graphs: nodes, edges, periodicity.
 \item
-  CGCNN, MEGNet architecture intuition (no training from scratch yet).
+  Intuition behind CGCNN, MEGNet (no architecture deep dive).
+\item
+  Relation to MFML neural network concepts.
 \end{itemize}
 
-\textbf{Exercise:} Build a simple CGCNN-like graph featurizer.
+\textbf{Exercise:}\\
+Construct a graph representation of crystals; visualize connectivity.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \subsubsection{Week 6 -- Local atomic
 environments}\label{week-6-local-atomic-environments}
@@ -304,139 +347,172 @@ environments}\label{week-6-local-atomic-environments}
 \begin{itemize}
 \tightlist
 \item
-  Voronoi tessellations, coordination numbers, SOAP descriptors.
+  Local vs global representations.
 \item
-  Role in interatomic potentials and ML force fields.
+  Coordination environments, Voronoi tessellations.
+\item
+  SOAP descriptors as a bridge to learned representations.
 \end{itemize}
 
-\textbf{Exercise:} Compute SOAP vectors; perform clustering in
-descriptor space.
+\textbf{Exercise:}\\
+Compute SOAP vectors; cluster structures in environment space.
 
-\subsection{Unit III --- High-Throughput Computation \& Screening (Weeks
-7--9)}\label{unit-iii-high-throughput-computation-screening-weeks-79}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsubsection{Week 7 -- Quantum mechanical data and DFT
-basics}\label{week-7-quantum-mechanical-data-and-dft-basics}
+\subsection{Unit III --- Learning Structure--Property Relations (Weeks
+7--9)}\label{unit-iii-learning-structureproperty-relations-weeks-79}
+
+\subsubsection{Week 7 -- Regression and generalization in materials
+data}\label{week-7-regression-and-generalization-in-materials-data}
 
 \begin{itemize}
 \tightlist
 \item
-  What DFT gives you: energies, forces, band structures, elastic
-  constants.
+  Predicting bandgaps, elastic moduli, formation energies.
 \item
-  Why it's expensive; why ML surrogates matter.
+  Bias--variance and overfitting in materials datasets.
+\item
+  Dataset size vs model complexity.
 \end{itemize}
 
-\textbf{Exercise:} Run a toy DFT calculation (Quantum Espresso or MP
-workflows).
+\textbf{Exercise:}\\
+Compare linear, random forest, and NN regressors on a materials dataset.
 
-\subsubsection{Week 8 -- High-throughput
-workflows}\label{week-8-high-throughput-workflows}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 8 -- Neural networks for materials
+properties}\label{week-8-neural-networks-for-materials-properties}
 
 \begin{itemize}
 \tightlist
 \item
-  Automation: pymatgen, custodian, FireWorks, Atomate.
+  Neural networks as universal surrogates for DFT-level properties.
 \item
-  Data generation for building surrogate models.
+  Training pitfalls: data leakage, imbalance, extrapolation.
+\item
+  Physical interpretability concerns.
 \end{itemize}
 
-\textbf{Exercise:} Perform a small FireWorks workflow (or simulate the
-idea without cluster resources).
+\textbf{Exercise:}\\
+Train a small NN for property prediction; analyze overfitting.
 
-\subsubsection{Week 9 -- Phase stability \& the convex
-hull}\label{week-9-phase-stability-the-convex-hull}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 9 -- Representation learning and feature
+discovery}\label{week-9-representation-learning-and-feature-discovery}
 
 \begin{itemize}
 \tightlist
 \item
-  Formation energies, metastability, hull distance.
+  Learned vs engineered features.
 \item
-  Mapping an entire chemical system.
+  What networks ``learn'' about chemistry and structure.
+\item
+  Transferability across chemical systems.
 \end{itemize}
 
-\textbf{Exercise:} Reconstruct phase diagrams from Materials Project
-data.
+\textbf{Exercise:}\\
+Compare performance using raw descriptors vs learned embeddings.
 
-\subsection{Unit IV --- Learning Properties from Atomic Structure (Weeks
-10--12)}\label{unit-iv-learning-properties-from-atomic-structure-weeks-1012}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsubsection{Week 10 -- Regression on crystal
-data}\label{week-10-regression-on-crystal-data}
+\subsection{Unit IV --- Latent Spaces, Uncertainty, and Discovery (Weeks
+10--12)}\label{unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1012}
+
+\subsubsection{Week 10 -- Latent spaces of
+materials}\label{week-10-latent-spaces-of-materials}
 
 \begin{itemize}
 \tightlist
 \item
-  Predicting bandgaps, hardness, elastic moduli.
+  Autoencoders and embeddings for crystal data.
 \item
-  Comparing different representation families.
+  Interpreting latent dimensions.
+\item
+  Relation to chemical intuition and structure families.
 \end{itemize}
 
-\textbf{Exercise:} Benchmark random forest, GPR, CGCNN on a small
-dataset.
+\textbf{Exercise:}\\
+Train an autoencoder; visualize latent materials space.
 
-\subsubsection{Week 11 -- Machine-learned interatomic
-potentials}\label{week-11-machine-learned-interatomic-potentials}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 11 -- Clustering vs discovery in materials
+spaces}\label{week-11-clustering-vs-discovery-in-materials-spaces}
 
 \begin{itemize}
 \tightlist
 \item
-  Overview: GAP, SNAP, MTP, NequIP.
+  Why clustering ≠ discovery.
 \item
-  Role in simulating defects, diffusion, mechanical behavior.
+  Structure in latent space.
+\item
+  Identifying families, outliers, and anomalies.
 \end{itemize}
 
-\textbf{Exercise:} Fit a tiny ML potential (ACE or simple SNAP-style) to
-toy data.
+\textbf{Exercise:}\\
+Compare k-means clustering with latent-space organization.
 
-\subsubsection{Week 12 -- Generative models for
-materials}\label{week-12-generative-models-for-materials}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 12 -- Uncertainty-aware discovery \& Gaussian
+Processes}\label{week-12-uncertainty-aware-discovery-gaussian-processes}
 
 \begin{itemize}
 \tightlist
 \item
-  VAEs, diffusion models for crystal generation.
+  Aleatoric vs epistemic uncertainty.
 \item
-  Constraints: symmetry, stability, charge neutrality.
+  Gaussian Process regression as a gold standard for uncertainty.
+\item
+  Exploration vs exploitation in materials screening.
+\item
+  Relevance to materials acceleration platforms.
 \end{itemize}
 
-\textbf{Exercise:} Sample a generative model from a pretrained online
-source; analyze validity.
+\textbf{Exercise:}\\
+GP regression vs NN ensembles; visualize uncertainty-driven screening.
 
-\subsection{Unit V --- Mini-Project \& Synthesis (Weeks
-13--14)}\label{unit-v-mini-project-synthesis-weeks-1314}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsubsection{Week 13 -- Project
-workshop}\label{week-13-project-workshop}
+\subsection{Unit V --- Constraints, Trust, and Synthesis (Weeks
+13--14)}\label{unit-v-constraints-trust-and-synthesis-weeks-1314}
 
-\textbf{Example projects:}
+\subsubsection{Week 13 -- Physical constraints and informed
+learning}\label{week-13-physical-constraints-and-informed-learning}
 
 \begin{itemize}
 \tightlist
 \item
-  Predict bandgap from composition + structure representation.
+  Stability, charge neutrality, symmetry constraints.
 \item
-  Identify new stable compounds in a chemical system.
+  Physics-informed ML in materials discovery.
 \item
-  Build a graph-based model for elastic constants.
-\item
-  Use ML to approximate formation energies for a ternary subsystem.
-\item
-  Analyze SOAP fingerprints across polymorphs.
+  Failure modes of unconstrained models.
 \end{itemize}
 
-\subsubsection{Week 14 -- Presentations \&
-Reflection}\label{week-14-presentations-reflection}
+\textbf{Exercise:}\\
+Train a constrained model using penalty-based approaches.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Week 14 -- Integration, limits, and
+outlook}\label{week-14-integration-limits-and-outlook}
 
 \begin{itemize}
 \tightlist
 \item
-  Interpreting models: SHAP for materials descriptors.
+  Explainability of materials ML models.
 \item
-  Strengths/limitations of materials genomics vs experiment-driven ML.
+  What ML can and cannot discover.
 \item
-  How computational and experimental ML meet in modern labs.
+  How computational genomics meets experiment-driven workflows.
 \end{itemize}
+
+\textbf{Exercise:}\\
+Mini-project synthesis and presentation.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \section{Learning Outcomes}\label{learning-outcomes}
 
@@ -445,23 +521,20 @@ Students completing this course will be able to:
 \begin{itemize}
 \tightlist
 \item
-  Navigate major materials databases and extract relevant
-  structural/property data.
+  Navigate and interrogate major materials databases.
 \item
-  Represent crystals numerically using descriptors, fingerprints, and
-  graphs.
+  Represent crystal structures using descriptors, graphs, and learned
+  embeddings.
 \item
-  Train ML models to predict quantum-mechanical and thermodynamic
-  properties.
+  Train and evaluate ML models for predicting materials properties.
 \item
-  Analyze structural features via symmetry, coordination, and
-  environments.
+  Understand latent spaces and their role in materials discovery.
 \item
-  Perform high-throughput screening of materials candidates.
+  Quantify and interpret uncertainty in materials predictions.
 \item
-  Understand and apply generative models for inorganic crystals.
+  Apply ML to accelerate materials screening responsibly.
 \item
-  Critically evaluate ML results in computational materials discovery.
+  Critically assess the limits of data-driven materials discovery.
 \end{itemize}
 
 
