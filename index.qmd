@@ -11,7 +11,11 @@ keywords:
   - Materials Databases
   - Crystal Structure
 abstract: |
-  This course introduces students to materials genomics, treating the periodic table and all known crystal structures as a searchable, computable design space. Students learn how materials databases are built, how to represent matter as numbers, graphs, or fingerprints, how to interrogate and predict properties of solids, how to use ML as a surrogate for quantum mechanics, and how to design new materials algorithmically.
+  This course introduces students to materials genomics, treating the periodic table
+  and the space of known crystal structures as a searchable, computable design space.
+  Students learn how materials databases are built, how atomic structure is represented
+  numerically, how structure–property relationships are learned using machine learning,
+  and how uncertainty-aware models enable accelerated materials discovery.
 date: last-modified
 bibliography: references.bib
 number-sections: true
@@ -20,142 +24,209 @@ jupyter: python3
 
 ## Course Information
 
-**4th Semester – 5 ECTS · 2h lecture + 2h exercises per week, together with ML for Materials Processing & Characterization**
- 
+**4th/5th Semester – 5 ECTS · 2h lecture + 2h exercises per week**  
+*Coordinated with “Mathematical Foundations of AI & ML” (MFML) and  
+“ML for Materials Processing & Characterization” (ML-PC)*
+
+---
+
 ## Course Philosophy
 
-Materials genomics treats the periodic table and all known crystal structures as a giant searchable, computable design space.
+Materials genomics views the periodic table and all known crystal structures as a
+**high-dimensional design space**.
 
-Students learn:
+In this course, students learn to:
 
-- how materials databases are built,
-- how to represent matter as numbers, graphs, or fingerprints,
-- how to interrogate and predict properties of solids,
-- how to use ML as a surrogate for quantum mechanics,
-- how to design new materials algorithmically.
+- treat materials data as a structured, learnable representation space,
+- move beyond classical descriptors toward learned representations,
+- use ML models as surrogates for quantum-mechanical calculations,
+- reason about uncertainty, stability, and discovery,
+- understand how computational screening integrates with experiments.
+
+The course explicitly **builds on MFML**:
+
+- PCA and regression are assumed background,
+- neural networks, representation learning, and uncertainty are used, not re-derived.
+
+---
 
 ## Week-by-Week Curriculum (14 weeks)
 
-### Unit I — Foundations of Materials Genomics (Weeks 1–3)
+### Unit I — Materials Data as a Design Space (Weeks 1–3)
 
 #### Week 1 – What is Materials Genomics?
 
 - Genomics analogy: genes → functions vs atoms → properties.
-- Brief history: AFLOW, OQMD, Materials Project, NOMAD.
-- PSPP from the structure-first viewpoint.
+- Structure–property–processing paradigm from a *structure-first* viewpoint.
+- Overview of major databases: Materials Project, OQMD, AFLOW, NOMAD.
 
-**Exercise:** Explore Materials Project; query bandgaps, energies, symmetries.
+**Exercise:**  
+Explore Materials Project; query bandgaps, formation energies, symmetries.
 
-#### Week 2 – Crystal structure fundamentals
+---
 
-- Space groups, Wyckoff positions, symmetry operations.
-- How symmetry informs descriptors.
+#### Week 2 – Crystal structures, symmetry, and low-dimensional structure
 
-**Exercise:** Using pymatgen / spglib to analyze symmetries.
+- Crystal structures as data objects.
+- Space groups, Wyckoff positions, symmetry constraints.
+- PCA as an *exploratory tool* for structural/property data (refresher).
 
-#### Week 3 – Materials databases & file formats
+**Exercise:**  
+Use pymatgen/spglib to analyze symmetry; visualize PCA of structural features.
 
-- CIF, POSCAR, PDB-like formats.
-- Thermodynamic quantities in databases: formation energy, stability, convex hull.
+---
 
-**Exercise:** Parse CIF files, extract primitive cells, compute density.
+#### Week 3 – Materials databases & thermodynamic quantities
 
+- File formats: CIF, POSCAR, database schemas.
+- Formation energies, convex hulls, metastability.
+- What databases do *not* contain (bias, incompleteness).
+
+**Exercise:**  
+Parse CIF files; compute basic structural properties; analyze stability.
+
+---
 
 ### Unit II — Representations of Materials (Weeks 4–6)
 
-#### Week 4 – Classical descriptors & materials fingerprints
+*(Aligned with early neural networks in MFML)*
 
-- Magpie, matminer.
-- Stoichiometric, elemental, and structural features.
+#### Week 4 – From classical descriptors to learned representations
 
-**Exercise:** Build a small property regressor with Magpie features.
+- Classical descriptors: Magpie, matminer (composition-based).
+- Limits of hand-crafted features.
+- Why representation learning matters.
 
-#### Week 5 – Graph-based representations
+**Exercise:**  
+Build a simple property predictor using classical descriptors.
 
-- Crystal structures as graphs: nodes, edges, periodic boundary conditions.
-- CGCNN, MEGNet architecture intuition (no training from scratch yet).
+---
 
-**Exercise:** Build a simple CGCNN-like graph featurizer.
+#### Week 5 – Graph-based crystal representations
+
+- Crystals as graphs: nodes, edges, periodicity.
+- Intuition behind CGCNN, MEGNet (no architecture deep dive).
+- Relation to MFML neural network concepts.
+
+**Exercise:**  
+Construct a graph representation of crystals; visualize connectivity.
+
+---
 
 #### Week 6 – Local atomic environments
 
-- Voronoi tessellations, coordination numbers, SOAP descriptors.
-- Role in interatomic potentials and ML force fields.
+- Local vs global representations.
+- Coordination environments, Voronoi tessellations.
+- SOAP descriptors as a bridge to learned representations.
 
-**Exercise:** Compute SOAP vectors; perform clustering in descriptor space.
+**Exercise:**  
+Compute SOAP vectors; cluster structures in environment space.
 
-### Unit III — High-Throughput Computation & Screening (Weeks 7–9)
+---
 
-#### Week 7 – Quantum mechanical data and DFT basics
+### Unit III — Learning Structure–Property Relations (Weeks 7–9)
 
-- What DFT gives you: energies, forces, band structures, elastic constants.
-- Why it's expensive; why ML surrogates matter.
+#### Week 7 – Regression and generalization in materials data
 
-**Exercise:** Run a toy DFT calculation (Quantum Espresso or MP workflows).
+- Predicting bandgaps, elastic moduli, formation energies.
+- Bias–variance and overfitting in materials datasets.
+- Dataset size vs model complexity.
 
-#### Week 8 – High-throughput workflows
+**Exercise:**  
+Compare linear, random forest, and NN regressors on a materials dataset.
 
-- Automation: pymatgen, custodian, FireWorks, Atomate.
-- Data generation for building surrogate models.
+---
 
-**Exercise:** Perform a small FireWorks workflow (or simulate the idea without cluster resources).
+#### Week 8 – Neural networks for materials properties
 
-#### Week 9 – Phase stability & the convex hull
+- Neural networks as universal surrogates for DFT-level properties.
+- Training pitfalls: data leakage, imbalance, extrapolation.
+- Physical interpretability concerns.
 
-- Formation energies, metastability, hull distance.
-- Mapping an entire chemical system.
+**Exercise:**  
+Train a small NN for property prediction; analyze overfitting.
 
-**Exercise:** Reconstruct phase diagrams from Materials Project data.
+---
 
-### Unit IV — Learning Properties from Atomic Structure (Weeks 10–12)
+#### Week 9 – Representation learning and feature discovery
 
-#### Week 10 – Regression on crystal data
+- Learned vs engineered features.
+- What networks “learn” about chemistry and structure.
+- Transferability across chemical systems.
 
-- Predicting bandgaps, hardness, elastic moduli.
-- Comparing different representation families.
+**Exercise:**  
+Compare performance using raw descriptors vs learned embeddings.
 
-**Exercise:** Benchmark random forest, GPR, CGCNN on a small dataset.
+---
 
-#### Week 11 – Machine-learned interatomic potentials
+### Unit IV — Latent Spaces, Uncertainty, and Discovery (Weeks 10–12)
 
-- Overview: GAP, SNAP, MTP, NequIP.
-- Role in simulating defects, diffusion, mechanical behavior.
+#### Week 10 – Latent spaces of materials
 
-**Exercise:** Fit a tiny ML potential (ACE or simple SNAP-style) to toy data.
+- Autoencoders and embeddings for crystal data.
+- Interpreting latent dimensions.
+- Relation to chemical intuition and structure families.
 
-#### Week 12 – Generative models for materials
+**Exercise:**  
+Train an autoencoder; visualize latent materials space.
 
-- VAEs, diffusion models for crystal generation.
-- Constraints: symmetry, stability, charge neutrality.
+---
 
-**Exercise:** Sample a generative model from a pretrained online source; analyze validity.
+#### Week 11 – Clustering vs discovery in materials spaces
 
-### Unit V — Mini-Project & Synthesis (Weeks 13–14)
+- Why clustering ≠ discovery.
+- Structure in latent space.
+- Identifying families, outliers, and anomalies.
 
-#### Week 13 – Project workshop
+**Exercise:**  
+Compare k-means clustering with latent-space organization.
 
-**Example projects:**
+---
 
-- Predict bandgap from composition + structure representation.
-- Identify new stable compounds in a chemical system.
-- Build a graph-based model for elastic constants.
-- Use ML to approximate formation energies for a ternary subsystem.
-- Analyze SOAP fingerprints across polymorphs.
+#### Week 12 – Uncertainty-aware discovery & Gaussian Processes
 
-#### Week 14 – Presentations & Reflection
+- Aleatoric vs epistemic uncertainty.
+- Gaussian Process regression as a gold standard for uncertainty.
+- Exploration vs exploitation in materials screening.
+- Relevance to materials acceleration platforms.
 
-- Interpreting models: SHAP for materials descriptors.
-- Strengths/limitations of materials genomics vs experiment-driven ML.
-- How computational and experimental ML meet in modern labs.
- 
+**Exercise:**  
+GP regression vs NN ensembles; visualize uncertainty-driven screening.
+
+---
+
+### Unit V — Constraints, Trust, and Synthesis (Weeks 13–14)
+
+#### Week 13 – Physical constraints and informed learning
+
+- Stability, charge neutrality, symmetry constraints.
+- Physics-informed ML in materials discovery.
+- Failure modes of unconstrained models.
+
+**Exercise:**  
+Train a constrained model using penalty-based approaches.
+
+---
+
+#### Week 14 – Integration, limits, and outlook
+
+- Explainability of materials ML models.
+- What ML can and cannot discover.
+- How computational genomics meets experiment-driven workflows.
+
+**Exercise:**  
+Mini-project synthesis and presentation.
+
+---
+
 ## Learning Outcomes
 
 Students completing this course will be able to:
 
-- Navigate major materials databases and extract relevant structural/property data.
-- Represent crystals numerically using descriptors, fingerprints, and graphs.
-- Train ML models to predict quantum-mechanical and thermodynamic properties.
-- Analyze structural features via symmetry, coordination, and environments.
-- Perform high-throughput screening of materials candidates.
-- Understand and apply generative models for inorganic crystals.
-- Critically evaluate ML results in computational materials discovery.
+- Navigate and interrogate major materials databases.
+- Represent crystal structures using descriptors, graphs, and learned embeddings.
+- Train and evaluate ML models for predicting materials properties.
+- Understand latent spaces and their role in materials discovery.
+- Quantify and interpret uncertainty in materials predictions.
+- Apply ML to accelerate materials screening responsibly.
+- Critically assess the limits of data-driven materials discovery.
