@@ -44,8 +44,7 @@ uncertainty-aware models enable accelerated materials discovery.</p>
     <sec id="course-information">
       <title>1 Course Information</title>
       <p>
-        <bold>4th/5th Semester – 5 ECTS · 2h lecture + 2h exercises per
-  week</bold>
+        <bold>5th Semester – 5 ECTS · 2h lecture</bold>
         <italic>Coordinated with “Mathematical Foundations of AI &amp; ML”
   (MFML) and
   “ML for Materials Processing &amp; Characterization”
@@ -98,8 +97,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       <sec id="unit-i-where-materials-data-comes-from-weeks-14">
         <title>3.1 Unit I — Where Materials Data Comes From (Weeks
     1–4)</title>
-        <sec id="week-1-what-is-materials-genomics">
-          <title>3.1.1 Week 1 – What is Materials Genomics?</title>
+        <sec id="week-1-what-is-materials-genomics-14.04.2026">
+          <title>3.1.1 Week 1 – What is Materials Genomics?
+      (14.04.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Genomics analogy: genes → functions vs atoms →
@@ -118,9 +118,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       Explore Materials Project; query bandgaps, formation energies,
       symmetries.</p>
         </sec>
-        <sec id="week-2-simulation-methods-as-data-generators">
-          <title>3.1.2 Week 2 – Simulation methods as data
-      generators</title>
+        <sec id="week-2-simulation-methods-as-data-generators-21.04.2026">
+          <title>3.1.2 Week 2 – Simulation methods as data generators
+      (21.04.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Why simulations dominate materials data generation.</p>
@@ -154,9 +154,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       For selected materials properties, identify suitable simulation
       methods and expected biases.</p>
         </sec>
-        <sec id="week-3-atomistic-and-electronic-simulations-dft-md-mc">
+        <sec id="week-3-atomistic-and-electronic-simulations-dft-md-mc-28.04.2026">
           <title>3.1.3 Week 3 – Atomistic and electronic simulations (DFT,
-      MD, MC)</title>
+      MD, MC) (28.04.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Density Functional Theory: ground-state bias,
@@ -179,9 +179,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       Inspect Materials Project entries; identify simulation assumptions
       and derived quantities.</p>
         </sec>
-        <sec id="week-4-continuum-simulations-thermodynamics-and-stability">
+        <sec id="week-4-continuum-simulations-thermodynamics-and-stability-05.05.2026">
           <title>3.1.4 Week 4 – Continuum simulations, thermodynamics, and
-      stability</title>
+      stability (05.05.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>FEM as a structure–property mapping at the continuum
@@ -208,9 +208,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
         <p>
           <italic>(Aligned with early neural networks in MFML)</italic>
         </p>
-        <sec id="week-5-from-classical-descriptors-to-learned-representations">
+        <sec id="week-5-from-classical-descriptors-to-learned-representations-12.05.2026">
           <title>3.2.1 Week 5 – From classical descriptors to learned
-      representations</title>
+      representations (12.05.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Classical descriptors: Magpie, matminer.</p>
@@ -225,8 +225,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
           <p><bold>Exercise:</bold>
       Build a simple property predictor using classical descriptors.</p>
         </sec>
-        <sec id="week-6-graph-based-crystal-representations">
-          <title>3.2.2 Week 6 – Graph-based crystal representations</title>
+        <sec id="week-6-graph-based-crystal-representations-19.05.2026">
+          <title>3.2.2 Week 6 – Graph-based crystal representations
+      (19.05.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Crystals as graphs: nodes, edges, periodic boundary
@@ -243,8 +244,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       Construct and visualize graph representations of crystal
       structures.</p>
         </sec>
-        <sec id="week-7-local-atomic-environments">
-          <title>3.2.3 Week 7 – Local atomic environments</title>
+        <sec id="week-7-local-atomic-environments-26.05.2026">
+          <title>3.2.3 Week 7 – Local atomic environments
+      (26.05.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Local vs global representations.</p>
@@ -265,9 +267,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       <sec id="unit-iii-learning-structureproperty-relations-weeks-810">
         <title>3.3 Unit III — Learning Structure–Property Relations (Weeks
     8–10)</title>
-        <sec id="week-8-regression-and-generalization-in-materials-data">
+        <sec id="week-8-regression-and-generalization-in-materials-data-02.06.2026">
           <title>3.3.1 Week 8 – Regression and generalization in materials
-      data</title>
+      data (02.06.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Predicting bandgaps, elastic moduli, formation
@@ -283,9 +285,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
           <p><bold>Exercise:</bold>
       Compare linear, random forest, and neural network regressors.</p>
         </sec>
-        <sec id="week-9-neural-networks-for-materials-properties">
-          <title>3.3.2 Week 9 – Neural networks for materials
-      properties</title>
+        <sec id="week-9-neural-networks-for-materials-properties-09.06.2026">
+          <title>3.3.2 Week 9 – Neural networks for materials properties
+      (09.06.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Neural networks as surrogates for DFT-level properties.</p>
@@ -302,9 +304,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       Train a small neural network and analyze generalization
       behavior.</p>
         </sec>
-        <sec id="week-10-representation-learning-and-feature-discovery">
+        <sec id="week-10-representation-learning-and-feature-discovery-16.06.2026">
           <title>3.3.3 Week 10 – Representation learning and feature
-      discovery</title>
+      discovery (16.06.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Learned vs engineered features.</p>
@@ -324,8 +326,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       <sec id="unit-iv-latent-spaces-uncertainty-and-discovery-weeks-1113">
         <title>3.4 Unit IV — Latent Spaces, Uncertainty, and Discovery
     (Weeks 11–13)</title>
-        <sec id="week-11-latent-spaces-of-materials">
-          <title>3.4.1 Week 11 – Latent spaces of materials</title>
+        <sec id="week-11-latent-spaces-of-materials-23.06.2026">
+          <title>3.4.1 Week 11 – Latent spaces of materials
+      (23.06.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Autoencoders and embeddings for crystal data.</p>
@@ -357,9 +360,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
           <p><bold>Exercise:</bold>
       Contrast clustering results with latent-space exploration.</p>
         </sec>
-        <sec id="week-13-uncertainty-aware-discovery-and-gaussian-processes">
+        <sec id="week-13-uncertainty-aware-discovery-and-gaussian-processes-07.07.2026">
           <title>3.4.3 Week 13 – Uncertainty-aware discovery and Gaussian
-      Processes</title>
+      Processes (07.07.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Gaussian Process regression as a gold standard for
@@ -380,9 +383,9 @@ uncertainty-aware models enable accelerated materials discovery.</p>
       <sec id="unit-v-constraints-trust-and-synthesis-week-14">
         <title>3.5 Unit V — Constraints, Trust, and Synthesis (Week
     14)</title>
-        <sec id="week-14-physical-constraints-limits-and-outlook">
-          <title>3.5.1 Week 14 – Physical constraints, limits, and
-      outlook</title>
+        <sec id="week-14-physical-constraints-limits-and-outlook-14.07.2026">
+          <title>3.5.1 Week 14 – Physical constraints, limits, and outlook
+      (14.07.2026)</title>
           <list list-type="bullet">
             <list-item>
               <p>Stability, charge neutrality, and symmetry constraints.</p>
