@@ -22,6 +22,31 @@ bibliography: references.bib
 number-sections: true
 jupyter: python3
 ---
+<<<<<<< Updated upstream
+=======
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+[![](images/eclipse_header.png){width=300}](https://pelzlab.science)
+:::
+
+::: {.column width="25%"}
+[![](images/github.jpeg){width=120}](https://github.com/ECLIPSE-Lab/MaterialsGenomics)
+
+**Github Code**
+:::
+
+::: {.column width="25%"}
+[![](images/studon.jpeg){width=120}](https://www.studon.fau.de/)
+
+**Studon Link**
+:::
+
+::::
+
+>>>>>>> Stashed changes
 ## Course Information
 
 **5th Semester – 5 ECTS · 2h lecture**  

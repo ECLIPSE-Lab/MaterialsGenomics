@@ -6,6 +6,10 @@ execute:
 
 format:
   html:
+    css: styles.css
+    fontsize: 14pt
+    email-obfuscation: javascript
+    theme: darkly
     toc: true
     comments:
       hypothesis: true
