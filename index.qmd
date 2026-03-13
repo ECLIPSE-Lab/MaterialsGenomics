@@ -4,6 +4,7 @@ subtitle: Computational Materials Discovery
 author:
   - name: Philipp Pelz
     corresponding: true
+  - name: Stefan Hiemer
 keywords:
   - Materials Science
   - Machine Learning
@@ -22,9 +23,6 @@ bibliography: references.bib
 number-sections: true
 jupyter: python3
 ---
-<<<<<<< Updated upstream
-=======
-
 
 :::: {.columns}
 
@@ -45,8 +43,11 @@ jupyter: python3
 :::
 
 ::::
+## Instructors
 
->>>>>>> Stashed changes
+- Philipp Pelz
+- Stefan Hiemer
+
 ## Course Information
 
 **5th Semester – 5 ECTS · 2h lecture**  
