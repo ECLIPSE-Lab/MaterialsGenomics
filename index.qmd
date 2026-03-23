@@ -103,6 +103,7 @@ jupyter: python3
     <a href="https://www.studon.fau.de/" class="btn btn-primary">StudOn</a>
     <a href="https://github.com/ECLIPSE-Lab/MaterialsGenomics" class="btn btn-outline-secondary">GitHub / Materials</a>
     <a href="https://pelzlab.science/teaching.html" class="btn btn-outline-secondary">All Teaching</a>
+    <a href="https://www.mat.studium.fau.de/studiengaenge/neu-ki-materialtechnologie/" class="btn btn-outline-secondary">KI in Materialtechnologie</a>
   </div>
 </div>
 <div class="course-guide">
@@ -145,6 +146,11 @@ The course explicitly **builds on MFML**:
 ---
 
 ## Week-by-Week Curriculum (14 weeks)
+
+::: {.callout-note appearance="simple"}
+### Teaching responsibility
+Weeks **2, 3, 4, and 6** of Materials Genomics will be taught by **Stefan Hiemer**.
+:::
 
 ### Unit I — Where Materials Data Comes From (Weeks 1–4)
 
