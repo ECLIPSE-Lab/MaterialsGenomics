@@ -10,3 +10,8 @@
 /.luarc.json
 
 **/*.quarto_ipynb
+AGENT_INSTRUCTIONS.md
+.agents/
+.agent/
+_agents/
+_agent/
