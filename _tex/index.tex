@@ -65,6 +65,7 @@
 
 
 \usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
 \usepackage{etoolbox}
@@ -155,7 +156,7 @@
 \urlstyle{same}
 \hypersetup{
   pdftitle={Materials Genomics},
-  pdfauthor={Philipp Pelz},
+  pdfauthor={Philipp Pelz; Stefan Hiemer},
   pdfkeywords={Materials Science, Machine Learning, Computational
 Materials Discovery, Materials Databases, Crystal Structure},
   colorlinks=true,
@@ -172,7 +173,7 @@ Materials Discovery, Materials Databases, Crystal Structure},
 \begin{document}
 \title{Materials Genomics}
 
-\authors{Philipp Pelz\affil{}}
+\authors{Philipp Pelz\affil{}, Stefan Hiemer\affil{}}
 
 \correspondingauthor{Philipp Pelz}{}
 
@@ -190,6 +191,26 @@ uncertainty-aware models enable accelerated materials discovery.
 
 
 
+
+\href{https://pelzlab.science}{\includegraphics[width=3.125in,height=\textheight,keepaspectratio]{images/eclipse_header.png}}
+
+\href{https://github.com/ECLIPSE-Lab/MaterialsGenomics}{\includegraphics[width=1.25in,height=\textheight,keepaspectratio]{images/github.jpeg}}
+
+\textbf{Github Code}
+
+\href{https://www.studon.fau.de/}{\includegraphics[width=1.25in,height=\textheight,keepaspectratio]{images/studon.jpeg}}
+
+\textbf{Studon Link}
+
+\section{Instructors}\label{instructors}
+
+\begin{itemize}
+\tightlist
+\item
+  Philipp Pelz
+\item
+  Stefan Hiemer
+\end{itemize}
 
 \section{Course Information}\label{course-information}
 
@@ -259,6 +280,13 @@ weeks)}\label{week-by-week-curriculum-14-weeks}
   NOMAD.
 \end{itemize}
 
+\textbf{Summary:} This opening lecture frames materials genomics as a
+search problem over composition and crystal-structure space rather than
+a static catalog of known materials. Students learn how databases,
+simulation outputs, and screening logic combine into a discovery
+workflow, and why uncertainty, provenance, and scientific validation are
+necessary from the start.
+
 \textbf{Exercise:}\\
 Explore Materials Project; query bandgaps, formation energies,
 symmetries.
@@ -283,14 +311,20 @@ symmetries.
     FEM: continuum fields (stress, strain).
   \item
     MD: trajectories, forces, diffusion.
-  \item
-    MC: thermodynamic sampling.
-  \item
-    DFT: energies, electronic structure.
   \end{itemize}
+\item
+  MC: thermodynamic sampling.
+\item
+  DFT: energies, electronic structure.
 \item
   Accuracy--cost--scale trade-offs and systematic biases.
 \end{itemize}
+
+\textbf{Summary:} This week introduces simulation methods as controlled
+data generators whose assumptions determine both the quality and the
+bias of downstream ML datasets. The core message is that FEM, MD, MC,
+and DFT do not just produce numbers; they define the representation,
+scale, and reliability of the materials-learning problem.
 
 \textbf{Exercise:}\\
 For selected materials properties, identify suitable simulation methods
@@ -316,6 +350,12 @@ MC)
   What quantities in materials databases come directly from simulations.
 \end{itemize}
 
+\textbf{Summary:} Students examine how DFT, MD, and MC contribute
+complementary atomistic and electronic observables to materials
+databases. The lecture emphasizes that energies, forces, band-related
+quantities, and thermodynamic averages are meaningful only together with
+the approximations and metadata that produced them.
+
 \textbf{Exercise:}\\
 Inspect Materials Project entries; identify simulation assumptions and
 derived quantities.
@@ -337,6 +377,13 @@ stability
 \item
   Why ``stable'' does not imply ``synthesizable''.
 \end{itemize}
+
+\textbf{Summary:} This lecture connects thermodynamic stability and
+continuum modeling to the ML representations used later in the course.
+Students learn why interpretable quantities such as formation energy,
+energy above hull, and constitutive response are useful targets, but
+also why stability, metastability, and synthesizability must not be
+conflated.
 
 \textbf{Exercise:}\\
 Analyze stability and simulated properties for a small materials system.
@@ -362,6 +409,12 @@ representations
   Motivation for representation learning.
 \end{itemize}
 
+\textbf{Summary:} This week introduces descriptor engineering as the
+first practical strategy for translating chemistry and structure into
+ML-ready feature vectors. Students see both the strengths of
+hand-crafted descriptors, especially interpretability, and the limits
+that motivate later learned representations.
+
 \textbf{Exercise:}\\
 Build a simple property predictor using classical descriptors.
 
@@ -380,6 +433,12 @@ Build a simple property predictor using classical descriptors.
   Relation to neural network concepts from MFML.
 \end{itemize}
 
+\textbf{Summary:} Students learn why graph representations are a natural
+match for periodic crystal data and how message passing turns local
+neighborhoods into property-relevant embeddings. The focus is on
+representational choices such as cutoffs, node and edge features, and
+invariances, not on architectural hype.
+
 \textbf{Exercise:}\\
 Construct and visualize graph representations of crystal structures.
 
@@ -397,6 +456,12 @@ Construct and visualize graph representations of crystal structures.
 \item
   SOAP descriptors as a bridge to learned representations.
 \end{itemize}
+
+\textbf{Summary:} This lecture focuses on local atomic environments as
+compact and physically meaningful descriptors of crystal structure.
+Coordination motifs, Voronoi constructions, and SOAP-like fingerprints
+are used to show how local geometry becomes a bridge between classical
+descriptors and richer learned representations.
 
 \textbf{Exercise:}\\
 Compute SOAP vectors and explore similarity in descriptor space.
@@ -419,6 +484,12 @@ Compute SOAP vectors and explore similarity in descriptor space.
   Dataset size vs model complexity.
 \end{itemize}
 
+\textbf{Summary:} This week reframes materials-property prediction as a
+generalization problem rather than a leaderboard problem. Students
+compare baseline regressors, grouped chemistry-aware validation schemes,
+and error metrics, and they learn why split design matters more than a
+small gain in test accuracy.
+
 \textbf{Exercise:}\\
 Compare linear, random forest, and neural network regressors.
 
@@ -437,6 +508,13 @@ Compare linear, random forest, and neural network regressors.
   Interpretability challenges.
 \end{itemize}
 
+\textbf{Summary:} Here neural networks are introduced as flexible
+surrogate models for nonlinear structure-property relationships under
+realistic data constraints. The lecture emphasizes optimization
+stability, regularization, and extrapolation failure modes, making clear
+that the main challenge is trustworthy use rather than raw expressive
+power.
+
 \textbf{Exercise:}\\
 Train a small neural network and analyze generalization behavior.
 
@@ -454,6 +532,12 @@ Train a small neural network and analyze generalization behavior.
 \item
   What networks learn about chemistry and structure.
 \end{itemize}
+
+\textbf{Summary:} Students examine how hidden representations can move
+beyond fixed descriptors and discover structure in materials datasets
+that is useful across tasks. The key question is not whether embeddings
+look clean, but whether they transfer, remain scientifically
+interpretable, and improve downstream prediction.
 
 \textbf{Exercise:}\\
 Compare model performance using raw descriptors vs learned embeddings.
@@ -476,6 +560,13 @@ Compare model performance using raw descriptors vs learned embeddings.
   Structure families and chemical intuition.
 \end{itemize}
 
+\textbf{Summary:} This lecture presents latent spaces as compressed
+coordinate systems for materials data, typically learned through
+autoencoders or related embedding models. Students learn how
+reconstruction, interpolation, and anomaly detection interact, and why
+visually smooth latent maps are not automatically scientifically
+meaningful.
+
 \textbf{Exercise:}\\
 Train an autoencoder; visualize latent materials space.
 
@@ -493,6 +584,12 @@ logic}\label{week-12-clustering-uncertainty-and-discovery-logic}
 \item
   Aleatoric vs epistemic uncertainty.
 \end{itemize}
+
+\textbf{Summary:} This week distinguishes exploratory structure in data
+from actual discovery logic. Clusters, outliers, and anomalies can guide
+attention, but students learn that credible candidate identification
+requires uncertainty estimates, validation logic, and a clear
+distinction between novelty, artifact, and noise.
 
 \textbf{Exercise:}\\
 Contrast clustering results with latent-space exploration.
@@ -512,6 +609,12 @@ Processes
 \item
   Relevance to materials acceleration platforms.
 \end{itemize}
+
+\textbf{Summary:} Students are introduced to Gaussian Processes as
+uncertainty-aware surrogate models that are especially valuable in
+small-data screening settings. The lecture connects posterior
+uncertainty to exploration-versus-exploitation decisions and compares
+GP-based screening logic with neural-network ensemble alternatives.
 
 \textbf{Exercise:}\\
 Compare GP regression and neural network ensembles for screening tasks.
@@ -535,6 +638,13 @@ Compare GP regression and neural network ensembles for screening tasks.
 \item
   Integration with experimental workflows.
 \end{itemize}
+
+\textbf{Summary:} The final lecture consolidates the course around
+scientific trust: physical constraints, explainability, reproducibility,
+and the limits of data-driven discovery. Students leave with a realistic
+view of how ML can accelerate materials research when it is embedded in
+experimental and simulation workflows rather than treated as a
+replacement for them.
 
 \textbf{Exercise:}\\
 Mini-project synthesis and presentation.
@@ -566,10 +676,6 @@ Students completing this course will be able to:
 \item
   Critically assess the limits of data-driven materials discovery.
 \end{itemize}
-
-\textsubscript{Source:
-\href{https://ECLIPSE-Lab.github.io/MaterialsGenomics/index.qmd.html}{Article
-Notebook}}
 
 
 
