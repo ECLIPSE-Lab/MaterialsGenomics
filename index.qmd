@@ -24,25 +24,92 @@ number-sections: true
 jupyter: python3
 ---
 
-:::: {.columns}
 
-::: {.column width="50%"}
-[![](images/eclipse_header.png){width=300}](https://pelzlab.science)
-:::
 
-::: {.column width="25%"}
-[![](images/github.jpeg){width=120}](https://github.com/ECLIPSE-Lab/MaterialsGenomics)
 
-**Github Code**
-:::
 
-::: {.column width="25%"}
-[![](images/studon.jpeg){width=120}](https://www.studon.fau.de/)
 
-**Studon Link**
-:::
+```{=html}
+<style>
+.course-hero {
+  background: rgba(20, 25, 40, 0.65);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 1.5rem;
+  margin: 1rem 0 2rem 0;
+  backdrop-filter: blur(10px);
+}
+.course-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+}
+.course-subtitle {
+  color: #cbd5e1;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.course-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  margin: 1rem 0 1.25rem 0;
+}
+.course-meta-item {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+}
+.course-meta-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #94a3b8;
+  margin-bottom: 0.2rem;
+}
+.course-meta-value { color: #f8fafc; }
+.course-actions { margin-top: 1rem; display:flex; gap:0.75rem; flex-wrap:wrap; }
+.course-guide {
+  background: rgba(20, 25, 40, 0.45);
+  border-left: 4px solid #3b82f6;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  margin: 1.25rem 0 2rem 0;
+}
+@media (max-width: 768px) {
+  .course-meta-grid { grid-template-columns: 1fr; }
+}
+</style>
+```
 
-::::
+
+```{=html}
+<div class="course-hero">
+  <div class="course-kicker">ECLIPSE Lab Teaching</div>
+  <h1>Materials Genomics</h1>
+  <p class="course-subtitle">Computational materials discovery through databases, simulation, structure representations, and machine learning.</p>
+  <div class="course-meta-grid">
+    <div class="course-meta-item"><div class="course-meta-label">Semester</div><div class="course-meta-value">Summer Semester 2026</div></div>
+    <div class="course-meta-item"><div class="course-meta-label">Format</div><div class="course-meta-value">2h lecture</div></div>
+    <div class="course-meta-item"><div class="course-meta-label">Credits</div><div class="course-meta-value">5 ECTS</div></div>
+    <div class="course-meta-item"><div class="course-meta-label">Audience</div><div class="course-meta-value">Students interested in materials discovery, simulation, and AI-driven design</div></div>
+    <div class="course-meta-item" style="grid-column: 1 / -1;"><div class="course-meta-label">Prerequisites</div><div class="course-meta-value">Helpful: Mathematical Foundations of AI & ML and basic materials science</div></div>
+  </div>
+  <div class="course-actions">
+    <a href="https://www.studon.fau.de/" class="btn btn-primary">StudOn</a>
+    <a href="https://github.com/ECLIPSE-Lab/MaterialsGenomics" class="btn btn-outline-secondary">GitHub / Materials</a>
+    <a href="https://pelzlab.science/teaching.html" class="btn btn-outline-secondary">All Teaching</a>
+  </div>
+</div>
+<div class="course-guide">
+  <strong>How to use this course site.</strong> Use this page as the central hub for syllabus, lecture structure, reading, notebooks, and course materials. Formal announcements and enrollment remain on StudOn; code and openly shared resources live in the linked GitHub repository.
+</div>
+```
+
 ## Instructors
 
 - Philipp Pelz
