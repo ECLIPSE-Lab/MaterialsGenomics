@@ -156,19 +156,25 @@ Weeks **2, 3, 4, and 6** of Materials Genomics will be taught by **Stefan Hiemer
 
 #### Week 1 – What is Materials Genomics? (14.04.2026)
 
-- Genomics analogy: genes → functions vs atoms → properties.
-- Structure–property–processing paradigm from a *structure-first* viewpoint.
-- Materials databases as design spaces: Materials Project, OQMD, AFLOW, NOMAD.
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/01_intro/01_intro.html)
+
+- Why the data backbone of materials genomics is ultimately quantum: bulk properties originate at atomic scales and are encoded in simulation methods (DFT, MD) that presuppose QM.
+- Failures of classical physics: blackbody radiation and the UV catastrophe, photoelectric effect, Compton scattering, Taylor's feeble-light double slit.
+- Evolution of atomic models: Thomson → Rutherford → Bohr; de Broglie matter waves; Davisson–Germer diffraction; Stern-Gerlach and electron spin.
+- Schrödinger's equation, the hydrogen atom, Born's probabilistic interpretation of $|\psi|^2$.
+- Postulates of QM: Hilbert spaces, Hermitian operators, measurement outcomes as eigenvalues, bra-ket notation.
 
 **Summary:**
-This opening lecture frames materials genomics as a search problem over composition and crystal-structure space rather than a static catalog of known materials. Students learn how databases, simulation outputs, and screening logic combine into a discovery workflow, and why uncertainty, provenance, and scientific validation are necessary from the start.
+The opening lecture builds the quantum-mechanical foundation that all later simulation methods in this course (DFT, MD, electronic-structure descriptors) presuppose. It traces the historical arc from the hubris of late-19th-century classical physics through the experiments that forced quantization — blackbody radiation, the photoelectric effect, matter-wave diffraction, Stern-Gerlach — to Schrödinger's wave-mechanical eigenvalue problem and Born's probabilistic reading. The lecture closes with the operator/Hilbert-space postulates of QM that underpin every electronic-structure dataset students will later encounter in materials-genomics databases.
 
-**Exercise:**  
+**Exercise:**
 Explore Materials Project; query bandgaps, formation energies, symmetries.
 
 ---
 
 #### Week 2 – Simulation methods as data generators (21.04.2026)
+
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/02_simulation_methods_as_data_generators/01_intro.html)
 
 - Why simulations dominate materials data generation.
 - Simulation methods as mappings from assumptions to data.

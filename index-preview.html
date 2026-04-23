@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.10.0">
+    <meta name="generator" content="quarto-1.10.3">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
     <meta name="author" content="Philipp Pelz">
     <meta name="author" content="Stefan Hiemer">
-    <meta name="dcterms.date" content="2026-03-23">
+    <meta name="dcterms.date" content="2026-04-23">
     <meta name="keywords" content="Materials Science, Machine Learning, Computational Materials Discovery, Materials Databases, Crystal Structure">
 
     <title>Materials Genomics</title>
@@ -126,16 +126,16 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-630aa7aed19b34e3f1c420a16f036f79.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-fedc0afa5eed45b88079642ee2c6e752.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-e9547d1f4f0d48d26c67a2519ac5a86e.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-cf814142979c788ba0b05941e22f7da9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
      <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script>  
+</script>   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script> 
         <link rel="stylesheet" href="styles.css">
       <meta name="citation_title" content="Materials Genomics">
 <meta name="citation_abstract" content="This course introduces students to materials genomics, treating the periodic table
@@ -148,10 +148,10 @@ enable accelerated materials discovery.
 <meta name="citation_keywords" content="Materials Science,Machine Learning,Computational Materials Discovery,Materials Databases,Crystal Structure">
 <meta name="citation_author" content="Philipp Pelz">
 <meta name="citation_author" content="Stefan Hiemer">
-<meta name="citation_publication_date" content="2026-03-23">
-<meta name="citation_cover_date" content="2026-03-23">
+<meta name="citation_publication_date" content="2026-04-23">
+<meta name="citation_cover_date" content="2026-04-23">
 <meta name="citation_year" content="2026">
-<meta name="citation_online_date" content="2026-03-23">
+<meta name="citation_online_date" content="2026-04-23">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Strategies for the development of volcanic hazard maps in monogenetic volcanic fields: The example of La Palma (Canary Islands);,citation_author=José Marrero;,citation_author=Alicia García;,citation_author=Manuel Berrocoso;,citation_author=Ángeles Llinares;,citation_author=Antonio Rodríguez-Losada;,citation_author=R. Ortiz;,citation_publication_date=2019-07;,citation_cover_date=2019-07;,citation_year=2019;,citation_doi=10.1186/s13617-019-0085-5;,citation_volume=8;,citation_journal_title=Journal of Applied Volcanology;">
 </head>
@@ -189,7 +189,7 @@ enable accelerated materials discovery.
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">March 23, 2026</p>
+              <p class="date">April 23, 2026</p>
             </div>
           </div>
           
@@ -368,18 +368,21 @@ enable accelerated materials discovery.
 <h3 data-number="4.1" class="anchored" data-anchor-id="unit-i-where-materials-data-comes-from-weeks-14"><span class="header-section-number">4.1</span> Unit I — Where Materials Data Comes From (Weeks 1–4)</h3>
 <section id="week-1-what-is-materials-genomics-14.04.2026" class="level4" data-number="4.1.1">
 <h4 data-number="4.1.1" class="anchored" data-anchor-id="week-1-what-is-materials-genomics-14.04.2026"><span class="header-section-number">4.1.1</span> Week 1 – What is Materials Genomics? (14.04.2026)</h4>
+<p><strong>Slides:</strong> <a href="https://pelzlab.science/public_presentations/materials_genomics/01_intro/01_intro.html">Open</a></p>
 <ul>
-<li>Genomics analogy: genes → functions vs atoms → properties.</li>
-<li>Structure–property–processing paradigm from a <em>structure-first</em> viewpoint.</li>
-<li>Materials databases as design spaces: Materials Project, OQMD, AFLOW, NOMAD.</li>
+<li>Why the data backbone of materials genomics is ultimately quantum: bulk properties originate at atomic scales and are encoded in simulation methods (DFT, MD) that presuppose QM.</li>
+<li>Failures of classical physics: blackbody radiation and the UV catastrophe, photoelectric effect, Compton scattering, Taylor’s feeble-light double slit.</li>
+<li>Evolution of atomic models: Thomson → Rutherford → Bohr; de Broglie matter waves; Davisson–Germer diffraction; Stern-Gerlach and electron spin.</li>
+<li>Schrödinger’s equation, the hydrogen atom, Born’s probabilistic interpretation of <span class="math inline">\(|\psi|^2\)</span>.</li>
+<li>Postulates of QM: Hilbert spaces, Hermitian operators, measurement outcomes as eigenvalues, bra-ket notation.</li>
 </ul>
-<p><strong>Summary:</strong> This opening lecture frames materials genomics as a search problem over composition and crystal-structure space rather than a static catalog of known materials. Students learn how databases, simulation outputs, and screening logic combine into a discovery workflow, and why uncertainty, provenance, and scientific validation are necessary from the start.</p>
-<p><strong>Exercise:</strong><br>
-Explore Materials Project; query bandgaps, formation energies, symmetries.</p>
+<p><strong>Summary:</strong> The opening lecture builds the quantum-mechanical foundation that all later simulation methods in this course (DFT, MD, electronic-structure descriptors) presuppose. It traces the historical arc from the hubris of late-19th-century classical physics through the experiments that forced quantization — blackbody radiation, the photoelectric effect, matter-wave diffraction, Stern-Gerlach — to Schrödinger’s wave-mechanical eigenvalue problem and Born’s probabilistic reading. The lecture closes with the operator/Hilbert-space postulates of QM that underpin every electronic-structure dataset students will later encounter in materials-genomics databases.</p>
+<p><strong>Exercise:</strong> Explore Materials Project; query bandgaps, formation energies, symmetries.</p>
 <hr>
 </section>
 <section id="week-2-simulation-methods-as-data-generators-21.04.2026" class="level4" data-number="4.1.2">
 <h4 data-number="4.1.2" class="anchored" data-anchor-id="week-2-simulation-methods-as-data-generators-21.04.2026"><span class="header-section-number">4.1.2</span> Week 2 – Simulation methods as data generators (21.04.2026)</h4>
+<p><strong>Slides:</strong> <a href="https://pelzlab.science/public_presentations/materials_genomics/02_simulation_methods_as_data_generators/01_intro.html">Open</a></p>
 <ul>
 <li>Why simulations dominate materials data generation.</li>
 <li>Simulation methods as mappings from assumptions to data.</li>
