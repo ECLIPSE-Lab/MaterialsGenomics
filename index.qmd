@@ -100,7 +100,7 @@ jupyter: python3
     <div class="course-meta-item" style="grid-column: 1 / -1;"><div class="course-meta-label">Prerequisites</div><div class="course-meta-value">Helpful: Mathematical Foundations of AI & ML and basic materials science</div></div>
   </div>
   <div class="course-actions">
-    <a href="https://www.studon.fau.de/" class="btn btn-primary">StudOn</a>
+    <a href="https://www.studon.fau.de/campo/course/538622" class="btn btn-primary">StudOn</a>
     <a href="https://github.com/ECLIPSE-Lab/MaterialsGenomics" class="btn btn-outline-secondary">GitHub / Materials</a>
     <a href="https://pelzlab.science/teaching.html" class="btn btn-outline-secondary">All Teaching</a>
     <a href="https://www.mat.studium.fau.de/studiengaenge/neu-ki-materialtechnologie/" class="btn btn-outline-secondary">KI in Materialtechnologie</a>
