@@ -172,57 +172,81 @@ Explore Materials Project; query bandgaps, formation energies, symmetries.
 
 ---
 
-#### Week 2 – Simulation methods as data generators (21.04.2026)
+#### Week 2 – QM postulates, solvable systems, multi-electron atoms (21.04.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/02_simulation_methods_as_data_generators/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/02_qm_postulates_and_atoms/01_intro.html)
 
-- Why simulations dominate materials data generation.
-- Simulation methods as mappings from assumptions to data.
-- Overview of scales and outputs:
-  - FEM: continuum fields (stress, strain).
-  - MD: trajectories, forces, diffusion.
-- MC: thermodynamic sampling.
-- DFT: energies, electronic structure.
-- Accuracy–cost–scale trade-offs and systematic biases.
+- Postulates 5–6: state collapse and Schrödinger time evolution
+- Operators and orthogonal decomposition; expectation values and variance
+- Approximation methods: **variational principle**, **perturbation theory**
+- Analytically solvable systems: free particle, harmonic oscillator (1D + $d$-dim), infinite / finite well
+- Multi-electron atoms: helium, indistinguishability, **Pauli antisymmetry**, exchange
+- Molecular Hamiltonian → **Born–Oppenheimer** → Hartree product → **Slater determinants** → **LCAO**
 
 **Summary:**
-This week introduces simulation methods as controlled data generators whose assumptions determine both the quality and the bias of downstream ML datasets. The core message is that FEM, MD, MC, and DFT do not just produce numbers; they define the representation, scale, and reliability of the materials-learning problem.
 
-**Exercise:**  
-For selected materials properties, identify suitable simulation methods and expected biases.
+- Closes the QM theory introduced in Unit 1 (operators, Hamiltonian formalism, postulates 5–6)
+- Approximation toolkit that every later quantum-chemistry method relies on
+- Walks through every analytically solvable system as a sanity check
+- Pivots from one-electron to many-electron physics: exchange, Slater determinants
+- Sets up the molecular electronic-structure problem and the LCAO ansatz used in Week 3
+
+**Exercise:**
+Solve the 1D harmonic oscillator with ladder operators; compute expectation values and verify orthogonality.
 
 ---
 
-#### Week 3 – Atomistic and electronic simulations (DFT, MD, MC) (28.04.2026)
+#### Week 3 – Quantum chemistry methods (HF, MP, CC, DFT) (28.04.2026)
 
-- Density Functional Theory:
-  ground-state bias, exchange–correlation functionals, consistency vs accuracy.
-- Molecular Dynamics:
-  force fields, time averaging, limitations of timescales.
-- Monte Carlo:
-  phase-space sampling and thermodynamic averages.
-- What quantities in materials databases come directly from simulations.
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/03_quantum_chemistry_methods/01_intro.html)
+
+- Basis sets: **Slater-** vs **Gaussian-type orbitals**; STO-nG, 6-31G(d), cc-pVnZ; basis-set superposition error
+- **Hartree–Fock**: SCF cycle, Roothaan-Hall equations, restricted vs unrestricted
+- What HF misses: **electron correlation**
+- **Møller–Plesset** perturbation theory (MP2, MPn)
+- **Coupled cluster** (CCSD, CCSD(T)) — the gold standard for small molecules
+- **Density Functional Theory**: Hohenberg–Kohn theorems, Kohn–Sham equations
+- Exchange-correlation functionals: **LDA → GGA → hybrid → double-hybrid** (Jacob's ladder)
+- Cost vs accuracy hierarchy; choosing a method for materials databases
 
 **Summary:**
-Students examine how DFT, MD, and MC contribute complementary atomistic and electronic observables to materials databases. The lecture emphasizes that energies, forces, band-related quantities, and thermodynamic averages are meaningful only together with the approximations and metadata that produced them.
 
-**Exercise:**  
-Inspect Materials Project entries; identify simulation assumptions and derived quantities.
+- Numerical methods for solving the multi-electron Schrödinger equation set up in Week 2
+- Orbital basis sets and what makes a basis "good"
+- Hartree–Fock as the entry-level method; correlation as the missing ingredient
+- Post-HF (MP, CC) as systematic correlation hierarchies
+- DFT as the workhorse for periodic / large systems; the XC-functional ladder
+- Method-vs-cost decision logic — Materials Project and OQMD use mostly GGA-DFT
+
+**Exercise:**
+Compare HF, MP2, and DFT (LDA/GGA/B3LYP) energies on H$_2$ / H$_2$O; observe correlation contribution and basis-set convergence.
 
 ---
 
-#### Week 4 – Continuum simulations, thermodynamics, and stability (05.05.2026)
+#### Week 4 – Thermodynamics, statistical mechanics & classical atomistic simulation (05.05.2026)
 
-- FEM as a structure–property mapping at the continuum scale.
-- Constitutive models as implicit surrogates.
-- Formation energies, convex hulls, metastability.
-- Why “stable” does not imply “synthesizable”.
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/04_thermodynamics_and_atomistic_simulation/01_intro.html)
+
+- Macroscopic thermodynamics: state variables, four laws, free energies $U$, $H$, $F$, $G$
+- Ideal gas: empirical (Boyle, Charles, Avogadro) → equipartition → **Maxwell–Boltzmann** distribution
+- Statistical mechanics: microstates, ensembles (NVE, NVT, NPT, $\mu$VT), **Boltzmann distribution**, partition function $Z$
+- Interatomic potentials: pair (LJ, Morse), **EAM** for metals, bond-order (Tersoff, REBO, ReaxFF)
+- Brief preview: ML force fields (Behler–Parrinello, GAP, NequIP, MACE)
+- **Static simulations**: energy minimization (steepest descent, conjugate gradient, FIRE)
+- **Molecular Dynamics**: Verlet integrator, thermostats (Nosé–Hoover, Langevin), barostats, periodic BCs, RDF / MSD / diffusion
+- **Monte Carlo**: Metropolis, importance sampling, when MC > MD
 
 **Summary:**
-This lecture connects thermodynamic stability and continuum modeling to the ML representations used later in the course. Students learn why interpretable quantities such as formation energy, energy above hull, and constitutive response are useful targets, but also why stability, metastability, and synthesizability must not be conflated.
 
-**Exercise:**  
-Analyze stability and simulated properties for a small materials system.
+- Pivots from electronic-structure (Weeks 1–3) to finite-temperature physics
+- Thermodynamics framework: state variables, free energies, equilibrium concepts
+- Statistical mechanics: ensembles, partition function, Boltzmann distribution
+- Classical atomistic simulation as the bridge from QM to materials-scale data
+- MD for time-dependent observables; MC for equilibrium properties
+- Foundation for force-field-based ML; full coverage of ML potentials in MG U6
+
+**Exercise:**
+Run a small MD simulation in an NVT ensemble; compute the radial distribution function and self-diffusion coefficient.
 
 ---
 
