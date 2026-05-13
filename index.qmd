@@ -154,7 +154,7 @@ The course explicitly **builds on MFML**:
 Weeks **2, 3, 4, and 6** of Materials Genomics will be taught by **Stefan Hiemer**.
 :::
 
-### Unit I — Where Materials Data Comes From (Weeks 1–4)
+### Unit I — Where Materials Data Comes From (Weeks 1–5)
 
 #### Week 1 – What is Materials Genomics? (14.04.2026)
 
@@ -236,7 +236,6 @@ Compare HF, MP2, and DFT (LDA/GGA/B3LYP) energies on H$_2$ / H$_2$O; observe cor
 - Brief preview: ML force fields (Behler–Parrinello, GAP, NequIP, MACE)
 - **Static simulations**: energy minimization (steepest descent, conjugate gradient, FIRE)
 - **Molecular Dynamics**: Verlet integrator, thermostats (Nosé–Hoover, Langevin), barostats, periodic BCs, RDF / MSD / diffusion
-- **Monte Carlo**: Metropolis, importance sampling, when MC > MD
 
 **Summary:**
 
@@ -244,165 +243,165 @@ Compare HF, MP2, and DFT (LDA/GGA/B3LYP) energies on H$_2$ / H$_2$O; observe cor
 - Thermodynamics framework: state variables, free energies, equilibrium concepts
 - Statistical mechanics: ensembles, partition function, Boltzmann distribution
 - Classical atomistic simulation as the bridge from QM to materials-scale data
-- MD for time-dependent observables; MC for equilibrium properties
-- Foundation for force-field-based ML; full coverage of ML potentials in MG U6
+- MD for time-dependent observables; the Monte Carlo counterpart follows in Week 5
 
 **Exercise:**
 Run a small MD simulation in an NVT ensemble; compute the radial distribution function and self-diffusion coefficient.
 
 ---
 
-### Unit II — Representations of Materials (Weeks 5–7)
+#### Week 5 – Monte Carlo sampling & continuum mechanics (12.05.2026)
+
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/05_monte_carlo_and_continuum/01_intro.html)
+
+- **Monte Carlo**: importance sampling, Markov chains, detailed balance, Metropolis algorithm, ergodicity diagnostics
+- MC move catalogue (displacement, swap, volume, insertion/removal, hybrid MC); ensembles beyond NVT
+- MC vs MD comparison; kinetic Monte Carlo as a brief outlook
+- **Continuum mechanics**: 1D balance law, transient continuity equation, constitutive relations (Fick, Fourier, Darcy), isotropy/anisotropy
+- **Finite Difference Method**: Taylor stencils, forward/backward/central differences, 1D Laplace example, BCs, CFL stability
+- **Finite Element / Finite Volume methods**: weak form, shape functions, divergence-theorem flux balance — when and why to use them
+- Where ML plugs in: neural samplers, neural PDE solvers, MLIP-powered MD/MC
+
+**Summary:**
+This lecture closes the simulation half of MG. Monte Carlo joins MD as the second standard sampler of the Boltzmann distribution and unlocks species swaps, $\mu$VT, and barrier-crossing moves that MD cannot do. Continuum mechanics then jumps two scale rungs up: balance laws turn into PDEs, which we solve numerically through finite differences (with FEM and FV sketched as the production-grade alternatives). Together with Weeks 1–4, Unit I is now complete and the rest of the course builds on its data generators.
+
+**Exercise:**
+Implement a 1D Lennard-Jones Metropolis MC sampler; compare step sizes via acceptance rate and autocorrelation. Solve 1D steady-state diffusion with FDM and check against the analytic solution.
+
+---
+
+### Unit II — Representations of Materials (Weeks 6, 8)
 
 *(Aligned with early neural networks in MFML)*
 
-#### Week 5 – From classical descriptors to learned representations (12.05.2026)
-
-::: {.callout-note appearance="simple"}
-This week covers Magpie / matminer / RDF descriptors as the front-end of the **Local Atomic Environments** deck (used in Week 7). No standalone slide deck — see the early sections of the [Local Atomic Environments slides](https://pelzlab.science/public_presentations/materials_genomics/06_local_atomic_envs/01_intro.html).
-:::
-
-- Classical descriptors: Magpie, matminer.
-- Limits of hand-crafted features.
-- Motivation for representation learning.
-
-**Summary:**
-This week introduces descriptor engineering as the first practical strategy for translating chemistry and structure into ML-ready feature vectors. Students see both the strengths of hand-crafted descriptors, especially interpretability, and the limits that motivate later learned representations.
-
-**Exercise:**  
-Build a simple property predictor using classical descriptors.
-
----
-
 #### Week 6 – Graph-based crystal representations (19.05.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/05_graph_based_rep/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/06_graph_based_rep/01_intro.html)
 
-- Crystals as graphs: nodes, edges, periodic boundary conditions.
-- Intuition behind CGCNN and MEGNet.
-- Relation to neural network concepts from MFML.
+- Brief recap of classical descriptors (Magpie, matminer, RDF) as the historical front-end — 10–15 min motivation only
+- Crystals as graphs: nodes, edges, periodic boundary conditions
+- Message passing intuition; CGCNN, MEGNet, ALIGNN
+- Invariance and equivariance — the conceptual leap toward MACE / M3GNet (treated in Week 8)
 
 **Summary:**
-Students learn why graph representations are a natural match for periodic crystal data and how message passing turns local neighborhoods into property-relevant embeddings. The focus is on representational choices such as cutoffs, node and edge features, and invariances, not on architectural hype.
+Students learn why graph representations are the dominant ML interface to crystalline materials in 2025 and how the message-passing pattern turns local atomic neighbourhoods into property-relevant embeddings. Classical descriptors are revisited only as background — the lecture focuses on representational choices (cutoffs, node/edge features, equivariance) that determine downstream model behaviour.
 
-**Exercise:**  
-Construct and visualize graph representations of crystal structures.
+**Exercise:**
+Construct, visualise, and benchmark graph representations of crystal structures against a Magpie/random-forest baseline.
 
 ---
 
-#### Week 7 – Local atomic environments (26.05.2026)
+#### Week 7 – No lecture (26.05.2026, public holiday)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/06_local_atomic_envs/01_intro.html)
-
-- Local vs global representations.
-- Coordination environments, Voronoi tessellations.
-- SOAP descriptors as a bridge to learned representations.
-
-**Summary:**
-This lecture focuses on local atomic environments as compact and physically meaningful descriptors of crystal structure. Coordination motifs, Voronoi constructions, and SOAP-like fingerprints are used to show how local geometry becomes a bridge between classical descriptors and richer learned representations.
-
-**Exercise:**  
-Compute SOAP vectors and explore similarity in descriptor space.
+::: {.callout-warning appearance="simple"}
+**Cancelled** — no MG lecture takes place on 26.05.2026. Week 7's planned content (local atomic environments) is consolidated into Week 8.
+:::
 
 ---
 
-### Unit III — Learning Structure–Property Relations (Weeks 8–10)
+#### Week 8 – Local environments & universal ML force fields (02.06.2026)
 
-#### Week 8 – Regression and generalization in materials data (02.06.2026)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/07_local_atomic_envs/01_intro.html)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/07_regression_and_generalization_in_materials_data/01_intro.html)
+- Local atomic environments: coordination motifs, Voronoi tessellations, ACSF / SOAP fingerprints
+- Equivariance under rotations, translations, permutations — why it matters
+- From Behler–Parrinello and GAP to MACE, M3GNet, CHGNet, EquiformerV2
+- Universal MLIPs as foundation models for materials: MACE-MP-0, MatterSim, ORB
+- Plugging these surrogates back into the MD/MC engines from Week 5
 
-- Predicting bandgaps, elastic moduli, formation energies.
-- Bias–variance trade-off and overfitting.
-- Dataset size vs model complexity.
+**Summary:**
+Local-environment descriptors and universal ML interatomic potentials are treated as one continuous arc: SOAP / ACSF as the historical bridge, MACE-family equivariant message passing as the current state of the art. By the end students can describe how a single trained model now serves as a near-DFT-accuracy energy/force engine across most of the periodic table, and how that capability reshapes the high-throughput simulation pipeline.
+
+**Exercise:**
+Compute SOAP vectors on a small dataset; run a MACE-MP-0 single-point energy and force evaluation and contrast accuracy / runtime with DFT.
+
+---
+
+### Unit III — Learning Structure–Property Relations (Weeks 9–10)
+
+#### Week 9 – Regression and generalization in materials data (09.06.2026)
+
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/08_regression_and_generalization_in_materials_data/01_intro.html)
+
+- Predicting bandgaps, elastic moduli, formation energies
+- Bias–variance trade-off; composition vs structure splits; chemical-space leakage
+- Out-of-distribution detection and OOD-aware metrics
+- Dataset size vs model complexity; matbench-style protocols
 
 **Summary:**
 This week reframes materials-property prediction as a generalization problem rather than a leaderboard problem. Students compare baseline regressors, grouped chemistry-aware validation schemes, and error metrics, and they learn why split design matters more than a small gain in test accuracy.
 
-**Exercise:**  
-Compare linear, random forest, and neural network regressors.
+**Exercise:**
+Compare linear, random-forest, and graph-neural-network regressors under composition-aware splits.
 
 ---
 
-#### Week 9 – Neural networks for materials properties (09.06.2026)
+#### Week 10 – Neural networks for materials properties (16.06.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/08_neural_networks_for_materials_properties/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/09_neural_networks_for_materials_properties/01_intro.html)
 
-- Neural networks as surrogates for DFT-level properties.
-- Training pitfalls: data leakage, imbalance, extrapolation.
-- Interpretability challenges.
+- Neural networks as surrogates for DFT-level properties
+- Training pitfalls: data leakage, imbalance, extrapolation
+- Transfer learning and scaling laws in materials NNs
+- Interpretability challenges
 
 **Summary:**
-Here neural networks are introduced as flexible surrogate models for nonlinear structure-property relationships under realistic data constraints. The lecture emphasizes optimization stability, regularization, and extrapolation failure modes, making clear that the main challenge is trustworthy use rather than raw expressive power.
+Neural networks are introduced as flexible surrogate models for non-linear structure–property relationships under realistic data constraints. The lecture emphasises optimization stability, regularization, and extrapolation failure modes — the main challenge is trustworthy use rather than raw expressive power.
 
-**Exercise:**  
-Train a small neural network and analyze generalization behavior.
+**Exercise:**
+Train a small neural network and analyse its generalization behaviour, with and without pre-training transfer.
 
 ---
 
-#### Week 10 – Representation learning and feature discovery (16.06.2026)
+### Unit IV — Latent Spaces, Generative Models, Uncertainty (Weeks 11–13)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/09_representation_learning_and_feature_discovery/01_intro.html)
+#### Week 11 – Representation learning & latent spaces (23.06.2026)
 
-- Learned vs engineered features.
-- Transferability across chemical systems.
-- What networks learn about chemistry and structure.
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/10_representation_learning_and_feature_discovery/01_intro.html) · also incorporates content from [Latent Spaces deck](https://pelzlab.science/public_presentations/materials_genomics/11_latent_spaces_of_materials/01_intro.html)
+
+- Learned vs engineered features; transferability across chemical systems
+- Autoencoders, VAEs, contrastive embeddings
+- Latent geometry, anomaly detection, interpolation; what networks learn about chemistry and structure
 
 **Summary:**
-Students examine how hidden representations can move beyond fixed descriptors and discover structure in materials datasets that is useful across tasks. The key question is not whether embeddings look clean, but whether they transfer, remain scientifically interpretable, and improve downstream prediction.
+This merged session covers representation learning end-to-end: from autoencoders and contrastive losses to the latent-space *use cases* (interpolation, anomaly detection, transferability auditing) that motivate them. Students examine when smooth latent maps are scientifically meaningful and when they are just a UX artefact.
 
-**Exercise:**  
-Compare model performance using raw descriptors vs learned embeddings.
+**Exercise:**
+Train an autoencoder; compare raw-descriptor vs learned-embedding downstream regression performance and inspect latent structure.
 
 ---
 
-### Unit IV — Latent Spaces, Uncertainty, and Discovery (Weeks 11–13)
+#### Week 12 – Generative models & inverse design (30.06.2026)
 
-#### Week 11 – Latent spaces of materials (23.06.2026)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/12_generative_models_and_inverse_design/01_intro.html)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/10_latent_spaces_of_materials/01_intro.html)
-
-- Autoencoders and embeddings for crystal data.
-- Interpreting latent dimensions.
-- Structure families and chemical intuition.
+- Why generative models for crystals: from forward prediction to inverse design
+- Diffusion-based methods (MatterGen, DiffCSP, CDVAE), flow matching (FlowMM), autoregressive (CrystaLLM)
+- Conditioning on properties, symmetries, and synthesis constraints
+- Evaluation: validity, novelty, uniqueness, S.U.N. metric, downstream DFT screening
 
 **Summary:**
-This lecture presents latent spaces as compressed coordinate systems for materials data, typically learned through autoencoders or related embedding models. Students learn how reconstruction, interpolation, and anomaly detection interact, and why visually smooth latent maps are not automatically scientifically meaningful.
+Generative crystal models are the headline development of 2023–2025 in materials genomics. The lecture introduces the dominant families (diffusion, flow matching, autoregressive), how property and constraint conditioning are imposed, and how candidate structures are filtered downstream by force-field relaxation and DFT screening.
 
-**Exercise:**  
-Train an autoencoder; visualize latent materials space.
+**Exercise:**
+Sample candidate structures from a pretrained generative model conditioned on a target property; rank with a MACE-MP-0 relaxation and an uncertainty estimate.
 
 ---
 
-#### Week 12 – Clustering, uncertainty, and discovery logic
+#### Week 13 – Uncertainty-aware discovery & active learning (07.07.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/11_clustering_vs_discovery_in_materials_spaces/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/13_uncertainty_aware_discovery_and_gaussian_processes/01_intro.html)
 
-- Why clustering is not discovery.
-- Outliers, anomalies, and candidate identification.
-- Aleatoric vs epistemic uncertainty.
-
-**Summary:**
-This week distinguishes exploratory structure in data from actual discovery logic. Clusters, outliers, and anomalies can guide attention, but students learn that credible candidate identification requires uncertainty estimates, validation logic, and a clear distinction between novelty, artifact, and noise.
-
-**Exercise:**  
-Contrast clustering results with latent-space exploration.
-
----
-
-#### Week 13 – Uncertainty-aware discovery and Gaussian Processes (07.07.2026)
-
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/12_uncertainty_aware_discovery_and_gaussian_processes/01_intro.html)
-
-- Gaussian Process regression as a gold standard for uncertainty.
-- Exploration vs exploitation.
-- Relevance to materials acceleration platforms.
+- Aleatoric vs epistemic uncertainty; calibration
+- Gaussian Processes as the small-data gold standard; deep ensembles and evidential learning at scale
+- Active learning loops for materials screening; exploration vs exploitation
+- Cluster-based attention and outlier triage (the old "clustering" thread, compressed)
 
 **Summary:**
-Students are introduced to Gaussian Processes as uncertainty-aware surrogate models that are especially valuable in small-data screening settings. The lecture connects posterior uncertainty to exploration-versus-exploitation decisions and compares GP-based screening logic with neural-network ensemble alternatives.
+Students learn how uncertainty quantification turns a static surrogate into an active discovery engine. GPs remain the small-data reference; deep ensembles and evidential heads dominate at production scale. The lecture closes the discovery loop started in Weeks 6–12: representation → model → uncertainty → next experiment.
 
-**Exercise:**  
-Compare GP regression and neural network ensembles for screening tasks.
+**Exercise:**
+Run a small active-learning loop on a screening task. Compare GP, deep-ensemble, and random-baseline acquisition strategies.
 
 ---
 
@@ -410,7 +409,7 @@ Compare GP regression and neural network ensembles for screening tasks.
 
 #### Week 14 – Physical constraints, limits, and outlook (14.07.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/13_constraints_trust_and_integration_outlook/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/14_constraints_trust_and_integration_outlook/01_intro.html)
 
 - Stability, charge neutrality, and symmetry constraints.
 - Physics-informed learning in materials discovery.
