@@ -15,3 +15,6 @@ AGENT_INSTRUCTIONS.md
 .agent/
 _agents/
 _agent/
+
+# Per-notebook student artifacts (regenerated on execution)
+notebooks/results.csv
