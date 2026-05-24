@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.10.3">
+    <meta name="generator" content="quarto-1.10.5">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
     <meta name="author" content="Philipp Pelz">
     <meta name="author" content="Stefan Hiemer">
-    <meta name="dcterms.date" content="2026-05-13">
+    <meta name="dcterms.date" content="2026-05-24">
     <meta name="keywords" content="Materials Science, Machine Learning, Computational Materials Discovery, Materials Databases, Crystal Structure">
 
     <title>Materials Genomics</title>
@@ -126,10 +126,10 @@
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-fedc0afa5eed45b88079642ee2c6e752.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-cc03a45504bcebdf2e36fbb04c837120.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-58678528f02177bed1400fe3ccbb0fa7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-99531da96f133e8d6986ee8266cfdc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
      <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
@@ -148,10 +148,10 @@ enable accelerated materials discovery.
 <meta name="citation_keywords" content="Materials Science,Machine Learning,Computational Materials Discovery,Materials Databases,Crystal Structure">
 <meta name="citation_author" content="Philipp Pelz">
 <meta name="citation_author" content="Stefan Hiemer">
-<meta name="citation_publication_date" content="2026-05-13">
-<meta name="citation_cover_date" content="2026-05-13">
+<meta name="citation_publication_date" content="2026-05-24">
+<meta name="citation_cover_date" content="2026-05-24">
 <meta name="citation_year" content="2026">
-<meta name="citation_online_date" content="2026-05-13">
+<meta name="citation_online_date" content="2026-05-24">
 <meta name="citation_language" content="en">
 <meta name="citation_reference" content="citation_title=Strategies for the development of volcanic hazard maps in monogenetic volcanic fields: The example of La Palma (Canary Islands);,citation_author=José Marrero;,citation_author=Alicia García;,citation_author=Manuel Berrocoso;,citation_author=Ángeles Llinares;,citation_author=Antonio Rodríguez-Losada;,citation_author=R. Ortiz;,citation_publication_date=2019-07;,citation_cover_date=2019-07;,citation_year=2019;,citation_doi=10.1186/s13617-019-0085-5;,citation_volume=8;,citation_journal_title=Journal of Applied Volcanology;">
 </head>
@@ -189,7 +189,7 @@ enable accelerated materials discovery.
                 <div>
             <div class="quarto-title-meta-heading">Published</div>
             <div class="quarto-title-meta-contents">
-              <p class="date">May 13, 2026</p>
+              <p class="date">May 24, 2026</p>
             </div>
           </div>
           
@@ -472,17 +472,19 @@ enable accelerated materials discovery.
 <section id="unit-ii-representations-of-materials-weeks-6-8" class="level3" data-number="4.2">
 <h3 data-number="4.2" class="anchored" data-anchor-id="unit-ii-representations-of-materials-weeks-6-8"><span class="header-section-number">4.2</span> Unit II — Representations of Materials (Weeks 6, 8)</h3>
 <p><em>(Aligned with early neural networks in MFML)</em></p>
-<section id="week-6-graph-based-crystal-representations-19.05.2026" class="level4" data-number="4.2.1">
-<h4 data-number="4.2.1" class="anchored" data-anchor-id="week-6-graph-based-crystal-representations-19.05.2026"><span class="header-section-number">4.2.1</span> Week 6 – Graph-based crystal representations (19.05.2026)</h4>
-<p><strong>Slides:</strong> <a href="https://pelzlab.science/public_presentations/materials_genomics/06_graph_based_rep/01_intro.html">Open</a></p>
+<section id="week-6-local-environments-universal-ml-force-fields-19.05.2026" class="level4" data-number="4.2.1">
+<h4 data-number="4.2.1" class="anchored" data-anchor-id="week-6-local-environments-universal-ml-force-fields-19.05.2026"><span class="header-section-number">4.2.1</span> Week 6 – Local environments &amp; universal ML force fields (19.05.2026)</h4>
+<p><strong>Slides:</strong> <a href="https://pelzlab.science/public_presentations/materials_genomics/06_local_atomic_envs/01_intro.html">Open</a></p>
 <ul>
-<li>Brief recap of classical descriptors (Magpie, matminer, RDF) as the historical front-end — 10–15 min motivation only</li>
-<li>Crystals as graphs: nodes, edges, periodic boundary conditions</li>
-<li>Message passing intuition; CGCNN, MEGNet, ALIGNN</li>
-<li>Invariance and equivariance — the conceptual leap toward MACE / M3GNet (treated in Week 8)</li>
+<li>Brief recap of classical descriptors (Magpie, matminer, RDF, coordination/Voronoi/CrystalNN) as the historical front-end — the descriptor ladder</li>
+<li>Local atomic environments: cutoffs, periodic images, the invariance discipline</li>
+<li>ACSF / SOAP fingerprints — rotation/translation/permutation-invariant local descriptors</li>
+<li>From Behler–Parrinello and GAP to MACE, M3GNet, CHGNet, EquiformerV2</li>
+<li>Universal MLIPs as foundation models for materials: MACE-MP-0, MatterSim, ORB</li>
+<li>Plugging these surrogates back into the MD/MC engines from Week 5</li>
 </ul>
-<p><strong>Summary:</strong> Students learn why graph representations are the dominant ML interface to crystalline materials in 2025 and how the message-passing pattern turns local atomic neighbourhoods into property-relevant embeddings. Classical descriptors are revisited only as background — the lecture focuses on representational choices (cutoffs, node/edge features, equivariance) that determine downstream model behaviour.</p>
-<p><strong>Exercise:</strong> Construct, visualise, and benchmark graph representations of crystal structures against a Magpie/random-forest baseline.</p>
+<p><strong>Summary:</strong> Local-environment descriptors and universal ML interatomic potentials are treated as one continuous arc: the classical descriptor ladder and SOAP / ACSF as the historical bridge, MACE-family equivariant message passing as the current state of the art. By the end students can describe how a single trained model now serves as a near-DFT-accuracy energy/force engine across most of the periodic table, and how that capability reshapes the high-throughput simulation pipeline.</p>
+<p><strong>Exercise:</strong> Compute SOAP vectors on a small dataset; run a MACE-MP-0 single-point energy and force evaluation and contrast accuracy / runtime with DFT.</p>
 <hr>
 </section>
 <section id="week-7-no-lecture-26.05.2026-public-holiday" class="level4" data-number="4.2.2">
@@ -493,24 +495,23 @@ enable accelerated materials discovery.
 <i class="callout-icon"></i>
 </div>
 <div class="callout-body-container">
-<p><strong>Cancelled</strong> — no MG lecture takes place on 26.05.2026. Week 7’s planned content (local atomic environments) is consolidated into Week 8.</p>
+<p><strong>Cancelled</strong> — no MG lecture takes place on 26.05.2026 (public holiday). The 14-unit arc is delivered in 13 sessions; see Weeks 6 and 8 for the surrounding representation/MLIP and graph material.</p>
 </div>
 </div>
 </div>
 <hr>
 </section>
-<section id="week-8-local-environments-universal-ml-force-fields-02.06.2026" class="level4" data-number="4.2.3">
-<h4 data-number="4.2.3" class="anchored" data-anchor-id="week-8-local-environments-universal-ml-force-fields-02.06.2026"><span class="header-section-number">4.2.3</span> Week 8 – Local environments &amp; universal ML force fields (02.06.2026)</h4>
-<p><strong>Slides:</strong> <a href="https://pelzlab.science/public_presentations/materials_genomics/07_local_atomic_envs/01_intro.html">Open</a></p>
+<section id="week-8-graph-based-crystal-representations-02.06.2026" class="level4" data-number="4.2.3">
+<h4 data-number="4.2.3" class="anchored" data-anchor-id="week-8-graph-based-crystal-representations-02.06.2026"><span class="header-section-number">4.2.3</span> Week 8 – Graph-based crystal representations (02.06.2026)</h4>
+<p><strong>Slides:</strong> <a href="https://pelzlab.science/public_presentations/materials_genomics/07_graph_based_rep/01_intro.html">Open</a></p>
 <ul>
-<li>Local atomic environments: coordination motifs, Voronoi tessellations, ACSF / SOAP fingerprints</li>
-<li>Equivariance under rotations, translations, permutations — why it matters</li>
-<li>From Behler–Parrinello and GAP to MACE, M3GNet, CHGNet, EquiformerV2</li>
-<li>Universal MLIPs as foundation models for materials: MACE-MP-0, MatterSim, ORB</li>
-<li>Plugging these surrogates back into the MD/MC engines from Week 5</li>
+<li>Crystals as graphs: nodes, edges, periodic boundary conditions</li>
+<li>Message passing intuition; CGCNN, MEGNet, ALIGNN</li>
+<li>Invariance and equivariance — the conceptual leap toward MACE / M3GNet (treated in Week 6)</li>
+<li>Distance featurisation (RBF + smooth cutoff) and the hard-cutoff artifact; ranking metrics for discovery</li>
 </ul>
-<p><strong>Summary:</strong> Local-environment descriptors and universal ML interatomic potentials are treated as one continuous arc: SOAP / ACSF as the historical bridge, MACE-family equivariant message passing as the current state of the art. By the end students can describe how a single trained model now serves as a near-DFT-accuracy energy/force engine across most of the periodic table, and how that capability reshapes the high-throughput simulation pipeline.</p>
-<p><strong>Exercise:</strong> Compute SOAP vectors on a small dataset; run a MACE-MP-0 single-point energy and force evaluation and contrast accuracy / runtime with DFT.</p>
+<p><strong>Summary:</strong> Students learn why graph representations are the dominant ML interface to crystalline materials and how the message-passing pattern turns local atomic neighbourhoods into property-relevant embeddings. The Week 6 hand-built SOAP descriptor is revisited as the <em>fixed-aggregation</em> baseline that GNNs replace with a <em>learned</em> one — the lecture focuses on representational choices (cutoffs, node/edge features, equivariance) that determine downstream model behaviour.</p>
+<p><strong>Exercise:</strong> Construct, visualise, and benchmark graph representations of crystal structures against a Magpie/random-forest baseline.</p>
 <hr>
 </section>
 </section>

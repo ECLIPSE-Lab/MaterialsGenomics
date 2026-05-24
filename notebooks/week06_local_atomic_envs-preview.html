@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.10.5">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+    <title>week06_local_atomic_envs</title>
+    <style>
+      /* Default styles provided by pandoc.
+      ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+      */
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.columns{display: flex; gap: min(4vw, 1.5em);}
+      div.column{flex: auto; overflow-x: auto;}
+      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+      ul.task-list{list-style: none;}
+      ul.task-list li input[type="checkbox"] {
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+        vertical-align: middle;
+      }
+      /* CSS for syntax highlighting */
+      html { -webkit-text-size-adjust: 100%; }
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+        }
+      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+    </style>
+
+    <style>
+      body.hypothesis-enabled #quarto-embed-header {
+        padding-right: 36px;
+      }
+
+      #quarto-embed-header {
+        height: 3em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px;
+      }
+
+      #quarto-embed-header h6 {
+        font-size: 1.1em;
+        padding-top: 0.6em;
+        margin-left: 1em;
+        margin-right: 1em;
+        font-weight: 400;
+      }
+
+      #quarto-embed-header a.quarto-back-link,
+      #quarto-embed-header a.quarto-download-embed {
+        font-size: 0.8em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+
+      .quarto-back-container {
+        padding-left: 0.5em;
+        display: flex;
+      }
+
+      .headroom {
+          will-change: transform;
+          transition: transform 200ms linear;
+      }
+
+      .headroom--pinned {
+          transform: translateY(0%);
+      }
+
+      .headroom--unpinned {
+          transform: translateY(-100%);
+      }      
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script>
+    window.document.addEventListener("DOMContentLoaded", function () {
+
+      var header = window.document.querySelector("#quarto-embed-header");
+      const titleBannerEl = window.document.querySelector("body > #title-block-header");
+      if (titleBannerEl) {
+        titleBannerEl.style.paddingTop = header.clientHeight + "px";
+      }
+      const contentEl = window.document.getElementById('quarto-content');
+      for (const child of contentEl.children) {
+        child.style.paddingTop = header.clientHeight + "px";
+        child.style.marginTop = "1em";
+      }
+
+      // Use the article root if the `back` call doesn't work. This isn't perfect
+      // but should typically work
+      window.quartoBackToArticle = () => {
+        var currentUrl = window.location.href;
+        window.history.back();
+        setTimeout(() => {
+            // if location was not changed in 100 ms, then there is no history back
+            if(currentUrl === window.location.href){              
+                // redirect to site root
+                window.location.href = "../index.html";
+            }
+        }, 100);
+      }
+
+      const headroom = new window.Headroom(header, {
+        tolerance: 5,
+        onPin: function () {
+        },
+        onUnpin: function () {
+        },
+      });
+      headroom.init();
+    });
+    </script>
+
+    
+<script src="../site_libs/manuscript-notebook/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-cc03a45504bcebdf2e36fbb04c837120.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-99531da96f133e8d6986ee8266cfdc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+     <script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>  <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script> 
+        <link rel="stylesheet" href="../styles.css">
+      </head>
+
+  <body class="quarto-notebook quarto-light">
+    <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
+      
+      <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link" href=""><i class="bi bi-caret-left"></i> Back to Article</a>
+      <h6><i class="bi bi-journal-code"></i> Week 6 — Local Atomic Environments &amp; the Descriptor Ladder</h6>
+
+            <a href="../notebooks/week06_local_atomic_envs.py" class="btn btn-primary quarto-download-embed" download="week06_local_atomic_envs.py">Download Notebook</a>
+          </div>
+
+     <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Week 6 — Local Atomic Environments &amp; the Descriptor Ladder</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+        
+        <div class="quarto-title-meta">
+
+                
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#part-0-setup-5-min" id="toc-part-0-setup-5-min" class="nav-link active" data-scroll-target="#part-0-setup-5-min">Part 0 — Setup (≈5 min)</a></li>
+  <li><a href="#part-1-magpie-composition-baseline-25-min-must-finish" id="toc-part-1-magpie-composition-baseline-25-min-must-finish" class="nav-link" data-scroll-target="#part-1-magpie-composition-baseline-25-min-must-finish">Part 1 — Magpie composition baseline (≈25 min, must-finish)</a></li>
+  <li><a href="#part-2-add-matminer-structure-features-25-min-stretch" id="toc-part-2-add-matminer-structure-features-25-min-stretch" class="nav-link" data-scroll-target="#part-2-add-matminer-structure-features-25-min-stretch">Part 2 — Add matminer structure features (≈25 min, stretch)</a></li>
+  <li><a href="#part-3-soap-via-dscribe-25-min-reach-goal" id="toc-part-3-soap-via-dscribe-25-min-reach-goal" class="nav-link" data-scroll-target="#part-3-soap-via-dscribe-25-min-reach-goal">Part 3 — SOAP via dscribe (≈25 min, reach goal)</a></li>
+  <li><a href="#part-4-audit-15-min-critical" id="toc-part-4-audit-15-min-critical" class="nav-link" data-scroll-target="#part-4-audit-15-min-critical">Part 4 — Audit (≈15 min, critical)</a>
+  <ul class="collapse">
+  <li><a href="#permutation-importance-on-the-best-model" id="toc-permutation-importance-on-the-best-model" class="nav-link" data-scroll-target="#permutation-importance-on-the-best-model">4.1 Permutation importance on the best model</a></li>
+  <li><a href="#todo-interpret-the-importance-plot" id="toc-todo-interpret-the-importance-plot" class="nav-link" data-scroll-target="#todo-interpret-the-importance-plot">4.2 TODO — interpret the importance plot</a></li>
+  <li><a href="#polymorph-leakage-stress-test" id="toc-polymorph-leakage-stress-test" class="nav-link" data-scroll-target="#polymorph-leakage-stress-test">4.3 Polymorph-leakage stress test</a></li>
+  <li><a href="#the-tier-table" id="toc-the-tier-table" class="nav-link" data-scroll-target="#the-tier-table">4.4 The tier table</a></li>
+  </ul></li>
+  <li><a href="#deliverable" id="toc-deliverable" class="nav-link" data-scroll-target="#deliverable">Deliverable</a></li>
+  <li><a href="#reach-further-optional" id="toc-reach-further-optional" class="nav-link" data-scroll-target="#reach-further-optional">Reach further (optional)</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">      
+
+       <p><strong>SS26 Materials Genomics, FAU Erlangen (Prof.&nbsp;Pelz).</strong> Exercise notebook for Unit 6. Climb the descriptor ladder on a ~220-row Materials Project spinel subset:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 62%">
+<col style="width: 18%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tier</th>
+<th>Descriptor</th>
+<th>Library</th>
+<th>Cells</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Magpie composition statistics</td>
+<td>matminer</td>
+<td>Part 1</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>matminer structure features (CrystalNN, BondFractions)</td>
+<td>matminer</td>
+<td>Part 2</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>SOAP (atom-centred, smooth)</td>
+<td>dscribe</td>
+<td>Part 3</td>
+</tr>
+<tr class="even">
+<td>–</td>
+<td>Permutation-importance + leakage audit</td>
+<td>scikit-learn</td>
+<td>Part 4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Target.</strong> PBE band gap (eV) from <code>matbench_mp_gap</code>. The CSV is shipped in this folder (<code>spinels_mp.csv</code>, 220 entries, AB<span class="math inline">\(_2\)</span>O<span class="math inline">\(_4\)</span> stoichiometry, 115 distinct formulas, 105 of them with two polymorphs).</p>
+<p><strong>Time budget.</strong> 90 minutes total — 5 setup / 25 Part 1 / 25 Part 2 / 25 Part 3 / 15 Part 4. Parts 1–4 each re-load from the CSV in their opening cell, so you can skip ahead if you fall behind.</p>
+<section id="part-0-setup-5-min" class="level2">
+<h2 class="anchored" data-anchor-id="part-0-setup-5-min">Part 0 — Setup (≈5 min)</h2>
+<p>Imports, version check, dataset load, sanity sniff.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [1]:</pre></div><div id="3fa35efd" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> time</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> warnings</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>warnings.filterwarnings(<span class="st">'ignore'</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.kernel_ridge <span class="im">import</span> KernelRidge</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.decomposition <span class="im">import</span> PCA</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.inspection <span class="im">import</span> permutation_importance</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_absolute_error</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GroupShuffleSplit, train_test_split</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymatgen.core <span class="im">import</span> Composition, Structure</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matminer.featurizers.composition <span class="im">import</span> ElementProperty</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matminer.featurizers.site <span class="im">import</span> CrystalNNFingerprint</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matminer.featurizers.structure <span class="im">import</span> (</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    BondFractions,</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    SiteStatsFingerprint,</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dscribe.descriptors <span class="im">import</span> SOAP</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>RNG <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>np.random.seed(RNG)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="32653989" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> importlib.metadata <span class="im">import</span> version <span class="im">as</span> _v</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> pkg <span class="kw">in</span> [<span class="st">'numpy'</span>, <span class="st">'pandas'</span>, <span class="st">'matplotlib'</span>, <span class="st">'scikit-learn'</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">'pymatgen'</span>, <span class="st">'matminer'</span>, <span class="st">'dscribe'</span>]:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>pkg<span class="sc">:15s}</span><span class="ss"> </span><span class="sc">{</span>_v(pkg)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>pkg<span class="sc">:15s}</span><span class="ss"> NOT INSTALLED (</span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">)'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>numpy           1.26.4
+pandas          2.3.0
+matplotlib      3.10.3
+scikit-learn    1.7.0
+pymatgen        2026.5.4
+matminer        0.10.1
+dscribe         2.1.2</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div id="1fff2ab7" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>CSV <span class="op">=</span> Path(<span class="st">'spinels_mp.csv'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> CSV.exists(), <span class="ss">f'expected </span><span class="sc">{</span>CSV<span class="sc">.</span>resolve()<span class="sc">}</span><span class="ss"> — see README_week06.md'</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(CSV)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'structure'</span>] <span class="op">=</span> df[<span class="st">'structure'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> s: Structure.from_dict(json.loads(s)))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'composition'</span>] <span class="op">=</span> df[<span class="st">'pretty_formula'</span>].<span class="bu">apply</span>(Composition)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'dataset size:           </span><span class="sc">{</span><span class="bu">len</span>(df)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'unique formulas:        </span><span class="sc">{</span>df<span class="sc">.</span>pretty_formula<span class="sc">.</span>nunique()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'polymorph-formulas:     </span><span class="sc">{</span><span class="bu">int</span>((df.pretty_formula.value_counts() <span class="op">&gt;=</span> <span class="dv">2</span>).<span class="bu">sum</span>())<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'band-gap range (eV):    [</span><span class="sc">{</span>df<span class="sc">.</span>band_gap<span class="sc">.</span><span class="bu">min</span>()<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>df<span class="sc">.</span>band_gap<span class="sc">.</span><span class="bu">max</span>()<span class="sc">:.2f}</span><span class="ss">]'</span>)</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'mean band gap:          </span><span class="sc">{</span>df<span class="sc">.</span>band_gap<span class="sc">.</span>mean()<span class="sc">:.3f}</span><span class="ss"> eV'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)[[<span class="st">'material_id'</span>, <span class="st">'pretty_formula'</span>, <span class="st">'band_gap'</span>, <span class="st">'spacegroup'</span>]]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>dataset size:           220
+unique formulas:        115
+polymorph-formulas:     105
+band-gap range (eV):    [0.00, 5.11]
+mean band gap:          1.241 eV</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">material_id</th>
+<th data-quarto-table-cell-role="th">pretty_formula</th>
+<th data-quarto-table-cell-role="th">band_gap</th>
+<th data-quarto-table-cell-role="th">spacegroup</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>mb_mpgap_0000</td>
+<td>MgMn2O4</td>
+<td>0.5791</td>
+<td>13</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>mb_mpgap_0001</td>
+<td>MgMn2O4</td>
+<td>0.7655</td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>mb_mpgap_0002</td>
+<td>CaMn2O4</td>
+<td>1.2826</td>
+<td>141</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="5afee5d3" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Sniff one structure to confirm round-trip.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ex <span class="op">=</span> df.iloc[<span class="dv">0</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>ex<span class="sc">.</span>pretty_formula<span class="sc">}</span><span class="ss">  (spacegroup </span><span class="sc">{</span>ex<span class="sc">.</span>spacegroup<span class="sc">}</span><span class="ss">, gap </span><span class="sc">{</span>ex<span class="sc">.</span>band_gap<span class="sc">:.2f}</span><span class="ss"> eV)"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(ex.structure)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>MgMn2O4  (spacegroup 13, gap 0.58 eV)
+Full Formula (Mg4 Mn8 O16)
+Reduced Formula: MgMn2O4
+abc   :   6.026773   5.150628  11.768915
+angles:  90.000000 119.066959  90.000000
+pbc   :       True       True       True
+Sites (28)
+  #  SP           a         b         c
+---  ----  --------  --------  --------
+  0  Mg    0         0.148683  0.75
+  1  Mg    0         0.851317  0.25
+  2  Mg    0.5       0.511308  0.25
+  3  Mg    0.5       0.488692  0.75
+  4  Mn    0.765334  0.488393  0.015557
+  5  Mn    0.234666  0.488393  0.484443
+  6  Mn    0.234666  0.511607  0.984443
+  7  Mn    0.765334  0.511607  0.515557
+  8  Mn    0.5       0         0
+  9  Mn    0.5       0         0.5
+ 10  Mn    0         0         0
+ 11  Mn    0         0         0.5
+ 12  O     0.843053  0.141912  0.101583
+ 13  O     0.156947  0.141912  0.398417
+ 14  O     0.156947  0.858088  0.898417
+ 15  O     0.843053  0.858088  0.601583
+ 16  O     0.649467  0.76553   0.896718
+ 17  O     0.350533  0.76553   0.603282
+ 18  O     0.350533  0.23447   0.103282
+ 19  O     0.649467  0.23447   0.396718
+ 20  O     0.365345  0.318117  0.881331
+ 21  O     0.634655  0.318117  0.618669
+ 22  O     0.127668  0.69082   0.112173
+ 23  O     0.872332  0.69082   0.387827
+ 24  O     0.634655  0.681883  0.118669
+ 25  O     0.365345  0.681883  0.381331
+ 26  O     0.872332  0.30918   0.887827
+ 27  O     0.127668  0.30918   0.612173</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="a98f8c28" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">3.2</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].hist(df[<span class="st">'band_gap'</span>], bins<span class="op">=</span><span class="dv">30</span>, color<span class="op">=</span><span class="st">'C0'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_xlabel(<span class="st">'PBE band gap (eV)'</span>)<span class="op">;</span> ax[<span class="dv">0</span>].set_ylabel(<span class="st">'count'</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].set_title(<span class="st">'Target distribution'</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>poly_counts <span class="op">=</span> df.pretty_formula.value_counts().value_counts().sort_index()</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].bar(poly_counts.index.astype(<span class="bu">int</span>), poly_counts.values, color<span class="op">=</span><span class="st">'C2'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_xlabel(<span class="st">'# polymorphs of a given formula in dataset'</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_ylabel(<span class="st">'# distinct formulas'</span>)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].set_title(<span class="st">'Polymorph multiplicity'</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="week06_local_atomic_envs_files/figure-html/cell-6-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="week06_local_atomic_envs_files/figure-html/cell-6-output-1.png" width="950" height="298" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+<p><strong>Why the polymorph-multiplicity histogram matters.</strong> 105 of the 115 distinct formulas appear with two structural polymorphs. That makes this dataset a <em>miniature stress test</em> for the polymorph-leakage audit in Part 4: a naive row-wise train/test split will put one polymorph of MgMn<span class="math inline">\(_2\)</span>O<span class="math inline">\(_4\)</span> in train and the other in test — and the model will look better than it really is. We will keep the splits <em>grouped by formula</em> throughout Parts 1–3 and break that rule deliberately in Part 4.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="1f87b626" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Container for results across all parts — populated as we go.</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>results: <span class="bu">dict</span>[<span class="bu">str</span>, <span class="bu">dict</span>] <span class="op">=</span> {}</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> report(name: <span class="bu">str</span>, mae: <span class="bu">float</span>, t_train: <span class="bu">float</span>, n_features: <span class="bu">int</span>) <span class="op">-&gt;</span> <span class="va">None</span>:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    results[name] <span class="op">=</span> <span class="bu">dict</span>(mae<span class="op">=</span>mae, t_train<span class="op">=</span>t_train, n_features<span class="op">=</span>n_features)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>name<span class="sc">:22s}</span><span class="ss">  MAE = </span><span class="sc">{</span>mae<span class="sc">:.3f}</span><span class="ss"> eV   '</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>          <span class="ss">f'train = </span><span class="sc">{</span>t_train<span class="sc">:6.2f}</span><span class="ss">s   features = </span><span class="sc">{</span>n_features<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+</section>
+<section id="part-1-magpie-composition-baseline-25-min-must-finish" class="level2">
+<h2 class="anchored" data-anchor-id="part-1-magpie-composition-baseline-25-min-must-finish">Part 1 — Magpie composition baseline (≈25 min, must-finish)</h2>
+<p>Magpie elemental statistics (Ward 2016) are the <em>tier-1</em> descriptor: they ignore structure entirely and just summarise the elements present. For bulk-thermodynamic targets this is embarrassingly competitive — and it is the floor every structure-aware claim should clear before celebrating.</p>
+<p>We split <strong>by formula group</strong> so that polymorphs of the same compound can never land in both train and test. <code>GroupShuffleSplit</code> on <code>pretty_formula</code> does exactly that.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div id="d41b0a81" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This cell is self-contained: it reloads the CSV so Part 1 runs even</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># if you skipped Part 0. (Each Part has the same idiom.)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'df'</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    df_local <span class="op">=</span> pd.read_csv(<span class="st">'spinels_mp.csv'</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    df_local[<span class="st">'structure'</span>] <span class="op">=</span> df_local[<span class="st">'structure'</span>].<span class="bu">apply</span>(</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> s: Structure.from_dict(json.loads(s)))</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    df_local[<span class="st">'composition'</span>] <span class="op">=</span> df_local[<span class="st">'pretty_formula'</span>].<span class="bu">apply</span>(Composition)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    df_local <span class="op">=</span> df</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>ep <span class="op">=</span> ElementProperty.from_preset(<span class="st">'magpie'</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Magpie produces </span><span class="sc">{</span><span class="bu">len</span>(ep.feature_labels())<span class="sc">}</span><span class="ss"> features per composition.'</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>X_magpie <span class="op">=</span> ep.featurize_many(df_local[<span class="st">'composition'</span>].tolist(),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>                              ignore_errors<span class="op">=</span><span class="va">True</span>, pbar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>X_magpie <span class="op">=</span> np.array(X_magpie, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'featurise time: </span><span class="sc">{</span>time<span class="sc">.</span>perf_counter() <span class="op">-</span> t0<span class="sc">:.1f}</span><span class="ss">s'</span>)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'feature matrix: </span><span class="sc">{</span>X_magpie<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Magpie produces 132 features per composition.
+featurise time: 0.5s
+feature matrix: (220, 132)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div id="36206a44" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop any all-NaN columns (rare; matminer can return NaN for elements</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># with missing tabulated properties — none for d-block oxides, but be safe).</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>finite_mask <span class="op">=</span> np.isfinite(X_magpie).<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>X_magpie <span class="op">=</span> X_magpie[:, finite_mask]</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>magpie_names <span class="op">=</span> [n <span class="cf">for</span> n, k <span class="kw">in</span> <span class="bu">zip</span>(ep.feature_labels(), finite_mask) <span class="cf">if</span> k]</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_local[<span class="st">'band_gap'</span>].to_numpy()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> df_local[<span class="st">'pretty_formula'</span>].to_numpy()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'after NaN-column drop: </span><span class="sc">{</span>X_magpie<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>after NaN-column drop: (220, 132)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div id="bd836b69" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gss <span class="op">=</span> GroupShuffleSplit(n_splits<span class="op">=</span><span class="dv">1</span>, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span>RNG)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>train_idx, test_idx <span class="op">=</span> <span class="bu">next</span>(gss.split(X_magpie, y, groups<span class="op">=</span>groups))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verify no formula leaks across the split.</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>train_formulas <span class="op">=</span> <span class="bu">set</span>(groups[train_idx])</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>test_formulas <span class="op">=</span> <span class="bu">set</span>(groups[test_idx])</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>leak <span class="op">=</span> train_formulas <span class="op">&amp;</span> test_formulas</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'train: </span><span class="sc">{</span><span class="bu">len</span>(train_idx)<span class="sc">}</span><span class="ss">  test: </span><span class="sc">{</span><span class="bu">len</span>(test_idx)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'leak (formulas in both): </span><span class="sc">{</span><span class="bu">len</span>(leak)<span class="sc">}</span><span class="ss">  (must be 0)'</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(leak) <span class="op">==</span> <span class="dv">0</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>train: 165  test: 55
+leak (formulas in both): 0  (must be 0)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div id="7936ef9d" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>rf1 <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">200</span>, random_state<span class="op">=</span>RNG, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>rf1.fit(X_magpie[train_idx], y[train_idx])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>t_train_1 <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>y_pred_1 <span class="op">=</span> rf1.predict(X_magpie[test_idx])</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>MAE_1 <span class="op">=</span> mean_absolute_error(y[test_idx], y_pred_1)</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>report(<span class="st">'1 Magpie comp'</span>, MAE_1, t_train_1, X_magpie.shape[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>1 Magpie comp           MAE = 0.669 eV   train =   0.30s   features = 132</code></pre>
+</div>
+</div></div>
+<p><strong>Checkpoint.</strong> If your <code>MAE_1</code> is much below <strong>0.6 eV</strong>, your split is probably leaking — verify the assert two cells above. Typical numbers on this dataset under a <em>grouped</em> split are 0.7–0.9 eV; a <em>random</em> split collapses this to 0.4–0.5 eV by spotting the formula directly. We will prove that drop is illusory in Part 4.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div id="70af149f" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">4.4</span>, <span class="fl">4.4</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>ax.scatter(y[test_idx], y_pred_1, alpha<span class="op">=</span><span class="fl">0.7</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, s<span class="op">=</span><span class="dv">22</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>lo, hi <span class="op">=</span> y.<span class="bu">min</span>(), y.<span class="bu">max</span>()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>ax.plot([lo, hi], [lo, hi], <span class="st">'k--'</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'true gap (eV)'</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">'predicted gap (eV)'</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'Tier 1 — Magpie / RF   MAE = </span><span class="sc">{</span>MAE_1<span class="sc">:.3f}</span><span class="ss"> eV'</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>ax.set_aspect(<span class="st">'equal'</span>)<span class="op">;</span> plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="week06_local_atomic_envs_files/figure-html/cell-12-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="week06_local_atomic_envs_files/figure-html/cell-12-output-1.png" width="388" height="413" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="part-2-add-matminer-structure-features-25-min-stretch" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-add-matminer-structure-features-25-min-stretch">Part 2 — Add matminer structure features (≈25 min, stretch)</h2>
+<p>Tier 2 climbs one rung: we keep Magpie, but <em>also</em> aggregate per-site geometry into structure-level features.</p>
+<ul>
+<li><code>SiteStatsFingerprint</code> over <code>CrystalNNFingerprint("ops")</code> — coordination / order-parameter statistics per site, then mean+std-pooled over the structure. ~122 features.</li>
+<li><code>BondFractions</code> — fractional populations of element-pair bonds.</li>
+</ul>
+<p>The point: same Magpie vector for all polymorphs of MgMn<span class="math inline">\(_2\)</span>O<span class="math inline">\(_4\)</span>, but <em>different</em> structure-feature vectors. If structure is doing real work on this dataset, the MAE should drop.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [12]:</pre></div><div id="b7b8743a" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'df'</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    df_local <span class="op">=</span> pd.read_csv(<span class="st">'spinels_mp.csv'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    df_local[<span class="st">'structure'</span>] <span class="op">=</span> df_local[<span class="st">'structure'</span>].<span class="bu">apply</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> s: Structure.from_dict(json.loads(s)))</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    df_local[<span class="st">'composition'</span>] <span class="op">=</span> df_local[<span class="st">'pretty_formula'</span>].<span class="bu">apply</span>(Composition)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    df_local <span class="op">=</span> df</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>structs <span class="op">=</span> df_local[<span class="st">'structure'</span>].tolist()</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_local[<span class="st">'band_gap'</span>].to_numpy()</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> df_local[<span class="st">'pretty_formula'</span>].to_numpy()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [13]:</pre></div><div id="e74d64df" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># CrystalNNFingerprint("ops") site-fingerprint → mean/std pooled per structure.</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ssf <span class="op">=</span> SiteStatsFingerprint(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    CrystalNNFingerprint.from_preset(<span class="st">'ops'</span>),</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    stats<span class="op">=</span>(<span class="st">'mean'</span>, <span class="st">'std_dev'</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ssf.set_n_jobs(<span class="dv">1</span>)  <span class="co"># CrystalNN can hit thread-safety bugs in parallel</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>X_ssf <span class="op">=</span> ssf.featurize_many(structs, ignore_errors<span class="op">=</span><span class="va">True</span>, pbar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>X_ssf <span class="op">=</span> np.array(X_ssf, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SiteStatsFingerprint: </span><span class="sc">{</span>time<span class="sc">.</span>perf_counter() <span class="op">-</span> t0<span class="sc">:.1f}</span><span class="ss">s, shape </span><span class="sc">{</span>X_ssf<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SiteStatsFingerprint: 60.9s, shape (220, 122)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [14]:</pre></div><div id="fdf1cb08" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># BondFractions — but only after the featurizer has *seen* the dataset</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (it must enumerate the bond vocabulary first).</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>bf <span class="op">=</span> BondFractions()</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>bf.fit(structs)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>bf.set_n_jobs(<span class="dv">1</span>)</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>X_bf <span class="op">=</span> bf.featurize_many(structs, ignore_errors<span class="op">=</span><span class="va">True</span>, pbar<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>X_bf <span class="op">=</span> np.array(X_bf, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'BondFractions: </span><span class="sc">{</span>time<span class="sc">.</span>perf_counter() <span class="op">-</span> t0<span class="sc">:.1f}</span><span class="ss">s, shape </span><span class="sc">{</span>X_bf<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>BondFractions: 28.6s, shape (220, 214)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [15]:</pre></div><div id="aeb6c65e" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Stack: Magpie + CrystalNN-OPs + BondFractions.</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>X_struct <span class="op">=</span> np.hstack([X_magpie, X_ssf, X_bf])</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>struct_names <span class="op">=</span> (</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    magpie_names</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> [<span class="ss">f'ssf::</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> n <span class="kw">in</span> ssf.feature_labels()]</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">+</span> [<span class="ss">f'bf::</span><span class="sc">{</span>n<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> n <span class="kw">in</span> bf.feature_labels()]</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>finite <span class="op">=</span> np.isfinite(X_struct).<span class="bu">all</span>(axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>X_struct <span class="op">=</span> X_struct[:, finite]</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>struct_names <span class="op">=</span> [n <span class="cf">for</span> n, k <span class="kw">in</span> <span class="bu">zip</span>(struct_names, finite) <span class="cf">if</span> k]</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'combined feature matrix: </span><span class="sc">{</span>X_struct<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>combined feature matrix: (220, 468)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [16]:</pre></div><div id="00074770" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>gss <span class="op">=</span> GroupShuffleSplit(n_splits<span class="op">=</span><span class="dv">1</span>, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span>RNG)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>train_idx, test_idx <span class="op">=</span> <span class="bu">next</span>(gss.split(X_struct, y, groups<span class="op">=</span>groups))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>rf2 <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">200</span>, random_state<span class="op">=</span>RNG, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>rf2.fit(X_struct[train_idx], y[train_idx])</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>t_train_2 <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>y_pred_2 <span class="op">=</span> rf2.predict(X_struct[test_idx])</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>MAE_2 <span class="op">=</span> mean_absolute_error(y[test_idx], y_pred_2)</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>report(<span class="st">'2 Magpie+struct'</span>, MAE_2, t_train_2, X_struct.shape[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2 Magpie+struct         MAE = 0.748 eV   train =   0.69s   features = 468</code></pre>
+</div>
+</div></div>
+<p><strong>Worked example — same formula, different structure.</strong> The dataset is built so that most formulas appear twice. The cell below picks one such formula, prints the two polymorphs’ (spacegroup, band gap), and prints Tier-1 and Tier-2 predictions for each. Tier 1 collapses to a single value (the Magpie vector is identical for both rows); Tier 2 <em>can</em> separate them — if structure features are doing useful work.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [17]:</pre></div><div id="85409e96" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>vc <span class="op">=</span> df_local[<span class="st">'pretty_formula'</span>].value_counts()</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>poly_formulas <span class="op">=</span> vc[vc <span class="op">&gt;=</span> <span class="dv">2</span>].index.tolist()</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Pick the first formula whose two polymorphs straddle a band-gap gap.</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>chosen <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> f <span class="kw">in</span> poly_formulas:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    rows <span class="op">=</span> df_local[df_local[<span class="st">'pretty_formula'</span>] <span class="op">==</span> f]</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> rows[<span class="st">'band_gap'</span>].<span class="bu">max</span>() <span class="op">-</span> rows[<span class="st">'band_gap'</span>].<span class="bu">min</span>() <span class="op">&gt;</span> <span class="fl">0.5</span>:</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>        chosen <span class="op">=</span> f</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>chosen <span class="op">=</span> chosen <span class="kw">or</span> poly_formulas[<span class="dv">0</span>]</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Polymorph pair: </span><span class="sc">{</span>chosen<span class="sc">}</span><span class="ch">\n</span><span class="ss">'</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>rows <span class="op">=</span> df_local[df_local[<span class="st">'pretty_formula'</span>] <span class="op">==</span> chosen]</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>rows_idx <span class="op">=</span> rows.index.to_numpy()</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>p1 <span class="op">=</span> rf1.predict(X_magpie[rows_idx])</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>p2 <span class="op">=</span> rf2.predict(X_struct[rows_idx])</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>out <span class="op">=</span> rows[[<span class="st">'material_id'</span>, <span class="st">'spacegroup'</span>, <span class="st">'band_gap'</span>]].copy()</span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>out[<span class="st">'pred_tier1_magpie'</span>]   <span class="op">=</span> np.<span class="bu">round</span>(p1, <span class="dv">3</span>)</span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>out[<span class="st">'pred_tier2_struct'</span>]   <span class="op">=</span> np.<span class="bu">round</span>(p2, <span class="dv">3</span>)</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>out</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Polymorph pair: MnV2O4
+</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">material_id</th>
+<th data-quarto-table-cell-role="th">spacegroup</th>
+<th data-quarto-table-cell-role="th">band_gap</th>
+<th data-quarto-table-cell-role="th">pred_tier1_magpie</th>
+<th data-quarto-table-cell-role="th">pred_tier2_struct</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">158</th>
+<td>mb_mpgap_0158</td>
+<td>227</td>
+<td>1.4876</td>
+<td>1.159</td>
+<td>1.217</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">159</th>
+<td>mb_mpgap_0159</td>
+<td>62</td>
+<td>0.8494</td>
+<td>1.159</td>
+<td>0.906</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div></div>
+</section>
+<section id="part-3-soap-via-dscribe-25-min-reach-goal" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-soap-via-dscribe-25-min-reach-goal">Part 3 — SOAP via dscribe (≈25 min, reach goal)</h2>
+<p>Tier 3 looks at the local atomic environment of each site. SOAP (Bartók et al.&nbsp;2013) expands the smooth neighbour density around an atom into radial basis × spherical harmonics and forms a rotation- invariant power spectrum. We pass <code>average="inner"</code> so dscribe returns <em>one vector per structure</em> (averaging the rotation-invariant power spectrum across sites is itself rotation-invariant).</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [18]:</pre></div><div id="f35951e3" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="st">'df'</span> <span class="kw">not</span> <span class="kw">in</span> <span class="bu">globals</span>():</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    df_local <span class="op">=</span> pd.read_csv(<span class="st">'spinels_mp.csv'</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    df_local[<span class="st">'structure'</span>] <span class="op">=</span> df_local[<span class="st">'structure'</span>].<span class="bu">apply</span>(</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">lambda</span> s: Structure.from_dict(json.loads(s)))</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>    df_local <span class="op">=</span> df</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>structs <span class="op">=</span> df_local[<span class="st">'structure'</span>].tolist()</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df_local[<span class="st">'band_gap'</span>].to_numpy()</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>groups <span class="op">=</span> df_local[<span class="st">'pretty_formula'</span>].to_numpy()</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Universe of species across the dataset (SOAP needs a fixed alphabet).</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>species <span class="op">=</span> <span class="bu">sorted</span>({el.symbol <span class="cf">for</span> s <span class="kw">in</span> structs <span class="cf">for</span> el <span class="kw">in</span> s.composition.elements})</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span><span class="bu">len</span>(species)<span class="sc">}</span><span class="ss"> species in dataset: </span><span class="sc">{</span>species<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>50 species in dataset: ['Ag', 'Al', 'Au', 'Ba', 'Be', 'Bi', 'Ca', 'Cd', 'Ce', 'Co', 'Cr', 'Cu', 'Dy', 'Eu', 'Fe', 'Ga', 'Gd', 'H', 'In', 'K', 'La', 'Li', 'Lu', 'Mg', 'Mn', 'Mo', 'Na', 'Nb', 'Nd', 'Ni', 'O', 'Pr', 'Rb', 'Rh', 'Sb', 'Sc', 'Se', 'Si', 'Sm', 'Sn', 'Sr', 'Te', 'Ti', 'Tl', 'Tm', 'U', 'V', 'Y', 'Zn', 'Zr']</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [19]:</pre></div><div id="d91e50a3" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># pymatgen Structure → ase.Atoms for dscribe.</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pymatgen.io.ase <span class="im">import</span> AseAtomsAdaptor</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>ase_adaptor <span class="op">=</span> AseAtomsAdaptor()</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>atoms_list <span class="op">=</span> [ase_adaptor.get_atoms(s) <span class="cf">for</span> s <span class="kw">in</span> structs]</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'converted </span><span class="sc">{</span><span class="bu">len</span>(atoms_list)<span class="sc">}</span><span class="ss"> structures to ase.Atoms'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>converted 220 structures to ase.Atoms</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [20]:</pre></div><div id="25288693" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>soap <span class="op">=</span> SOAP(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>species,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    r_cut<span class="op">=</span><span class="fl">5.0</span>,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    n_max<span class="op">=</span><span class="dv">6</span>,</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    l_max<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    periodic<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    average<span class="op">=</span><span class="st">'inner'</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    sparse<span class="op">=</span><span class="va">False</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SOAP descriptor dimension per structure: </span><span class="sc">{</span>soap<span class="sc">.</span>get_number_of_features()<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>X_soap <span class="op">=</span> soap.create(atoms_list, n_jobs<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>t_soap <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'SOAP compute: </span><span class="sc">{</span>t_soap<span class="sc">:.1f}</span><span class="ss">s, shape </span><span class="sc">{</span>X_soap<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SOAP descriptor dimension per structure: 225750
+SOAP compute: 0.7s, shape (220, 225750)</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [21]:</pre></div><div id="c0e15e8f" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA-reduce: SOAP is high-dimensional and most directions carry no signal</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># on a 220-row dataset. 64 components is a sensible default.</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>X_soap_s <span class="op">=</span> scaler.fit_transform(X_soap)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>n_pca <span class="op">=</span> <span class="bu">min</span>(<span class="dv">64</span>, X_soap_s.shape[<span class="dv">0</span>] <span class="op">-</span> <span class="dv">1</span>, X_soap_s.shape[<span class="dv">1</span>])</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>pca <span class="op">=</span> PCA(n_components<span class="op">=</span>n_pca, random_state<span class="op">=</span>RNG)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>X_soap_pca <span class="op">=</span> pca.fit_transform(X_soap_s)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'PCA-reduced SOAP shape: </span><span class="sc">{</span>X_soap_pca<span class="sc">.</span>shape<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'explained variance (cumulative): </span><span class="sc">{</span>pca<span class="sc">.</span>explained_variance_ratio_<span class="sc">.</span><span class="bu">sum</span>()<span class="sc">:.3f}</span><span class="ss">'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>PCA-reduced SOAP shape: (220, 64)
+explained variance (cumulative): 0.550</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [22]:</pre></div><div id="d3ea1eb6" class="cell" data-execution_count="22">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>gss <span class="op">=</span> GroupShuffleSplit(n_splits<span class="op">=</span><span class="dv">1</span>, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span>RNG)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>train_idx, test_idx <span class="op">=</span> <span class="bu">next</span>(gss.split(X_soap_pca, y, groups<span class="op">=</span>groups))</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) Kernel ridge with an RBF on SOAP-PCA.</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>krr <span class="op">=</span> KernelRidge(kernel<span class="op">=</span><span class="st">'rbf'</span>, alpha<span class="op">=</span><span class="fl">1e-2</span>, gamma<span class="op">=</span><span class="fl">1.0</span> <span class="op">/</span> X_soap_pca.shape[<span class="dv">1</span>])</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>krr.fit(X_soap_pca[train_idx], y[train_idx])</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>t_train_3a <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>y_pred_3a <span class="op">=</span> krr.predict(X_soap_pca[test_idx])</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>MAE_3a <span class="op">=</span> mean_absolute_error(y[test_idx], y_pred_3a)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>report(<span class="st">'3a SOAP / KRR'</span>, MAE_3a, t_train_3a, X_soap_pca.shape[<span class="dv">1</span>])</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) Random forest on the same SOAP-PCA features, for apples-to-apples.</span></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>rf3 <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">200</span>, random_state<span class="op">=</span>RNG, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>rf3.fit(X_soap_pca[train_idx], y[train_idx])</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>t_train_3b <span class="op">=</span> time.perf_counter() <span class="op">-</span> t0</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>y_pred_3b <span class="op">=</span> rf3.predict(X_soap_pca[test_idx])</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>MAE_3b <span class="op">=</span> mean_absolute_error(y[test_idx], y_pred_3b)</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>report(<span class="st">'3b SOAP / RF'</span>, MAE_3b, t_train_3b, X_soap_pca.shape[<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3a SOAP / KRR           MAE = 1.634 eV   train =   0.01s   features = 64
+3b SOAP / RF            MAE = 1.119 eV   train =   0.46s   features = 64</code></pre>
+</div>
+</div></div>
+<p><strong>Observation, to discuss in your write-up.</strong></p>
+<p>SOAP captures the <em>local</em> atomic environment: who sits next to whom at what radial+angular distribution. matminer’s <code>SiteStatsFingerprint</code> captures <em>aggregate per-site statistics</em> — coarser but cheaper. Which won on this dataset? If SOAP did <strong>not</strong> beat Tier 2, that is a teaching moment too: the spinel subset is <em>composition-dominated</em> (only 115 distinct formulas, narrow chemistry), and structure-information adds little once you have decent composition+coordination features.</p>
+<p>That is the whole point of climbing the descriptor ladder one rung at a time and <em>reporting every rung</em>.</p>
+</section>
+<section id="part-4-audit-15-min-critical" class="level2">
+<h2 class="anchored" data-anchor-id="part-4-audit-15-min-critical">Part 4 — Audit (≈15 min, critical)</h2>
+<p>This is the part that separates careful work from confident-looking nonsense. Three checks:</p>
+<ol type="1">
+<li><strong>Permutation importance</strong> on the best Tier-1/2/3 model — does the dominant feature make physical sense?</li>
+<li><strong>Polymorph leakage</strong> — what happens if you replace <code>GroupShuffleSplit</code> with a row-wise <code>train_test_split</code>?</li>
+<li><strong>Tier table</strong> — collect MAEs and training times into a single table, save to <code>results.csv</code>.</li>
+</ol>
+<section id="permutation-importance-on-the-best-model" class="level3">
+<h3 class="anchored" data-anchor-id="permutation-importance-on-the-best-model">4.1 Permutation importance on the best model</h3>
+<p>We probe whichever model gave the lowest test MAE.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [23]:</pre></div><div id="b23386b5" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>best_name <span class="op">=</span> <span class="bu">min</span>([<span class="st">'1 Magpie comp'</span>, <span class="st">'2 Magpie+struct'</span>, <span class="st">'3a SOAP / KRR'</span>, <span class="st">'3b SOAP / RF'</span>],</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>                key<span class="op">=</span><span class="kw">lambda</span> k: results[k][<span class="st">'mae'</span>])</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'best model: </span><span class="sc">{</span>best_name<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> best_name <span class="op">==</span> <span class="st">'1 Magpie comp'</span>:</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    X_best, model_best, names_best <span class="op">=</span> X_magpie, rf1, magpie_names</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> best_name <span class="op">==</span> <span class="st">'2 Magpie+struct'</span>:</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    X_best, model_best, names_best <span class="op">=</span> X_struct, rf2, struct_names</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> best_name <span class="op">==</span> <span class="st">'3a SOAP / KRR'</span>:</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    X_best, model_best, names_best <span class="op">=</span> X_soap_pca, krr, [<span class="ss">f'soap_pc</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_soap_pca.shape[<span class="dv">1</span>])]</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    X_best, model_best, names_best <span class="op">=</span> X_soap_pca, rf3, [<span class="ss">f'soap_pc</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(X_soap_pca.shape[<span class="dv">1</span>])]</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>gss <span class="op">=</span> GroupShuffleSplit(n_splits<span class="op">=</span><span class="dv">1</span>, test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span>RNG)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>train_idx, test_idx <span class="op">=</span> <span class="bu">next</span>(gss.split(X_best, y, groups<span class="op">=</span>groups))</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> time.perf_counter()</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>pi <span class="op">=</span> permutation_importance(model_best, X_best[test_idx], y[test_idx],</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>                             n_repeats<span class="op">=</span><span class="dv">8</span>, random_state<span class="op">=</span>RNG, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'permutation-importance time: </span><span class="sc">{</span>time<span class="sc">.</span>perf_counter() <span class="op">-</span> t0<span class="sc">:.1f}</span><span class="ss">s'</span>)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> np.argsort(pi.importances_mean)[::<span class="op">-</span><span class="dv">1</span>][:<span class="dv">10</span>]</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="fl">3.5</span>))</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>ax.barh(<span class="bu">range</span>(<span class="bu">len</span>(order)),</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>        pi.importances_mean[order][::<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>        xerr<span class="op">=</span>pi.importances_std[order][::<span class="op">-</span><span class="dv">1</span>],</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>        color<span class="op">=</span><span class="st">'C3'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(order)))</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>ax.set_yticklabels([names_best[i] <span class="cf">for</span> i <span class="kw">in</span> order[::<span class="op">-</span><span class="dv">1</span>]], fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">'mean drop in score after permutation'</span>)</span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="ss">f'Top-10 features — </span><span class="sc">{</span>best_name<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()<span class="op">;</span> plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>best model: 1 Magpie comp
+permutation-importance time: 13.8s</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div class="">
+<figure class="figure">
+<p class=""><a href="week06_local_atomic_envs_files/figure-html/cell-24-output-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="week06_local_atomic_envs_files/figure-html/cell-24-output-2.png" width="663" height="326" class="figure-img"></a></p>
+</figure>
+</div>
+</div>
+</div></div>
+</section>
+<section id="todo-interpret-the-importance-plot" class="level3">
+<h3 class="anchored" data-anchor-id="todo-interpret-the-importance-plot">4.2 TODO — interpret the importance plot</h3>
+<p><strong>TODO.</strong> Look at the top 5 features above and write 2–4 sentences in this markdown cell answering:</p>
+<ol type="1">
+<li><em>Does the dominant feature make physical sense?</em> e.g.&nbsp;for band-gap prediction we expect mean / max electronegativity, mean valence, ionic radius or band-related elemental properties to dominate. A Voronoi- or BondFraction-derived feature dominating would be more surprising — and worth a sentence on <em>why</em>.</li>
+<li><em>Is there a feature you do not recognise?</em> matminer feature names are verbose but self-documenting; look up anything unfamiliar at https://hackingmaterials.lbl.gov/matminer/featurizer_summary.html.</li>
+</ol>
+<p><em>(Replace this paragraph with your answer.)</em></p>
+</section>
+<section id="polymorph-leakage-stress-test" class="level3">
+<h3 class="anchored" data-anchor-id="polymorph-leakage-stress-test">4.3 Polymorph-leakage stress test</h3>
+<p>Re-run Part 1 with a <em>random</em> row-wise split (no <code>GroupShuffleSplit</code>). Same model, same features, different split rule — see how much MAE “improves” purely from the model being shown one polymorph at training time and asked to predict the other at test time.</p>
+<div class="cell-container"><div class="cell-decorator"><pre>In [24]:</pre></div><div id="169323a6" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>tr_idx_r, te_idx_r <span class="op">=</span> train_test_split(np.arange(<span class="bu">len</span>(y)), test_size<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span>RNG)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>rf1r <span class="op">=</span> RandomForestRegressor(n_estimators<span class="op">=</span><span class="dv">200</span>, random_state<span class="op">=</span>RNG, n_jobs<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>rf1r.fit(X_magpie[tr_idx_r], y[tr_idx_r])</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>MAE_1_random <span class="op">=</span> mean_absolute_error(y[te_idx_r], rf1r.predict(X_magpie[te_idx_r]))</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>leak_count <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(groups[tr_idx_r]) <span class="op">&amp;</span> <span class="bu">set</span>(groups[te_idx_r]))</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'random split: train </span><span class="sc">{</span><span class="bu">len</span>(tr_idx_r)<span class="sc">}</span><span class="ss">, test </span><span class="sc">{</span><span class="bu">len</span>(te_idx_r)<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'leak (formulas in both halves): </span><span class="sc">{</span>leak_count<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'MAE (grouped split, Part 1): </span><span class="sc">{</span>MAE_1<span class="sc">:.3f}</span><span class="ss"> eV'</span>)</span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'MAE (random split):          </span><span class="sc">{</span>MAE_1_random<span class="sc">:.3f}</span><span class="ss"> eV'</span>)</span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'gap:                          </span><span class="sc">{</span>MAE_1 <span class="op">-</span> MAE_1_random<span class="sc">:.3f}</span><span class="ss"> eV'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>random split: train 165, test 55
+leak (formulas in both halves): 44
+MAE (grouped split, Part 1): 0.669 eV
+MAE (random split):          0.517 eV
+gap:                          0.152 eV</code></pre>
+</div>
+</div></div>
+<p><strong>TODO — write 2–3 sentences explaining why the random-split MAE is (almost certainly) lower, and which number you would trust if you were building a screening tool for <em>unseen</em> spinels.</strong></p>
+<p><em>(Replace this paragraph with your answer. Hint: the gap is a direct estimate of the model’s polymorph-memorisation effect, since under a random split the model is allowed to see one polymorph at training time and predict its sibling at test time.)</em></p>
+</section>
+<section id="the-tier-table" class="level3">
+<h3 class="anchored" data-anchor-id="the-tier-table">4.4 The tier table</h3>
+<div class="cell-container"><div class="cell-decorator"><pre>In [25]:</pre></div><div id="ea606de3" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>tier_table <span class="op">=</span> pd.DataFrame(results).T</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tier_table <span class="op">=</span> tier_table[[<span class="st">'mae'</span>, <span class="st">'n_features'</span>, <span class="st">'t_train'</span>]].rename(</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">=</span>{<span class="st">'mae'</span>: <span class="st">'MAE (eV)'</span>, <span class="st">'n_features'</span>: <span class="st">'# features'</span>, <span class="st">'t_train'</span>: <span class="st">'train time (s)'</span>}</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>tier_table[<span class="st">'MAE (eV)'</span>] <span class="op">=</span> tier_table[<span class="st">'MAE (eV)'</span>].<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>tier_table[<span class="st">'train time (s)'</span>] <span class="op">=</span> tier_table[<span class="st">'train time (s)'</span>].<span class="bu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>tier_table.to_csv(<span class="st">'results.csv'</span>)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>tier_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">MAE (eV)</th>
+<th data-quarto-table-cell-role="th"># features</th>
+<th data-quarto-table-cell-role="th">train time (s)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1 Magpie comp</th>
+<td>0.669</td>
+<td>132.0</td>
+<td>0.30</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2 Magpie+struct</th>
+<td>0.748</td>
+<td>468.0</td>
+<td>0.69</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">3a SOAP / KRR</th>
+<td>1.634</td>
+<td>64.0</td>
+<td>0.01</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3b SOAP / RF</th>
+<td>1.119</td>
+<td>64.0</td>
+<td>0.46</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div></div>
+</section>
+</section>
+<section id="deliverable" class="level2">
+<h2 class="anchored" data-anchor-id="deliverable">Deliverable</h2>
+<p>Upload <strong>this notebook</strong> (with the tier table filled in by execution) and a <strong>1-paragraph audit summary</strong> as a markdown cell at the very bottom that answers:</p>
+<ul>
+<li>Which descriptor tier won, and was the gap to the next tier large enough to justify the extra compute / complexity?</li>
+<li>What did the polymorph-leakage stress test reveal? Quote the two MAE numbers.</li>
+<li>Top-3 features from permutation importance, with one sentence each on physical plausibility.</li>
+</ul>
+<p>The grading rubric weights Part 4 (audit) <em>more</em> than Parts 1–3 — correctly diagnosing a leaky split is the skill that transfers.</p>
+</section>
+<section id="reach-further-optional" class="level2">
+<h2 class="anchored" data-anchor-id="reach-further-optional">Reach further (optional)</h2>
+<ul>
+<li><strong>(a) SOAP <span class="math inline">\(r_c\)</span> sensitivity sweep.</strong> Recompute Part 3 with <span class="math inline">\(r_c \in \{3, 5, 7\}\)</span> Å. Plot MAE vs <span class="math inline">\(r_c\)</span>. Comment on whether the optimum is <em>inside</em> the swept range or you are still drifting.</li>
+<li><strong>(b) SOAP-REMatch / <code>AverageKernel</code>.</strong> Replace the PCA-RBF pipeline with dscribe’s <code>AverageKernel</code> (or REMatch kernel) feeding directly into kernel ridge. The kernel-on-kernel construction is the SOAP paper’s intended end-to-end pipeline.</li>
+<li><strong>(c) XGBoost / gradient boosting.</strong> Swap <code>RandomForestRegressor</code> for <code>XGBRegressor</code> and re-time. Many groups find a 10-30 % MAE drop for free.</li>
+</ul>
+</section>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
+<ul>
+<li>Ward et al.&nbsp;2016 — Magpie elemental statistics. <em>npj Comp. Mater.</em> <strong>2</strong>, 16028.</li>
+<li>Ward et al.&nbsp;2018 — matminer feature library. <em>Comp. Mater. Sci.</em> <strong>152</strong>, 60.</li>
+<li>Bartók, Kondor, Csányi 2013 — SOAP. <em>Phys. Rev.&nbsp;B</em> <strong>87</strong>, 184115.</li>
+<li>Himanen et al.&nbsp;2020 — dscribe library. <em>Comp. Phys. Comm.</em> <strong>247</strong>, 106949.</li>
+</ul>
+</section>
+     </main>
+<!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script> 
+  
+</body></html>

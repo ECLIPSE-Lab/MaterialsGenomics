@@ -274,46 +274,47 @@ Implement a 1D Lennard-Jones Metropolis MC sampler; compare step sizes via accep
 
 *(Aligned with early neural networks in MFML)*
 
-#### Week 6 – Graph-based crystal representations (19.05.2026)
+#### Week 6 – Local environments & universal ML force fields (19.05.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/06_graph_based_rep/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/06_local_atomic_envs/01_intro.html)
 
-- Brief recap of classical descriptors (Magpie, matminer, RDF) as the historical front-end — 10–15 min motivation only
-- Crystals as graphs: nodes, edges, periodic boundary conditions
-- Message passing intuition; CGCNN, MEGNet, ALIGNN
-- Invariance and equivariance — the conceptual leap toward MACE / M3GNet (treated in Week 8)
+- Brief recap of classical descriptors (Magpie, matminer, RDF, coordination/Voronoi/CrystalNN) as the historical front-end — the descriptor ladder
+- Local atomic environments: cutoffs, periodic images, the invariance discipline
+- ACSF / SOAP fingerprints — rotation/translation/permutation-invariant local descriptors
+- From Behler–Parrinello and GAP to MACE, M3GNet, CHGNet, EquiformerV2
+- Universal MLIPs as foundation models for materials: MACE-MP-0, MatterSim, ORB
+- Plugging these surrogates back into the MD/MC engines from Week 5
 
 **Summary:**
-Students learn why graph representations are the dominant ML interface to crystalline materials in 2025 and how the message-passing pattern turns local atomic neighbourhoods into property-relevant embeddings. Classical descriptors are revisited only as background — the lecture focuses on representational choices (cutoffs, node/edge features, equivariance) that determine downstream model behaviour.
+Local-environment descriptors and universal ML interatomic potentials are treated as one continuous arc: the classical descriptor ladder and SOAP / ACSF as the historical bridge, MACE-family equivariant message passing as the current state of the art. By the end students can describe how a single trained model now serves as a near-DFT-accuracy energy/force engine across most of the periodic table, and how that capability reshapes the high-throughput simulation pipeline.
 
 **Exercise:**
-Construct, visualise, and benchmark graph representations of crystal structures against a Magpie/random-forest baseline.
+Compute SOAP vectors on a small dataset; run a MACE-MP-0 single-point energy and force evaluation and contrast accuracy / runtime with DFT.
 
 ---
 
 #### Week 7 – No lecture (26.05.2026, public holiday)
 
 ::: {.callout-warning appearance="simple"}
-**Cancelled** — no MG lecture takes place on 26.05.2026. Week 7's planned content (local atomic environments) is consolidated into Week 8.
+**Cancelled** — no MG lecture takes place on 26.05.2026 (public holiday). The 14-unit arc is delivered in 13 sessions; see Weeks 6 and 8 for the surrounding representation/MLIP and graph material.
 :::
 
 ---
 
-#### Week 8 – Local environments & universal ML force fields (02.06.2026)
+#### Week 8 – Graph-based crystal representations (02.06.2026)
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/07_local_atomic_envs/01_intro.html)
+**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/07_graph_based_rep/01_intro.html)
 
-- Local atomic environments: coordination motifs, Voronoi tessellations, ACSF / SOAP fingerprints
-- Equivariance under rotations, translations, permutations — why it matters
-- From Behler–Parrinello and GAP to MACE, M3GNet, CHGNet, EquiformerV2
-- Universal MLIPs as foundation models for materials: MACE-MP-0, MatterSim, ORB
-- Plugging these surrogates back into the MD/MC engines from Week 5
+- Crystals as graphs: nodes, edges, periodic boundary conditions
+- Message passing intuition; CGCNN, MEGNet, ALIGNN
+- Invariance and equivariance — the conceptual leap toward MACE / M3GNet (treated in Week 6)
+- Distance featurisation (RBF + smooth cutoff) and the hard-cutoff artifact; ranking metrics for discovery
 
 **Summary:**
-Local-environment descriptors and universal ML interatomic potentials are treated as one continuous arc: SOAP / ACSF as the historical bridge, MACE-family equivariant message passing as the current state of the art. By the end students can describe how a single trained model now serves as a near-DFT-accuracy energy/force engine across most of the periodic table, and how that capability reshapes the high-throughput simulation pipeline.
+Students learn why graph representations are the dominant ML interface to crystalline materials and how the message-passing pattern turns local atomic neighbourhoods into property-relevant embeddings. The Week 6 hand-built SOAP descriptor is revisited as the *fixed-aggregation* baseline that GNNs replace with a *learned* one — the lecture focuses on representational choices (cutoffs, node/edge features, equivariance) that determine downstream model behaviour.
 
 **Exercise:**
-Compute SOAP vectors on a small dataset; run a MACE-MP-0 single-point energy and force evaluation and contrast accuracy / runtime with DFT.
+Construct, visualise, and benchmark graph representations of crystal structures against a Magpie/random-forest baseline.
 
 ---
 

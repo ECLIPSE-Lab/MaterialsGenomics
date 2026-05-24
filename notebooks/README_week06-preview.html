@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-    <title>mit</title>
+    <title>readme_week06</title>
     <style>
       /* Default styles provided by pandoc.
       ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -21,6 +21,41 @@
         width: 0.8em;
         margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
         vertical-align: middle;
+      }
+      /* CSS for syntax highlighting */
+      html { -webkit-text-size-adjust: 100%; }
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+        }
+      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
       }
     </style>
 
@@ -97,7 +132,7 @@
             // if location was not changed in 100 ms, then there is no history back
             if(currentUrl === window.location.href){              
                 // redirect to site root
-                window.location.href = "index.html";
+                window.location.href = "../index.html";
             }
         }, 100);
       }
@@ -114,68 +149,131 @@
     </script>
 
     
-<script src="site_libs/manuscript-notebook/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-cc03a45504bcebdf2e36fbb04c837120.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-99531da96f133e8d6986ee8266cfdc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/manuscript-notebook/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-cc03a45504bcebdf2e36fbb04c837120.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-99531da96f133e8d6986ee8266cfdc38.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
      <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script>  
-        <link rel="stylesheet" href="styles.css">
+</script>   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script> 
+        <link rel="stylesheet" href="../styles.css">
       </head>
 
   <body class="quarto-notebook quarto-light">
     <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
       
       <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link" href=""><i class="bi bi-caret-left"></i> Back to Article</a>
-      <h6><i class="bi bi-journal-code"></i> MIT.md</h6>
+      <h6><i class="bi bi-journal-code"></i> Week 6 — Local Atomic Environments (setup)</h6>
 
-            <a href="./MIT.md" class="btn btn-primary quarto-download-embed" download="MIT.md">Download Notebook</a>
+            <a href="../notebooks/README_week06.md" class="btn btn-primary quarto-download-embed" download="README_week06.md">Download Notebook</a>
           </div>
 
      <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
 <div id="quarto-sidebar-toc-left" class="sidebar toc-left">
-  
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#week-6-local-atomic-environments-setup" id="toc-week-6-local-atomic-environments-setup" class="nav-link active" data-scroll-target="#week-6-local-atomic-environments-setup">Week 6 — Local Atomic Environments (setup)</a>
+  <ul class="collapse">
+  <li><a href="#what-spinels_mp.csv-contains" id="toc-what-spinels_mp.csv-contains" class="nav-link" data-scroll-target="#what-spinels_mp.csv-contains">What <code>spinels_mp.csv</code> contains</a></li>
+  <li><a href="#install" id="toc-install" class="nav-link" data-scroll-target="#install">Install</a></li>
+  <li><a href="#running" id="toc-running" class="nav-link" data-scroll-target="#running">Running</a></li>
+  <li><a href="#pedagogical-notes-for-the-ta" id="toc-pedagogical-notes-for-the-ta" class="nav-link" data-scroll-target="#pedagogical-notes-for-the-ta">Pedagogical notes (for the TA)</a></li>
+  </ul></li>
+  </ul>
+</nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
-<main class="content quarto-banner-title-block" id="quarto-document-content">    <p>Materials Informatics by Taylor Sparks https://www.youtube.com/playlist?list=PLL0SWcFqypCl4lrzk1dMWwTUrzQZFt7y0</p>
-<p>PROGRAM OUTLINE NOTE: All times Eastern Daylight Time (UTC-4:00). A few introductory lecture videos will be posted ahead of the course.</p>
-<p>Day One</p>
-<p>9am-noon: Foundations in material informatics (data science and basic concepts of machine learning; multiscale modeling; datasets, experimental methods for data collection)</p>
-<p>1-2pm: Clinic #1: Convolutional neural network (classifier, regression, and peeking inside via interpretable methods)</p>
-<p>2-4pm: Digging deeper: Deep neural nets, loss functions, Stochastic optimization methods (e.g., stochastic gradient descent and variants), Regularization</p>
-<p>4-5pm: Clinic #2: Material failure analysis</p>
-<p>5-7pm: Interactive virtual networking reception (get to know peers, the instructor, and make connections)</p>
-<p>Day Two</p>
-<p>9-10am: Hands-on introduction to PyTorch (example application to fine-tuning a BERT NLP model applied to proteins)</p>
-<p>10-11am: Hands-on introduction to TensorFlow (example application to developing an adversarial neural network)</p>
-<p>11am-noon: Practical guide to tensor algebra and other important math concepts needed</p>
-<p>1-2pm: Ethics, bias and sustainability in material informatics</p>
-<p>2-3:30pm: Data, data, everywhere…De novo dataset construction (imaging lab) and application to build a deep neural network (covers computer vision tools, live imaging using depth camera</p>
-<p>3:30-5pm: Introduction to graph neural networks (applications to molecular systems, truss systems, alloys, proteins, and healthcare; graph transformers)</p>
-<p>Day Three</p>
-<p>9-10:30am: Transforming AI and healthcare with attention (AlphaFold and applications to protein design, synthesis)</p>
-<p>10:30am-noon: Deepening the understanding of language models applied to materials (pre-training and fine-tuning); BERT and GPT-3-like (applications of large language models to materials problems; category theory; time-dependent material phenomena)</p>
-<p>1-2pm: Clinic #3: Transformer models for inverse materials design (develop multiscale transformer model from scratch)</p>
-<p>2-3pm: Adversarial neural networks and applications to materials design (manufacturing, inverse problem, characterization)</p>
-<p>4-5pm: Case study: Image segmentation in microscopy, medical imaging, and analysis</p>
-<p>Day Four</p>
-<p>9-10am: Autoencoders (vision, graphs, NLP, proteins)</p>
-<p>10-11am: Clinic #4: To fail or not to fail: Buckling modeling (time-dependent phenomena)</p>
-<p>11am-noon: Concluding discussion</p>
-<p>Noon-12:30pm: Graduation ceremony and certificates</p>
+<main class="content quarto-banner-title-block" id="quarto-document-content">      <section id="week-6-local-atomic-environments-setup" class="level1">
+<h1>Week 6 — Local Atomic Environments (setup)</h1>
+<p>Files in this folder:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 62%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>week06_local_atomic_envs.ipynb</code></td>
+<td>The 4-part exercise notebook (Magpie → struct → SOAP → audit).</td>
+</tr>
+<tr class="even">
+<td><code>spinels_mp.csv</code></td>
+<td>Pre-cached Materials Project subset, 220 AB<span class="math inline">\(_2\)</span>O<span class="math inline">\(_4\)</span> spinels.</td>
+</tr>
+<tr class="odd">
+<td><code>README_week06.md</code></td>
+<td>This file.</td>
+</tr>
+</tbody>
+</table>
+<section id="what-spinels_mp.csv-contains" class="level2">
+<h2 class="anchored" data-anchor-id="what-spinels_mp.csv-contains">What <code>spinels_mp.csv</code> contains</h2>
+<p>220 entries filtered from <code>matminer.datasets.matbench_mp_gap</code> (~106k MP structures) to <strong>AB<span class="math inline">\(_2\)</span>O<span class="math inline">\(_4\)</span> stoichiometry</strong> (any two metals + oxygen, 1:2:4 ratio after composition reduction), then each structure reduced to its primitive cell (<code>SpacegroupAnalyzer</code>, <code>symprec=0.1</code>) and capped at ≤ 30 sites for SOAP-runtime sanity. The split design rewards the polymorph-leakage audit in Part 4:</p>
+<ul>
+<li>220 rows</li>
+<li>115 distinct reduced formulas</li>
+<li><strong>105 formulas appear with two polymorphs</strong> (different space groups, different DFT band gaps)</li>
+<li>Top space groups: 227 (cubic Fd-3m spinel), 62, 74, 63, 141</li>
+</ul>
+<p>Columns:</p>
+<pre><code>material_id, pretty_formula, structure (JSON-dict of pymatgen Structure),
+band_gap (PBE, eV), formation_energy_per_atom (NaN — not in matbench_mp_gap),
+theoretical, spacegroup</code></pre>
+<p>Target for the exercise is <code>band_gap</code>. (Formation energy is left as a column placeholder for a forward link to Unit 8.)</p>
+</section>
+<section id="install" class="level2">
+<h2 class="anchored" data-anchor-id="install">Install</h2>
+<p>The notebook needs <code>numpy</code>, <code>pandas</code>, <code>matplotlib</code>, <code>scikit-learn</code>, <code>pymatgen</code>, <code>matminer</code>, and <code>dscribe</code>. With <strong>uv</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> venv .venv</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">source</span> .venv/bin/activate</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">uv</span> pip install numpy pandas matplotlib scikit-learn pymatgen matminer dscribe jupyter</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or with <strong>conda</strong>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> create <span class="at">-n</span> mg-w6 python=3.12 <span class="at">-y</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> activate mg-w6</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install matminer dscribe pymatgen jupyter scikit-learn</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Verify in one command:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> <span class="at">-c</span> <span class="st">"import matminer, dscribe, pymatgen; print('ok')"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note: dscribe wheels ship with their own C/C++ extension and currently build cleanly on Linux/macOS with Python 3.10–3.12. On Windows, prefer WSL2.</p>
+</section>
+<section id="running" class="level2">
+<h2 class="anchored" data-anchor-id="running">Running</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> /path/to/MaterialsGenomics/notebooks</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> lab week06_local_atomic_envs.ipynb</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Or headless end-to-end:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">jupyter</span> nbconvert <span class="at">--to</span> notebook <span class="at">--execute</span> week06_local_atomic_envs.ipynb <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">--output</span> week06_local_atomic_envs.ipynb <span class="dt">\</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">--ExecutePreprocessor.timeout</span><span class="op">=</span>600</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Total runtime on a 2022-class laptop CPU: ≈ 2–3 minutes. Most of the budget is in Part 2 (<code>SiteStatsFingerprint</code> + <code>BondFractions</code> on 220 structures, ~80 s combined). SOAP itself is ~1 s thanks to the small 220-row dataset and <code>average="inner"</code>.</p>
+</section>
+<section id="pedagogical-notes-for-the-ta" class="level2">
+<h2 class="anchored" data-anchor-id="pedagogical-notes-for-the-ta">Pedagogical notes (for the TA)</h2>
+<ul>
+<li>The exercise deliberately makes the leakage point land: with 105 polymorph-formulas, the random-split MAE on Tier 1 is materially better than the grouped-split MAE — a clean teaching moment for Part 4.</li>
+<li>If Tier 2 / Tier 3 do <strong>not</strong> beat Tier 1 on this dataset, that is <em>not</em> a bug. Spinels are composition-dominated (narrow chemistry), and the lecture explicitly anticipates this (slide 10 anti-hype frame).</li>
+<li>The <code>material_id</code> field is a stable index into matbench, not a real MP-API <code>mp-XXXXX</code> id. We did not require an MP-API key for build.</li>
+</ul>
+</section>
+</section>
      </main>
 <!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
