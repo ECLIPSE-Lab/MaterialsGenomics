@@ -389,17 +389,18 @@ Sample candidate structures from a pretrained generative model conditioned on a 
 
 ---
 
-#### Week 13 – Uncertainty-aware discovery & active learning (07.07.2026)
+#### Week 13 – Uncertainty-aware discovery & active learning — *lecture cancelled (07.07.2026)*
 
-**Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/13_uncertainty_aware_discovery_and_gaussian_processes/01_intro.html)
+::: {.callout-warning}
+## No lecture on 07.07.2026 — core content moved to Week 14
+The Tuesday lecture does not take place. Its **indispensable core** — Gaussian-process surrogates, acquisition functions and Bayesian optimization, and the active-learning discovery loop — is **folded into the Week 14 finale**, where the constraint, trust, and autonomous-lab material depends on it. The database/convex-hull recap and the advanced UQ variants (sparse GPs, multi-fidelity/batch acquisition, conformal prediction) are dropped. The Week 13 deck below remains available as optional reference; conformal prediction was not covered this term.
+:::
+
+**Reference slides (optional):** [Open](https://pelzlab.science/public_presentations/materials_genomics/13_uncertainty_aware_discovery_and_gaussian_processes/01_intro.html)
 
 - Aleatoric vs epistemic uncertainty; calibration
-- Gaussian Processes as the small-data gold standard; deep ensembles and evidential learning at scale
+- Gaussian Processes as the small-data gold standard; deep ensembles at scale
 - Active learning loops for materials screening; exploration vs exploitation
-- Cluster-based attention and outlier triage (the old "clustering" thread, compressed)
-
-**Summary:**
-Students learn how uncertainty quantification turns a static surrogate into an active discovery engine. GPs remain the small-data reference; deep ensembles and evidential heads dominate at production scale. The lecture closes the discovery loop started in Weeks 6–12: representation → model → uncertainty → next experiment.
 
 **Exercise:**
 Run a small active-learning loop on a screening task. Compare GP, deep-ensemble, and random-baseline acquisition strategies.
@@ -408,17 +409,21 @@ Run a small active-learning loop on a screening task. Compare GP, deep-ensemble,
 
 ### Unit V — Constraints, Trust, and Synthesis (Week 14)
 
-#### Week 14 – Physical constraints, limits, and outlook (14.07.2026)
+#### Week 14 – Uncertainty, constraints, limits, and outlook (14.07.2026)
+
+*Expanded finale: now also delivers the indispensable Week-13 uncertainty/discovery-loop core (Week 13 lecture cancelled).*
 
 **Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/14_constraints_trust_and_integration_outlook/01_intro.html)
 
-- Stability, charge neutrality, and symmetry constraints.
-- Physics-informed learning in materials discovery.
-- What ML can and cannot discover.
-- Integration with experimental workflows.
+- **Uncertainty, GPs & the discovery loop** (folded in from the cancelled Week 13): aleatoric vs epistemic uncertainty, Gaussian-process surrogates, acquisition functions (EI/UCB) and convex-hull-aware Bayesian optimization, the active-learning loop.
+- Physical constraints: stability, charge neutrality, stoichiometry, and symmetry.
+- Physics-informed learning in materials discovery (PINN recap).
+- Trust under distribution shift: OOD detection, calibration drift, and knowing when to refuse a prediction.
+- The autonomous-lab loop; what ML can and cannot discover.
+- Reproducibility / FAIR and the 2026 outlook; integration with experimental workflows.
 
 **Summary:**
-The final lecture consolidates the course around scientific trust: physical constraints, explainability, reproducibility, and the limits of data-driven discovery. Students leave with a realistic view of how ML can accelerate materials research when it is embedded in experimental and simulation workflows rather than treated as a replacement for them.
+The final lecture consolidates the course around scientific trust. It first folds in the indispensable Week-13 core — uncertainty quantification, Gaussian-process surrogates, and the Bayesian-optimization discovery loop — then builds on it: physical constraints, physics-informed learning, distribution-shift trust, the autonomous-lab loop, reproducibility, and the limits of data-driven discovery. Students leave with a realistic view of how ML can accelerate materials research when it is embedded in experimental and simulation workflows rather than treated as a replacement for them.
 
 **Exercise:**  
 Mini-project synthesis and presentation.
