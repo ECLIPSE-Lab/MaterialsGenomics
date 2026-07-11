@@ -415,15 +415,17 @@ Run a small active-learning loop on a screening task. Compare GP, deep-ensemble,
 
 **Slides:** [Open](https://pelzlab.science/public_presentations/materials_genomics/14_constraints_trust_and_integration_outlook/01_intro.html)
 
+**Side deck (exam reference):** [Algorithm Compendium — Pseudocode for Everything You Must Know](https://pelzlab.science/public_presentations/materials_genomics/14_constraints_trust_and_integration_outlook/02_algorithms.html) — 16 core algorithms of the course (Simulate · Represent · Learn & Validate · Decide · Generate & Close the Loop), each with pseudocode, its expensive line, a correctness condition, and one failure mode.
+
 - **Uncertainty, GPs & the discovery loop** (folded in from the cancelled Week 13): aleatoric vs epistemic uncertainty, Gaussian-process surrogates, acquisition functions (EI/UCB) and convex-hull-aware Bayesian optimization, the active-learning loop.
-- Physical constraints: stability, charge neutrality, stoichiometry, and symmetry.
-- Physics-informed learning in materials discovery (PINN recap).
-- Trust under distribution shift: OOD detection, calibration drift, and knowing when to refuse a prediction.
-- The autonomous-lab loop; what ML can and cannot discover.
-- Reproducibility / FAIR and the 2026 outlook; integration with experimental workflows.
+- Physical constraints: stability, charge neutrality, stoichiometry, and symmetry — and how to enforce them in acquisition.
+- Trust under distribution shift: OOD detection, calibration drift, the trust gate, and the audit trail.
+- The autonomous-lab loop: GNoME at scale, the A-Lab case study and its critique, failure modes, and an honest mid-2026 verdict on what ML can and cannot discover.
+- **Module recap:** a slide-per-unit tour back through the full MG arc (Units 1–12) as exam preparation.
+- Course wrap: the four big skills of the course and the exam rubric. (Physics-informed learning is covered in depth in MFML Week 14; FAIR / model cards and the 2026 outlook moved to supplementary material.)
 
 **Summary:**
-The final lecture consolidates the course around scientific trust. It first folds in the indispensable Week-13 core — uncertainty quantification, Gaussian-process surrogates, and the Bayesian-optimization discovery loop — then builds on it: physical constraints, physics-informed learning, distribution-shift trust, the autonomous-lab loop, reproducibility, and the limits of data-driven discovery. Students leave with a realistic view of how ML can accelerate materials research when it is embedded in experimental and simulation workflows rather than treated as a replacement for them.
+The final lecture consolidates the course around scientific trust. It first folds in the indispensable Week-13 core — uncertainty quantification, Gaussian-process surrogates, and the Bayesian-optimization discovery loop — then builds on it: physical constraint enforcement, distribution-shift trust with an explicit trust gate, and the autonomous-lab loop from GNoME to A-Lab with its failure modes. A module recap walks back through the full course arc unit by unit, and the accompanying Algorithm-Compendium side deck collects the sixteen algorithms students must be able to write and trace for the exam. Students leave with a realistic view of how ML can accelerate materials research when it is embedded in experimental and simulation workflows rather than treated as a replacement for them.
 
 **Exercise:**  
 Mini-project synthesis and presentation.
